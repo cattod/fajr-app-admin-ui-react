@@ -7,12 +7,14 @@ import { BaseComponent } from '../../../_base/BaseComponent';
 import { TInternationalization } from '../../../../config/setup';
 import { MovieService } from '../../../../service/service.movie';
 import { IMovie } from '../../../../model/model.movie';
+import { History } from "history";
 
 interface IState {
     gridData: IMovie[];
 }
 interface IProps {
     internationalization: TInternationalization;
+    history: History;
 }
 
 class MovieManageComponent extends BaseComponent<IProps, IState> {
@@ -27,7 +29,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     }
 
     async fetchGridData() {
-        debugger;
+        // debugger;
         const res = await this._movieService.search(10, 0, {}).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'fetchGridData_error' } });
         });
@@ -37,10 +39,14 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         }
     }
 
+    private goto_rating(movie_id: string): void {
+        this.props.history.push(`/rating/save/${movie_id}`);
+    }
+
     render() {
         return (
             <>
-                {/* <div className="card-columns">
+                <div className="card-columns">
                     <div className="card">
                         <img src="/static/media/img/sample-movie/movie-1.jpg" className="card-img-top" alt="..." />
                         <div className="card-body">
@@ -103,43 +109,47 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                             <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
-                {/* <br /><br /><br /><br /><br /><br /><br /> */}
 
-                <div className="row row-cols-1 row-cols-md-3">
+                <br /><br /><br /><br /><br /><br /><br />
+
+
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     <div className="col mb-4">
-                        <div className="card h-100">
+                        <div className="card h-100 bg-light shadow-hover shadow-default cursor-pointer"
+                            onClick={() => this.goto_rating('555')}
+                        >
                             <img src="/static/media/img/sample-movie/movie-1.jpg" className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
+                                <h5 className="card-title">{'عامه پسند'}</h5>
                                 <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card h-100">
-                            <img src="/static/media/img/sample-movie/movie-1.jpg" className="card-img-top" alt="..." />
+                        <div className="card h-100 bg-light shadow-hover shadow-default">
+                            <img src="/static/media/img/sample-movie/movie-2.jpg" className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
+                                <h5 className="card-title">{'روز صفر'}</h5>
                                 <p className="card-text">This is a short card.</p>
                             </div>
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card h-100">
-                            <img src="/static/media/img/sample-movie/movie-1.jpg" className="card-img-top" alt="..." />
+                        <div className="card h-100 bg-light shadow-hover shadow-default">
+                            <img src="/static/media/img/sample-movie/movie-3.jpg" className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
+                                <h5 className="card-title">{'خوب، بد، جلف 2 ارتش سری'}</h5>
                                 <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                             </div>
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card h-100">
-                            <img src="/static/media/img/sample-movie/movie-1.jpg" className="card-img-top" alt="..." />
+                        <div className="card h-100 bg-light shadow-hover shadow-default">
+                            <img src="/static/media/img/sample-movie/movie-4.jpg" className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
+                                <h5 className="card-title">{'ابر بارانش گرفته'}</h5>
                                 <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
                         </div>
