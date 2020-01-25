@@ -86,7 +86,7 @@
     // #{$dir-mode-align}: auto;
     // #{$dir-mode-align-inverse}: 0;
     body:not(.rtl) & {
-      left: auto;
+      left: auto !important;
       right: 0;
     }
     body.rtl & {
