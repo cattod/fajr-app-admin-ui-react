@@ -38,7 +38,13 @@
     height: 100%;
     position: fixed;
     top: 0;
-    #{$dir-mode-align}: 0;
+    // #{$dir-mode-align}: 0;
+    body:not(.rtl) & {
+      left: 0;
+    }
+    body.rtl & {
+      right: 0;
+    }
     z-index: 99999;
     margin: 0;
     overflow: auto;
@@ -63,10 +69,22 @@
     border-bottom: 3px solid #ffffff;
   }
   &.bordered-left {
-    border-#{$dir-mode-align}: 3px solid #ffffff;
+    // border-#{$dir-mode-align}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-left: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-right: 3px solid #ffffff;
+    }
   }
   &.bordered-right {
-    border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    // border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-right: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-left: 3px solid #ffffff;
+    }
   }
   &.radius-bordered {
     .widget-header {
@@ -114,32 +132,62 @@
   //background: #ffffff;
   @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3));
   color: #555555;
-  padding-#{$dir-mode-align}: 12px;
-  text-align: $dir-mode-align-inverse;
+  // padding-#{$dir-mode-align}: 12px;
+  // text-align: $dir-mode-align-inverse;
+  body:not(.rtl) & {
+    padding-left: 12px;
+    text-align: right;
+  }
+  body.rtl & {
+    padding-right: 12px;
+    text-align: left;
+  }
   .widget-icon {
     display: block;
     width: 30px;
     height: 32px;
     position: relative;
-    float: $dir-mode-align;
+    // float: $dir-mode-align;
     font-size: 111%;
     line-height: 32px;
     text-align: center;
-    margin-#{$dir-mode-align}: -10px;
+    // margin-#{$dir-mode-align}: -10px;
+    body:not(.rtl) & {
+      float: left;
+      margin-left: -10px;
+    }
+    body.rtl & {
+      float: right;
+      margin-right: -10px;
+    }
   }
   > .widget-caption {
     line-height: 34px;
     padding: 0;
     margin: 0;
-    float: $dir-mode-align;
-    text-align: $dir-mode-align;
+    // float: $dir-mode-align;
+    // text-align: $dir-mode-align;
+    body:not(.rtl) & {
+      float: left;
+      text-align: left;
+    }
+    body.rtl & {
+      float: right;
+      text-align: right;
+    }
     font-weight: 400 !important;
     font-size: 13px;
   }
   &.lined {
     border: 0;
     @include box-shadow(none !important);
-    padding-#{$dir-mode-align}: 2%;
+    // padding-#{$dir-mode-align}: 2%;
+    body:not(.rtl) & {
+      padding-left: 2%;
+    }
+    body.rtl & {
+      padding-right: 2%;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -148,16 +196,30 @@
       bottom: 0;
       top: 35px;
       height: 1px;
-      #{$dir-mode-align}: 2%;
+      // #{$dir-mode-align}: 2%;
+      body:not(.rtl) & {
+        left: 2%;
+      }
+      body.rtl & {
+        right: 2%;
+      }
       z-index: 1;
       border-bottom: 1px solid #e5e5e5;
     }
     .widget-buttons {
-      padding-#{$dir-mode-align-inverse}: 2%;
+      // padding-#{$dir-mode-align-inverse}: 2%;
+      body:not(.rtl) & {
+        padding-right: 2%;
+      }
+      body.rtl & {
+        padding-left: 2%;
+      }
     }
     + .widget-body {
-      padding-#{$dir-mode-align}: 2%;
-      padding-#{$dir-mode-align-inverse}: 2%;
+      // padding-#{$dir-mode-align}: 2%;
+      // padding-#{$dir-mode-align-inverse}: 2%;
+      padding-left: 2%;
+      padding-right: 2%;
     }
   }
   &.separated {
@@ -171,10 +233,22 @@
     }
   }
   &.bordered-left {
-    border-#{$dir-mode-align}: 3px solid #ffffff;
+    // border-#{$dir-mode-align}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-left: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-right: 3px solid #ffffff;
+    }
   }
   &.bordered-right {
-    border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    // border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-right: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-left: 3px solid #ffffff;
+    }
   }
   &.bordered-top {
     border-top: 3px solid #ffffff;
@@ -184,7 +258,13 @@
   }
   &.header-large {
     min-height: 49px;
-    padding-#{$dir-mode-align}: 18px;
+    // padding-#{$dir-mode-align}: 18px;
+    body:not(.rtl) & {
+      padding-left: 18px;
+    }
+    body.rtl & {
+      padding-right: 18px;
+    }
     h5 {
       line-height: 48px;
       font-size: 16px;
@@ -202,7 +282,13 @@
   }
   &.header-small {
     min-height: 29px;
-    padding-#{$dir-mode-align}: 10px;
+    // padding-#{$dir-mode-align}: 10px;
+    body:not(.rtl) & {
+      padding-left: 10px;
+    }
+    body.rtl & {
+      padding-right: 10px;
+    }
     h5 {
       line-height: 28px;
       font-size: 12px;
@@ -226,10 +312,22 @@
   padding: 0 5px;
   line-height: 34px;
   position: relative;
-  text-align: $dir-mode-align;
+  // text-align: $dir-mode-align;
+  body:not(.rtl) & {
+    text-align: left;
+  }
+  body.rtl & {
+    text-align: right;
+  }
   height: 36px;
   &.buttons-bordered {
-    border-#{$dir-mode-align}: 1px solid #e5e5e5;
+    // border-#{$dir-mode-align}: 1px solid #e5e5e5;
+    body:not(.rtl) & {
+      border-left: 1px solid #e5e5e5;
+    }
+    body.rtl & {
+      border-right: 1px solid #e5e5e5;
+    }
   }
   &.compact {
     margin-top: 4px;
@@ -252,7 +350,13 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      #{$dir-mode-align-inverse}: -4px;
+      // #{$dir-mode-align-inverse}: -4px;
+      body:not(.rtl) & {
+        right: -4px;
+      }
+      body.rtl & {
+        left: -4px;
+      }
       width: 4px;
       max-width: 4px;
       overflow: hidden;
@@ -301,7 +405,13 @@
   }
   > [data-toggle] {
     > .fa {
-      margin-#{$dir-mode-align-inverse}: 0;
+      // margin-#{$dir-mode-align-inverse}: 0;
+      body:not(.rtl) & {
+        margin-right: 0;
+      }
+      body.rtl & {
+        margin-left: 0;
+      }
     }
     &:hover {
       zoom: 1;
@@ -341,8 +451,16 @@
   .btn-group {
     margin-top: -2px;
     .dropdown-menu {
-      #{$dir-mode-align-inverse}: 0;
-      #{$dir-mode-align}: auto;
+      // #{$dir-mode-align-inverse}: 0;
+      // #{$dir-mode-align}: auto;
+      body:not(.rtl) & {
+        right: 0;
+        left: auto;
+      }
+      body.rtl & {
+        left: 0;
+        right: auto;
+      }
     }
   }
   .badge {
@@ -353,7 +471,13 @@
   }
   .pagination,
   .pager {
-    float: $dir-mode-align-inverse;
+    // float: $dir-mode-align-inverse;
+    body:not(.rtl) & {
+      float: right;
+    }
+    body.rtl & {
+      float: left;
+    }
     margin: 5px 2px 1px;
   }
   .btn {
@@ -371,10 +495,22 @@
   }
   padding: 12px;
   &.bordered-left {
-    border-#{$dir-mode-align}: 3px solid #ffffff;
+    // border-#{$dir-mode-align}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-left: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-right: 3px solid #ffffff;
+    }
   }
   &.bordered-right {
-    border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    // border-#{$dir-mode-align-inverse}: 3px solid #ffffff;
+    body:not(.rtl) & {
+      border-right: 3px solid #ffffff;
+    }
+    body.rtl & {
+      border-left: 3px solid #ffffff;
+    }
   }
   &.bordered-bottom {
     border-bottom: 3px solid #ffffff;
@@ -397,11 +533,23 @@
     }
     .dataTables_length {
       top: 10px;
-      #{$dir-mode-align-inverse}: 10px;
+      // #{$dir-mode-align-inverse}: 10px;
+      body:not(.rtl) & {
+        right: 10px;
+      }
+      body.rtl & {
+        left: 10px;
+      }
     }
     .DTTT {
       &.btn-group {
-        #{$dir-mode-align-inverse}: 80px;
+        // #{$dir-mode-align-inverse}: 80px;
+        body:not(.rtl) & {
+          right: 80px;
+        }
+        body.rtl & {
+          left: 80px;
+        }
         top: 10px;
       }
     }
@@ -415,8 +563,10 @@
     margin-bottom: 0;
   }
   hr.wide {
-    margin-#{$dir-mode-align}: -12px;
-    margin-#{$dir-mode-align-inverse}: -12px;
+    // margin-#{$dir-mode-align}: -12px;
+    // margin-#{$dir-mode-align-inverse}: -12px;
+    margin-left: -12px;
+    margin-right: -12px;
   }
 }
 
