@@ -86,7 +86,7 @@ class LayoutMainSidebarComponent extends BaseComponent<IProps, any>{
                     + (this.props.theme.sidebar === 'compact' ? 'menu-compact ' : '')
                 }>
                     <div className="sidebar-header-wrapper">
-                        <input type="text" className="searchinput" />
+                        <input type="text" className="searchinput" disabled />
                         <i className="searchicon fa fa-search"></i>
                         <div className="searchhelper">Search Reports, Charts, Emails or Notifications</div>
                     </div>

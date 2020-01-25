@@ -11,8 +11,15 @@ export const fa = {
     movie: 'فیلم',
     go_back: 'بازگشت',
     save: 'ذخیره',
+    movie_rating: 'کارشناسی فیلم',
+    movie_rating_obj: {
+        save: 'ذخیره کارشناسی فیلم',
+        delete: 'حذف کارشناسی فیلم',
+        view: 'نمایش کارشناسی فیلم',
+        manage: 'مدیریت کارشناسی فیلم',
+    },
 
-    
+
 
 
 
@@ -24,37 +31,17 @@ export const fa = {
             msg2: 'خطا رخ داد.',
             msg3: 'ثبت نام با موفقیت انجام شد، به صفحه ورود منتقل می شوید.',
             msg4: 'رمز عبور با موفقیت تغییر کرد، به صفحه ورود منتقل می شوید.',
-            your_rate_submited: 'رتبه شما ثبت شد',
-            your_comment_submited: 'نظر شما ثبت شد',
-            your_comment_will_be_removed_continue: 'نظر شما حذف خواهد شد، تایید می کنید؟',
             no_network_connection: 'خطا رخ داد، لطفا دسترسی اینترنت خود را بررسی کرده و مجددا تلاش کنید.',
             new_vesion_available_update: 'نسخه جدیدی از برنامه موجود است، می توانید آن را بروز کنید.',
             item_will_be_removed_continue: 'رکورد مورد نظر حذف خواهد شد، تایید می کنید؟',
-            your_purchase_completed: 'خرید شما تکمیل شد',
-            your_collection_will_be_removed_continue: 'حذف کلکسیون، کتاب های موجود در آن را حذف نخواهد کرد.',
-            your_collection_will_be_downloaded_continue: 'همه کتاب های این کلکسیون دانلود می شود.',
             file_could_not_be_uploaded: 'فایل قابل آپلود نیست.',
             file_could_not_be_uploaded_max_size_n: 'فایل قابل آپلود نیست، حداکثر اندازه {0} است',
             profile_img_not_uploaded_max_size_n: 'فایل قابل آپلود نیست، فقط "تصویر" و با اندازه ای کمتر از "{0}" انتخاب کنید',
             one_img_upload_allowed_remove_existing_one: "تنها می توانید یک تصویر بارگذاری کنید، لطفا عکس فعلی را حذف کنید.",
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
-            logout_erase_user_data_warning: 'با خروج از برنامه، همه اطلاعات این کاربر، از این دستگاه حذف می شود.',
-            book_file_not_found_download_it: 'فایل کتاب پیدا نشد، لطفا آن را دانلود کنید.',
-            reader_epub_error_occurred: 'در هنگام نمایش کتاب خطا رخ داد',
-            reader_audio_error_occurred: 'در هنگام پخش کتاب خطا رخ داد',
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
-            downloading_reader_security_content: 'در حال بارگذاری سامانه امنیت محتوا، لطفا لحظاتی بعد مجددا تلاش کنید.',
-            initing_reader_security_content: 'در حال آماده سازی سامانه امنیت محتوا، لطفا لحظاتی بعد مجددا تلاش کنید.',
-            reader_security_content_failed: 'سامانه امنیت محتوا با خطا مواجه شد. لطفا برنامه را مجددا بارگیری نمائید',
-            clear_general_content: 'فایل های ذخیره شده مانند: html، عکس های پیشفرض و js پاک خواهد شد.',
-            reset_reader: 'تازه سازی کتابخوان: اندازه قلم، رنگ، شدت صدا و...',
-            book_x_file_not_exist: 'کتاب {0} فایلی برای دانلود ندارد',
-            book_x_sampleFile_not_exist: 'کتاب {0} فایل نمونه ای برای دانلود ندارد',
-            book_x_file_problem: "فایل کتاب {0} خراب است و قابل بارگیری نیست",
-            device_key_not_found_reload: 'دستگاه شما هنوز ثبت نشده است، لطفا از اتصال اینترنت خود مطمئن شده و برنامه را مجددا بارگیری نمائید',
-            you_reached_maximum_active_device: 'شما به سقف مجاز تعداد دستگاه های فعال رسیدید، لطفا حداقل یکی از آن ها را حذف کنید',
-            delete_device_will_logout: 'با حذف هر مورد، دستگاه مورد نظر از سامانه خارج شده و اطلاعات کاربری از قبیل فایل های دانلود شده مرتبط با کاربر، پاک خواهد شد.',
+            
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

@@ -23,6 +23,15 @@ interface ILocalization extends LocalizedStringsMethods {
     movie: string;
     go_back: string;
     save: string;
+    movie_rating:string;
+    movie_rating_obj:{
+        save:string;
+        delete:string;
+        view:string;
+        manage:string;
+    };
+
+
 
     
 
@@ -36,37 +45,16 @@ interface ILocalization extends LocalizedStringsMethods {
             msg2: string;
             msg3: string;
             msg4: string;
-            your_rate_submited: string;
-            your_comment_submited: string;
-            your_comment_will_be_removed_continue: string;
             no_network_connection: string;
             new_vesion_available_update: string;
             item_will_be_removed_continue: string;
-            your_purchase_completed: string;
-            your_collection_will_be_removed_continue: string;
-            your_collection_will_be_downloaded_continue: string;
             file_could_not_be_uploaded: string;
             file_could_not_be_uploaded_max_size_n: string;
             profile_img_not_uploaded_max_size_n: string;
             one_img_upload_allowed_remove_existing_one: string;
             login_again: string;
             sync_error: string;
-            logout_erase_user_data_warning: string;
-            book_file_not_found_download_it: string;
-            reader_epub_error_occurred: string;
-            reader_audio_error_occurred: string;
             change_password_successful: string;
-            downloading_reader_security_content: string;
-            initing_reader_security_content: string;
-            reader_security_content_failed: string;
-            clear_general_content: string;
-            reset_reader: string;
-            book_x_file_not_exist: string;
-            book_x_sampleFile_not_exist: string;
-            book_x_file_problem: string;
-            device_key_not_found_reload: string;
-            you_reached_maximum_active_device: string;
-            delete_device_will_logout: string;
         },
         back: {
             [key: string]: any; // todo

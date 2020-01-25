@@ -24,7 +24,7 @@ export class AppRoute {
         {
             path: '/dashboard',
             name: 'dashboard',
-            sidebarVisible: true,
+            sidebarVisible: false,
             pageTitleVisible: true,
             breadcrumbVisible: true,
             icon: 'fa fa-dashboard'
@@ -40,14 +40,14 @@ export class AppRoute {
         {
             path: '/profile',
             name: 'profile',
-            sidebarVisible: true,
+            sidebarVisible: false,
             pageTitleVisible: true,
             breadcrumbVisible: true,
             icon: 'fa fa-picture-o'
         },
         {
             name: 'tools',
-            sidebarVisible: true,
+            sidebarVisible: false,
             breadcrumbVisible: true,
             icon: 'fa fa-link',
             children: [

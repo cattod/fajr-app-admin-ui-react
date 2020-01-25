@@ -7,4 +7,8 @@ export class RatingService extends BaseService {
         return this.axiosTokenInstance.get(`/rating/${movie_id}`);
     }
 
+    remove(movie_id: string): Promise<any> {
+        return this.axiosTokenInstance.delete(`/rating/${movie_id}`);
+    }
+
 }
