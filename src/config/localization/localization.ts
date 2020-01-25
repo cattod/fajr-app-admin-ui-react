@@ -21,8 +21,10 @@ interface ILocalization extends LocalizedStringsMethods {
     brand_name: string;
     dashboard: string;
     movie: string;
+    go_back: string;
+    save: string;
 
-
+    
 
 
 

@@ -9,6 +9,10 @@ export const en = {
     brand_name: 'fajrMovie',
     dashboard: 'dashboard',
     movie: 'movie',
+    go_back: 'go back',
+    save: 'save',
+
+    
 
 
 

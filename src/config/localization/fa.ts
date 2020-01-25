@@ -9,8 +9,10 @@ export const fa = {
     brand_name: 'فیلم فجر',
     dashboard: 'داشبورد',
     movie: 'فیلم',
+    go_back: 'بازگشت',
+    save: 'ذخیره',
 
-
+    
 
 
 

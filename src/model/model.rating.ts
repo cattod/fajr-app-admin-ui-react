@@ -1,3 +1,5 @@
+import { IMovie } from "./model.movie";
+
 export interface IRating {
     acting: number;
     addiction_promotion: number;
@@ -18,6 +20,7 @@ export interface IRating {
     iranian_life_style: number;
     justice_seeking: number;
     movie_id: string;
+    movie: IMovie;
     music: number;
     novel: number;
     overall_rate: number;
