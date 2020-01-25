@@ -23,8 +23,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 <div className="row">
                     <div className="col-12">
                         <div className="widget">
-                            <div className="widget-header bordered-bottom bordered-blue">
-                                <span className="widget-caption">Rating Save</span>
+                            <div className="widget-header bordered-bottom bordered-system bg-white">
+                                <span className="widget-caption text-dark">Rating Save</span>
                             </div>
                             <div className="widget-body">
                                 <div className="row">
