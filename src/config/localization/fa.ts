@@ -2,20 +2,19 @@ export const fa = {
     login: "ورود",
     register: "ثبت نام",
     sign_in: 'ورود',
-    Sign_out:'خروج از سیستم',
-    app_title: 'ادمین کاتد',
+    Sign_out: 'خروج از سیستم',
+    app_title: 'فیلم فجر',
     app_title_: 'عنوان برنامه',
-    app_logo: 'ادمین کاتد',
-    brand_name: 'ادمین کاتد',
+    app_logo: 'فیلم فجر',
+    brand_name: 'فیلم فجر',
     dashboard: 'داشبورد',
-
-
-    
-
+    movie: 'فیلم',
 
 
 
-    sign_in_bookstore_account: 'با حساب فروشگاه کتاب خود داخل شوید',
+
+
+
     forgot_password: 'رمز عبورتان را فراموش کردید؟',
     msg: {
         ui: {
@@ -34,7 +33,7 @@ export const fa = {
             your_collection_will_be_downloaded_continue: 'همه کتاب های این کلکسیون دانلود می شود.',
             file_could_not_be_uploaded: 'فایل قابل آپلود نیست.',
             file_could_not_be_uploaded_max_size_n: 'فایل قابل آپلود نیست، حداکثر اندازه {0} است',
-            profile_img_not_uploaded_max_size_n:'فایل قابل آپلود نیست، فقط "تصویر" و با اندازه ای کمتر از "{0}" انتخاب کنید',
+            profile_img_not_uploaded_max_size_n: 'فایل قابل آپلود نیست، فقط "تصویر" و با اندازه ای کمتر از "{0}" انتخاب کنید',
             one_img_upload_allowed_remove_existing_one: "تنها می توانید یک تصویر بارگذاری کنید، لطفا عکس فعلی را حذف کنید.",
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
@@ -187,7 +186,7 @@ export const fa = {
     view_in_store: 'نمایش در فروشگاه',
     add_to_collection: 'اضافه کردن به کلکسیون',
     mark_as_read: 'به عنوان خوانده شده علامت بزن',
-    mark_as_unRead:'به عنوان خوانده نشده علامت بزن',
+    mark_as_unRead: 'به عنوان خوانده نشده علامت بزن',
     share_progress: 'اشتراک گذاری پیشرفت',
     recommend_this_book: 'پیشنهاد دادن کتاب',
     remove_from_device: 'حذف از دستگاه',

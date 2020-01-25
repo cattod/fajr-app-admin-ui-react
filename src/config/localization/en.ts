@@ -3,16 +3,15 @@ export const en = {
     register: "register",
     sign_in: 'sign in',
     Sign_out: 'Sign out',
-    app_title: 'catod admin',
+    app_title: 'fajr movie',
     app_title_: 'app title',
-    app_logo: 'catodAdmin',
-    brand_name: 'catodAdmin',
+    app_logo: 'fajrMovie',
+    brand_name: 'fajrMovie',
     dashboard: 'dashboard',
+    movie: 'movie',
 
 
 
-
-    sign_in_bookstore_account: 'sign in with your bookstore account',
     forgot_password: 'forgot password?',
     msg: {
         ui: {

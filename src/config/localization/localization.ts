@@ -20,12 +20,12 @@ interface ILocalization extends LocalizedStringsMethods {
     app_logo: string;
     brand_name: string;
     dashboard: string;
-
-    
-
+    movie: string;
 
 
-    sign_in_bookstore_account: string;
+
+
+
     forgot_password: string;
     msg: {
         ui: {
@@ -374,7 +374,7 @@ interface ILocalization extends LocalizedStringsMethods {
     text_size: string;
     theme: string;
     font: string;
-    
+
     font_obj: {
         iransans: string;
         nunito: string;
@@ -393,7 +393,7 @@ interface ILocalization extends LocalizedStringsMethods {
         'payment-amount-invalid': string;
     };
     payment_result: string;
-    
+
     change_password: string;
     storage: string;
     clear_general_content: string;
