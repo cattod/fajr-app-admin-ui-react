@@ -9,6 +9,12 @@ import { History } from 'history';
 import { Localization } from '../../../config/localization/localization';
 import { NavLink } from 'react-router-dom';
 
+enum REGISTER_STEP {
+    submit_mobile = 'submit_mobile',
+    validate_mobile = 'validate_mobile',
+    register = 'register'
+}
+
 interface IState {
 }
 interface IProps {
