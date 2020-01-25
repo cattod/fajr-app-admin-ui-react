@@ -18,7 +18,9 @@ const appRoutes = (
       <Route exact path="/" component={() => <Redirect to="/dashboard" />} />
       <RouteLayoutValidUser exact path="/dashboard" />
       <RouteLayoutValidUser path="/profile" />
-      <RouteLayoutValidUser path="/blank" />
+      {/* <RouteLayoutValidUser path="/blank" /> */}
+      <RouteLayoutValidUser path="/movie/manage" />
+      <RouteLayoutValidUser path="/rating/save/:movieId" />
 
       <RouteLayoutAccount path="/login" component={Login} />
       <RouteLayoutAccount path="/register" component={Register} />

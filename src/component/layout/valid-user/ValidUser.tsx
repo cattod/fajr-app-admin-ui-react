@@ -8,9 +8,11 @@ import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter } from 're
 import { Dashboard } from '../../page/dashboard/Dashboard';
 import { Profile } from '../../page/profile/Profile';
 import { RouteLayoutMain } from './main/Main';
-import { Blank } from '../../page/blank/Blank';
+// import { Blank } from '../../page/blank/Blank';
 import { LayoutNoWrapNotFound } from './no-wrap/not-found/NotFound';
 import { RouteLayoutNoWrap } from './no-wrap/NoWrap';
+import { MovieManage } from '../../page/movie/movie-manage/MovieManage';
+import { RatingSave } from '../../page/rating/rating-save/RatingSave';
 
 const appValidUserRoutes = (
     <HashRouter>
@@ -18,7 +20,9 @@ const appValidUserRoutes = (
             <Route exact path="/" component={() => <Redirect to="/dashboard" />} />
             <RouteLayoutMain exact path="/dashboard" component={Dashboard} />
             <RouteLayoutMain path="/profile" component={Profile} />
-            <RouteLayoutMain path="/blank" component={Blank} />
+            {/* <RouteLayoutMain path="/blank" component={Blank} /> */}
+            <RouteLayoutMain path="/movie/manage" component={MovieManage} />
+            <RouteLayoutMain path="/rating/save/:movieId" component={RatingSave} />
             
             {/* keep "cmp LayoutNoWrapNotFound" last */}
             <RouteLayoutNoWrap component={LayoutNoWrapNotFound} />

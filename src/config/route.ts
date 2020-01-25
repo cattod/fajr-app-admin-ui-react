@@ -30,6 +30,14 @@ export class AppRoute {
             icon: 'fa fa-dashboard'
         },
         {
+            path: '/movie/manage',
+            name: 'movie',
+            sidebarVisible: true,
+            pageTitleVisible: true,
+            breadcrumbVisible: true,
+            icon: 'fa fa-video-camera'
+        },
+        {
             path: '/profile',
             name: 'profile',
             sidebarVisible: true,
