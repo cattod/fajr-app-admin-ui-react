@@ -27,7 +27,9 @@ class LayoutMainSidebarComponent extends BaseComponent<IProps, any>{
 
     toggleMenuOpen(e: any) {
         // debugger;
-        const PE = e.target ? e.target.parentElement : undefined;
+        // const PE = e.target ? e.target.parentElement : undefined;
+        const PE = e.target ? e.target.closest('li') : undefined;
+
         if (PE === undefined) return;
         if (PE.classList.contains('open')) {
             PE.classList.remove('open');
