@@ -169,28 +169,8 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                 <div>
                     <div className="login-container animated fadeInDown">
                         <div className="loginbox bg-white">
-                            <div className="loginbox-title text-uppercase">{Localization.sign_in}</div>
-                            <div className="loginbox-social">
-                                <div className="social-title ">Connect with Your Social Accounts</div>
-                                <div className="social-buttons">
-                                    <a className="button-facebook">
-                                        <i className="social-icon fa fa-facebook"></i>
-                                    </a>
-                                    <a className="button-twitter">
-                                        <i className="social-icon fa fa-twitter"></i>
-                                    </a>
-                                    <a className="button-google">
-                                        <i className="social-icon fa fa-google-plus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="loginbox-or">
-                                <div className="or-line"></div>
-                                <div className="or">OR</div>
-                            </div>
-                            {/* <div className="loginbox-textbox">
-                                <input type="text" className="form-control" placeholder="Username" />
-                            </div> */}
+                            <div className="loginbox-title text-uppercase mb-2">{Localization.sign_in}</div>
+                            
                             <div className="loginbox-textbox">
                                 <Input
                                     defaultValue={this.state.username.value}
@@ -201,9 +181,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                                     onKeyUp={(e) => this.handle_keyUp(e)}
                                 />
                             </div>
-                            {/* <div className="loginbox-textbox">
-                                <input type="password" className="form-control" placeholder="Password" />
-                            </div> */}
+                            
                             <div className="loginbox-textbox">
                                 <Input
                                     defaultValue={this.state.password.value}
@@ -218,8 +196,6 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                                 <a >{Localization.forgot_password}</a>
                             </div>
                             <div className="loginbox-submit">
-                                {/* <input type="button" className="btn btn-primary btn-block" value="Login" /> */}
-
                                 <BtnLoader
                                     btnClassName="btn btn-primary btn-block"
                                     loading={this.state.btnLoader}
@@ -233,10 +209,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                                 <NavLink exact to="/register">
                                     {Localization.register}
                                 </NavLink>
-                                {/* <a href="register.html">{Localization.register}</a> */}
                             </div>
-                        </div>
-                        <div className="logobox">
                         </div>
                     </div>
                 </div>
