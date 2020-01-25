@@ -118,59 +118,11 @@ class LoginComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-
-                {/* <div className="account-form">
-                    <div className="input-wrapper">
-                        <Input
-                            defaultValue={this.state.username.value}
-                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
-                            required
-                            elRef={input => { this.inputUsername = input; }}
-                            placeholder={Localization.username}
-                            onKeyUp={(e) => this.handle_keyUp(e)}
-                        />
-                        <div className="separator"></div>
-                        <Input
-                            defaultValue={this.state.password.value}
-                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
-                            required
-                            type={this.state.inputPasswordType}
-                            placeholder={Localization.password}
-                            onKeyUp={(e) => this.handle_keyUp(e)}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <input type="checkbox" className="app-checkbox"
-                            id={this.showPasswordCheckBoxId}
-                            onChange={() => this.toggleShowPassword()}
-                        />
-                        <label htmlFor={this.showPasswordCheckBoxId}></label>
-                        <label htmlFor={this.showPasswordCheckBoxId}>
-                            <h6 className="ml-2">{Localization.Show_password}</h6>
-                        </label>
-                    </div>
-
-                    <div className="form-group">
-                        <BtnLoader
-                            btnClassName="btn btn-warning btn-block btn-account"
-                            loading={this.state.btnLoader}
-                            onClick={() => this.onLogin()}
-                            disabled={!this.state.isFormValid}
-                        >
-                            {Localization.sign_in}
-                        </BtnLoader>
-                    </div>
-                </div> */}
-
-
-
-
                 <div>
                     <div className="login-container animated fadeInDown">
                         <div className="loginbox bg-white">
                             <div className="loginbox-title text-uppercase mb-2">{Localization.sign_in}</div>
-                            
+
                             <div className="loginbox-textbox">
                                 <Input
                                     defaultValue={this.state.username.value}
@@ -181,7 +133,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                                     onKeyUp={(e) => this.handle_keyUp(e)}
                                 />
                             </div>
-                            
+
                             <div className="loginbox-textbox">
                                 <Input
                                     defaultValue={this.state.password.value}
@@ -213,8 +165,6 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         </div>
                     </div>
                 </div>
-
-
 
                 <ToastContainer {...this.getNotifyContainerConfig()} />
             </>
