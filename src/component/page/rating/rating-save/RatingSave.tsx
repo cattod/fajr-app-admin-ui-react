@@ -12,10 +12,13 @@ import { RatingService } from '../../../../service/service.rating';
 import { Localization } from '../../../../config/localization/localization';
 import { BtnLoader } from '../../../form/btn-loader/BtnLoader';
 import { ConfirmNotify } from '../../../form/confirm-notify/ConfirmNotify';
+import { Utility } from '../../../../asset/script/utility';
 
 interface IState {
     formData: IRating | undefined;
     confirmNotify_remove_show: boolean;
+    confirmNotify_remove_loader: boolean;
+    widget_info_collapse: boolean;
 }
 interface IProps {
     internationalization: TInternationalization;
@@ -27,6 +30,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     state: IState = {
         formData: undefined,
         confirmNotify_remove_show: false,
+        confirmNotify_remove_loader: false,
+        widget_info_collapse: true
     };
     movieId!: string;
 
@@ -64,30 +69,77 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     private close_confirmNotify_remove() {
         this.setState({ confirmNotify_remove_show: false });
     }
-    private confirmNotify_onConfirm_remove() {
+    private async confirmNotify_onConfirm_remove() {
         // debugger;
+        this.setState({ confirmNotify_remove_loader: true });
 
-        this.setState({ confirmNotify_remove_show: false });
-    }
+        await Utility.waitOnMe(1000);
+        // remove formData
 
-    private removeFormData() {
-        // open confirm modal
-
-        // remove data 
-        // goto_movie
+        this.setState({ confirmNotify_remove_show: false, confirmNotify_remove_loader: false });
+        this.goto_movie();
     }
 
     private goto_movie(): void {
         this.props.history.push(`/movie/manage`);
     }
 
-
-
+    private toggleCollapse_widget_info() {
+        this.setState({ widget_info_collapse: !this.state.widget_info_collapse });
+    }
 
     render() {
         return (
             <>
                 <div className="row">
+                    <div className="col-12">
+                        <div className="widget">
+                            <div className="widget-header bordered-bottom bordered-info bg-white">
+                                <i className="widget-icon fa fa-video-camera text-dark"></i>
+                                <span className="widget-caption text-dark">{'خوب، بد، جلف 2 ارتش سری'}</span>
+                                <div className="widget-buttons">
+                                    <a className="cursor-pointer"
+                                        data-toggle="collapse"
+                                        onClick={() => this.toggleCollapse_widget_info()}
+                                    >
+                                        <i className={"fa text-orange " + (this.state.widget_info_collapse ? 'fa-plus' : 'fa-minus')}></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className={"widget-body " + (this.state.widget_info_collapse ? 'd-none' : '')}>
+                                <div className="row">
+                                    <div className="col-4">
+                                        <img src="/static/media/img/sample-movie/movie-3.jpg" alt="..." className="img-thumbnail max-w-100" />
+                                    </div>
+                                    <div className="col-8">
+                                        <div className="row">
+                                            <div className="col">
+                                                director: cdscvdvdv
+                                            </div>
+                                            <div className="col">
+                                                genre: cdvsf,v vsdv vdsvds,v dv,sdvds,v dsv
+                                            </div>
+                                            <div className="col">
+                                                producer: cdsvsvds
+                                            </div>
+                                            <div className="col">
+                                                producer: vdsfvsdv
+                                            </div>
+                                            <div className="col">
+                                                writer: "jojo moise"
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                desc: cdsv fvsd v dsv s dv dsv sd v ds v
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="col-12">
                         <div className="widget">
                             <div className="widget-header bordered-bottom bordered-system bg-white">
@@ -159,6 +211,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     confirmBtn_className='text-danger'
                     confirmBtn_text={Localization.remove}
                     closeBtn_text={Localization.cancel}
+                    btnLoader={this.state.confirmNotify_remove_loader}
                 />
 
                 <ToastContainer {...this.getNotifyContainerConfig()} />

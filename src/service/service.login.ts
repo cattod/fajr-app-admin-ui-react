@@ -12,7 +12,7 @@ export class LoginService extends BaseService {
     }
 
     profile(): Promise<IAPI_Response<IUser>> {
-        const mock: any = {
+        /* const mock: any = {
             data: {
                 name: 'جعفر',
                 username: 'jafar1',
@@ -22,8 +22,8 @@ export class LoginService extends BaseService {
                 person: { name: 'جعفر', last_name: 'تقوی', email: 'jafar_taghavi@gmail.com' }
             }
         };
-        return Promise.resolve(mock);
-        // return this.axiosTokenInstance.get('/users/profile');
+        return Promise.resolve(mock); */
+        return this.axiosTokenInstance.get('/users/profile');
     }
     profile_check(): Promise<AxiosResponse<{}>> {
         return this.axiosTokenInstance.head('/users/profile');

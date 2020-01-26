@@ -29,10 +29,10 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     }
 
     async fetchGridData() {
-        // debugger;
         const res = await this._movieService.search(10, 0, {}).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'fetchGridData_error' } });
         });
+        debugger;
 
         if (res) {
             this.setState({ gridData: res.data.result });
