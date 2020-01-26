@@ -38,7 +38,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
         if (lang === 'fa') {
             document.body.classList.add('rtl');
             Localization.setLanguage('fa');
-            document.title = Localization.more;
+            document.title = Localization.app_title;
             this.props.change_app_flag({
                 rtl: true,
                 language: 'فارسی',
@@ -47,7 +47,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
         } else if (lang === 'en') {
             document.body.classList.remove('rtl');
             Localization.setLanguage('en');
-            document.title = Localization.more;
+            document.title = Localization.app_title;
             this.props.change_app_flag({
                 rtl: false,
                 language: 'english',
@@ -56,7 +56,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
         } else if (lang === 'ar') {
             document.body.classList.add('rtl');
             Localization.setLanguage('ar');
-            document.title = Localization.more;
+            document.title = Localization.app_title;
             this.props.change_app_flag({
                 rtl: true,
                 language: 'العربیه',
