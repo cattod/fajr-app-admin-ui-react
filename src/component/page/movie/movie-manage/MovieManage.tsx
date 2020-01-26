@@ -9,9 +9,11 @@ import { MovieService } from '../../../../service/service.movie';
 import { IMovie } from '../../../../model/model.movie';
 import { History } from "history";
 import { CmpUtility } from '../../../_base/CmpUtility';
+import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 
 interface IState {
     gridData: IMovie[];
+    gridLoader: boolean;
 }
 interface IProps {
     internationalization: TInternationalization;
@@ -21,6 +23,7 @@ interface IProps {
 class MovieManageComponent extends BaseComponent<IProps, IState> {
     state: IState = {
         gridData: [],
+        gridLoader: true,
     };
 
     private _movieService = new MovieService();
@@ -35,7 +38,9 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         });
 
         if (res) {
-            this.setState({ gridData: res.data.result });
+            this.setState({ gridData: res.data.result, gridLoader: false });
+        } else {
+            this.setState({ gridLoader: false });
         }
     }
 
@@ -46,25 +51,30 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
-                    {
-                        this.state.gridData.map((item) => {
-                            const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
-                            return (
-                                <div className="col mb-4" key={item.id}>
-                                    <div className="card h-100 bg-light shadow-hover shadow-default cursor-pointer"
-                                        onClick={() => this.goto_rating(item.id)}
-                                    >
-                                        <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="..." />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{item.title}</h5>
-                                            <p className="card-text overflow-hidden max-h-70px">{item.description}</p>
+                <div className="position-relative">
+                    <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+                        {
+                            this.state.gridData.map((item) => {
+                                const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
+                                return (
+                                    <div className="col mb-4" key={item.id}>
+                                        <div className="card h-100 bg-light shadow-hover shadow-default cursor-pointer"
+                                            onClick={() => this.goto_rating(item.id)}
+                                        >
+                                            <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="..." />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{item.title}</h5>
+                                                <p className="card-text overflow-hidden max-h-70px">{item.description}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+
+                    </div>
+
+                    <ContentLoader gutterClassName="gutter-0" show={this.state.gridLoader}></ContentLoader>
                 </div>
 
                 <ToastContainer {...this.getNotifyContainerConfig()} />
