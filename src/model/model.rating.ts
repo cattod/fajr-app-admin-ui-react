@@ -1,6 +1,7 @@
 import { IMovie } from "./model.movie";
+import { BaseModel } from "./model.base";
 
-export interface IRating {
+export interface IRating extends BaseModel {
     acting: number;
     addiction_promotion: number;
     alcoholic_promotion: number;

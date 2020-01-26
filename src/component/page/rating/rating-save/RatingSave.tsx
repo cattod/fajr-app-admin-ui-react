@@ -19,6 +19,8 @@ import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
 import Rating from 'react-rating';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { IUser } from '../../../../model/model.user';
+import { IRating } from '../../../../model/model.rating';
 
 type formNumberType =
     'overall_rate' |
@@ -108,6 +110,7 @@ interface IProps {
     internationalization: TInternationalization;
     history: History;
     match: any;
+    // logged_in_user: IUser | null;
 }
 
 class RatingSaveComponent extends BaseComponent<IProps, IState> {
@@ -183,21 +186,31 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     async fetchFormData() {
+        // if (!this.props.logged_in_user) return;
 
-        const res = await this._ratingService.search(1, 0, { movie_id: this.movieId }).catch(err => {
-            this.handleError({ error: err.response, toastOptions: { toastId: 'fetchFormData_error' } });
-        });
+        // const personId = this.props.logged_in_user.person.id;
+        // const res = await this._ratingService.search(1, 0, { movie_id: this.movieId, person_id: personId })
+        const res = await this._ratingService.getMovieRating(this.movieId)
+            .catch(err => {
+                this.handleError({ error: err.response, toastOptions: { toastId: 'fetchFormData_error' } });
+            });
 
         if (res) {
             debugger;
-            if (res.data.result.length) {
+            // if (res.data.result.length) {
+            if (res.data.hasOwnProperty('id')) {
+                const rating = res.data as IRating;
+                this.ratingId = rating.id;
+                
                 const formData: any = {};
                 debugger;
                 formNumberTypeList.forEach(item => {
-                    formData[item] = { value: res.data.result[0][item], isValid: true };
+                    // formData[item] = { value: res.data.result[0][item], isValid: true };
+                    formData[item] = { value: rating[item], isValid: true };
                 });
                 this.setState({
-                    data: { form: formData, info: res.data.result[0].movie },
+                    // data: { form: formData, info: res.data.result[0].movie },
+                    data: { form: formData, info: rating.movie },
                     actionBtn: {
                         remove: { visible: true, disable: false },
                         create: { visible: false, disable: true },
@@ -233,27 +246,47 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         }
     }
 
-    private async create() {
-        debugger;
+    private getFormData(): IRating {
         const data: any = {
             movie_id: this.movieId,
         };
         formNumberTypeList.forEach(item => {
             data[item] = this.state.data.form[item].value;
         });
-        const res = await this._ratingService.create(data).catch(err => {
+        return data;
+    }
+
+    private async create() {
+        // debugger;
+        const res = await this._ratingService.create(this.getFormData()).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
         });
         debugger;
-
-        // save data with movie_id & user_id
-        // do not change route
-        // if not gobakc after change, change to update 
+        if (res) {
+            debugger;
+            this.apiSuccessNotify();
+            this.ratingId = res.data.id;
+            this.setState({
+                actionBtn: {
+                    remove: { visible: true, disable: false },
+                    create: { visible: false, disable: true },
+                    update: { visible: true, disable: false },
+                },
+            });
+        }
     }
 
-    private update() {
-        // save data with movie_id & user_id
-        // do not change route
+    private async update() {
+        debugger;
+        if (!this.ratingId) return;
+        const res = await this._ratingService.update(this.getFormData(), this.ratingId).catch(err => {
+            this.handleError({ error: err.response, toastOptions: { toastId: 'update_error' } });
+        });
+        debugger;
+        if (res) {
+            debugger;
+            this.apiSuccessNotify();
+        }
     }
 
     private open_confirmNotify_remove() {
@@ -263,11 +296,22 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         this.setState({ confirmNotify_remove_show: false });
     }
     private async confirmNotify_onConfirm_remove() {
-        // debugger;
+        debugger;
+        if (!this.ratingId) return;
+
         this.setState({ confirmNotify_remove_loader: true });
 
-        await Utility.waitOnMe(1000);
-        // remove formData
+        const res = await this._ratingService.remove(this.ratingId).catch(err => {
+            debugger;
+            this.handleError({ error: err.response, toastOptions: { toastId: 'onConfirm_remove_error' } });
+        });
+        debugger;
+        if (res) {
+            debugger;
+            setTimeout(() => {
+                this.apiSuccessNotify();
+            }, 300);
+        }
 
         this.setState({ confirmNotify_remove_show: false, confirmNotify_remove_loader: false });
         this.goto_movie();
@@ -571,6 +615,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 const state2props = (state: redux_state) => {
     return {
         internationalization: state.internationalization,
+        // logged_in_user: state.logged_in_user,
     }
 }
 

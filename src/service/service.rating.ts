@@ -7,20 +7,24 @@ export class RatingService extends BaseService {
         return this.axiosTokenInstance.post(`/ratings/_search`, { limit, skip, filter });
     }
 
-    getById(movie_id: string): Promise<IAPI_Response<IRating | {}>> {
-        return this.axiosTokenInstance.get(`/ratings/${movie_id}`);
+    getById(ratingId: string): Promise<IAPI_Response<IRating | {}>> {
+        return this.axiosTokenInstance.get(`/ratings/${ratingId}`);
     }
 
-    remove(rating_id: string): Promise<any> {
-        return this.axiosTokenInstance.delete(`/ratings/${rating_id}`);
+    getMovieRating(movieId: string): Promise<IAPI_Response<IRating | {}>> {
+        return this.axiosTokenInstance.get(`/ratings/movie/${movieId}`);
     }
 
-    create(data: IRating) {
+    remove(ratingId: string): Promise<any> {
+        return this.axiosTokenInstance.delete(`/ratings/${ratingId}`);
+    }
+
+    create(data: IRating): Promise<IAPI_Response<IRating>> {
         return this.axiosTokenInstance.post(`/ratings`, data);
     }
 
-    update(data: IRating, rating_id: string) {
-        return this.axiosTokenInstance.put(`/ratings/${rating_id}`, data);
+    update(data: IRating, ratingId: string): Promise<IAPI_Response<IRating>> {
+        return this.axiosTokenInstance.put(`/ratings/${ratingId}`, data);
     }
 
 }
