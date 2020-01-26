@@ -201,7 +201,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             if (res.data.hasOwnProperty('id')) {
                 const rating = res.data as IRating;
                 this.ratingId = rating.id;
-                
+
                 const formData: any = {};
                 debugger;
                 formNumberTypeList.forEach(item => {
@@ -471,7 +471,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 initialRating={this.state.data.form.overall_rate.value}
                                 onChange={(newRate) => this.on_overall_rate_Change(newRate)}
                                 // onClick={(newRate) => this.on_overall_rate_Change(newRate)}
-                                start={1}
+                                // start={1}
                                 stop={10}
                             />
                         </div>
