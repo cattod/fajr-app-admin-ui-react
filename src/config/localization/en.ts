@@ -18,6 +18,15 @@ export const en = {
         view: 'view movie rating',
         manage: 'manage movie rating',
     },
+    movie_obj: {
+        director: 'director',
+        description: 'movie description',
+        genre: 'genre',
+        producer: 'producer',
+        pub_year: 'publish year',
+        writer: 'writer',
+        title: 'title',
+    },
 
 
 

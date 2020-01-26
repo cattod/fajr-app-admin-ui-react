@@ -18,6 +18,15 @@ export const fa = {
         view: 'نمایش کارشناسی فیلم',
         manage: 'مدیریت کارشناسی فیلم',
     },
+    movie_obj: {
+        director: 'کارگردان',
+        description: 'معرفی فیلم',
+        genre: 'ژانر',
+        producer: 'تهیه کننده',
+        pub_year: 'تاریخ انتشار',
+        writer: 'نویسنده',
+        title: 'عنوان',
+    },
 
 
 
@@ -41,7 +50,7 @@ export const fa = {
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
-            
+
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

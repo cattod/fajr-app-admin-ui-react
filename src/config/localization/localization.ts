@@ -23,17 +23,26 @@ interface ILocalization extends LocalizedStringsMethods {
     movie: string;
     go_back: string;
     save: string;
-    movie_rating:string;
-    movie_rating_obj:{
-        save:string;
-        delete:string;
-        view:string;
-        manage:string;
+    movie_rating: string;
+    movie_rating_obj: {
+        save: string;
+        delete: string;
+        view: string;
+        manage: string;
+    };
+    movie_obj: {
+        director: string;
+        description: string;
+        genre: string;
+        producer: string;
+        pub_year: string;
+        writer: string;
+        title: string;
     };
 
 
 
-    
+
 
 
 
