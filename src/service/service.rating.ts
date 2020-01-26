@@ -12,15 +12,15 @@ export class RatingService extends BaseService {
     }
 
     remove(rating_id: string): Promise<any> {
-        return this.axiosTokenInstance.delete(`/rating/${rating_id}`);
+        return this.axiosTokenInstance.delete(`/ratings/${rating_id}`);
     }
 
     create(data: IRating) {
-        return this.axiosTokenInstance.post(`/rating`, data);
+        return this.axiosTokenInstance.post(`/ratings`, data);
     }
 
     update(data: IRating, rating_id: string) {
-        return this.axiosTokenInstance.put(`/rating/${rating_id}`, data);
+        return this.axiosTokenInstance.put(`/ratings/${rating_id}`, data);
     }
 
 }

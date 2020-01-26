@@ -189,8 +189,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
 
         if (res) {
+            debugger;
             if (res.data.result.length) {
                 const formData: any = {};
+                debugger;
                 formNumberTypeList.forEach(item => {
                     formData[item] = { value: res.data.result[0][item], isValid: true };
                 });
@@ -232,12 +234,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private async create() {
-        const vfd = this.state;
         debugger;
-        const data:any = {};
-        // formNumberTypeList.forEach
-        // await this._ratingService.create();
-        
+        const data: any = {
+            movie_id: this.movieId,
+        };
+        formNumberTypeList.forEach(item => {
+            data[item] = this.state.data.form[item].value;
+        });
+        const res = await this._ratingService.create(data).catch(err => {
+            this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
+        });
+        debugger;
+
         // save data with movie_id & user_id
         // do not change route
         // if not gobakc after change, change to update 
@@ -295,10 +303,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 </div>
                 <div className={"widget-body " + (this.state.widget_info_collapse ? 'd-none' : '')}>
                     <div className="row">
-                        <div className="col-sm-4 mb-3 mb-sm-0">
+                        <div className="col-sm-3 mb-3 mb-sm-0">
                             <img src={CmpUtility.getImageUrl(movie_img)} alt="..." className="img-thumbnail max-w-100" />
                         </div>
-                        <div className="col-sm-8">
+                        <div className="col-sm-9">
                             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
                                 <div className="col mb-2">
                                     <span className="text-muted h6">{Localization.movie_obj.director}: </span>
@@ -345,8 +353,14 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
-    private daastan_rate = [{ title: "aali", value: 5 }, { title: "khub", value: 4 }, { title: "motevaset", value: 3 }, { title: "bad", value: 2 }, { title: "zaef", value: 1 }];
-    on_daastan_Changed(name: 'novel', value: number) {
+    private story_rate = [
+        { title: 'perfect', value: 5 },
+        { title: 'good', value: 4 },
+        { title: 'average', value: 3 },
+        { title: 'bad', value: 2 },
+        { title: 'poor', value: 1 }
+    ];
+    on_story_Changed(name: 'novel', value: number) {
         this.setState({
             data: {
                 ...this.state.data,
@@ -402,7 +416,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 <div className="widget-body">
                     <div className="row mb-4 mt-2">
                         <div className="col-12">
-                            <span className="h5 text-muted">{'نمره دهی کلی فیلم از 1 تا 10'}: </span>
+                            <span className="h5 text-muted">{Localization.rating_obj.overall_rate}: </span>
 
                             <Rating
                                 className="rating-star"
@@ -420,33 +434,33 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     </div>
                     <div className="row mb-3">
                         <div className="col-12 text-center">
-                            <span className="h6 text-primary">{'نمره دهی تفصیلی'}</span>
+                            <span className="h6 text-primary">{Localization.rating_wrapper_obj.detailed_scoring}</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12 mb-2">
-                            <div className="h5 text-muted ml-4">{'داستان'}</div>
+                            <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj.story}</div>
                         </div>
                         <hr />
                         <div className="col-12">
-                            <span className="h6 text-muted">{'قصه'}: </span>
+                            <span className="h6 text-muted">{Localization.rating_obj.novel}: </span>
 
                             <ToggleButtonGroup
                                 className="btn-group-sm"
                                 type="radio"
-                                name="daastan-novel"
+                                name="story-novel"
                                 defaultValue={this.state.data.form.novel.value}
-                                onChange={(rate: number) => this.on_daastan_Changed('novel', rate)}
+                                value={this.state.data.form.novel.value}
+                                onChange={(rate: number) => this.on_story_Changed('novel', rate)}
                             >
                                 {
-                                    this.daastan_rate.map(rate => (
+                                    this.story_rate.map(rate => (
                                         <ToggleButton
                                             key={rate.value}
-                                            className={"min-w-70px btn-light "}
+                                            className={"min-w-70px-- btn-light "}
                                             value={rate.value}
                                         >
-                                            {/* {Localization.reader_theme_obj[rate]} */}
-                                            {rate.title}
+                                            {Localization.rating_value_obj[rate.title]}
                                         </ToggleButton>
                                     ))
                                 }
@@ -466,7 +480,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 // type={this.state.inputPasswordType}
                                 placeholder={'نظر در مورد فیلم'}
                                 is_textarea
-                                textarea_rows={10}
+                                textarea_rows={8}
                             // onKeyUp={(e) => this.handle_keyUp(e)}
                             />
                         </div>

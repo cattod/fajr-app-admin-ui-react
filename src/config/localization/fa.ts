@@ -27,6 +27,56 @@ export const fa = {
         writer: 'نویسنده',
         title: 'عنوان',
     },
+    rating_wrapper_obj: {
+        detailed_scoring: 'نمره دهی تفصیلی',
+        story: 'داستان',
+        form: 'فرم',
+        norm: 'هنجار',
+        content: 'محتوا',
+    },
+    rating_obj: {
+        overall_rate: 'نمره دهی کلی فیلم',
+
+        novel: 'قصه',
+        character: 'شخصیت',
+        reason: 'منطق',
+
+        directing: 'کارگردانی',
+        acting: 'بازیگری',
+        editing: 'تدوین',
+        visualization: 'نصویر',
+        sound: 'صدا',
+        music: 'موسیقی',
+
+        violence_range: 'violence range',
+        insulting_range: 'insulting range',
+        sexual_content: 'sexual content',
+        unsuitable_wearing: 'unsuitable wearing',
+        addiction_promotion: 'addiction promotion',
+        horror_content: 'horror content',
+        suicide_encouragement: 'suicide encouragement',
+        breaking_law_encouragement: 'breaking law encouragement',
+        gambling_promotion: 'gambling promotion',
+        alcoholic_promotion: 'alcoholic promotion',
+
+        family_subject: 'family subject',
+        individual_social_behavior: 'individual social behavior',
+        feminism_exposure: 'feminism exposure',
+        justice_seeking: 'justice seeking',
+        theism: 'theism',
+        bright_future_exposure: 'bright future exposure',
+        hope: 'hope',
+        iranian_life_style: 'iranian life style',
+        true_vision_of_enemy: 'true vision of enemy',
+        true_historiography: 'true historiography',
+    },
+    rating_value_obj: {
+        perfect: 'عالی',
+        good: 'خوب',
+        average: 'متوسط',
+        bad: 'بد',
+        poor: 'ضعیف',
+    },
 
 
 

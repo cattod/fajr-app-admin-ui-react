@@ -39,6 +39,57 @@ interface ILocalization extends LocalizedStringsMethods {
         writer: string;
         title: string;
     };
+    rating_wrapper_obj: {
+        detailed_scoring: string;
+        story: string;
+        form: string;
+        norm: string;
+        content: string;
+    };
+    rating_obj: {
+        overall_rate: string;
+
+        novel: string;
+        character: string;
+        reason: string;
+
+        directing: string;
+        acting: string;
+        editing: string;
+        visualization: string;
+        sound: string;
+        music: string;
+
+        violence_range: string;
+        insulting_range: string;
+        sexual_content: string;
+        unsuitable_wearing: string;
+        addiction_promotion: string;
+        horror_content: string;
+        suicide_encouragement: string;
+        breaking_law_encouragement: string;
+        gambling_promotion: string;
+        alcoholic_promotion: string;
+
+        family_subject: string;
+        individual_social_behavior: string;
+        feminism_exposure: string;
+        justice_seeking: string;
+        theism: string;
+        bright_future_exposure: string;
+        hope: string;
+        iranian_life_style: string;
+        true_vision_of_enemy: string;
+        true_historiography: string;
+    };
+    rating_value_obj: {
+        [key: string]: string;
+        perfect: string;
+        good: string;
+        average: string;
+        bad: string;
+        poor: string;
+    };
 
 
 

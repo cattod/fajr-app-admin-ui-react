@@ -27,6 +27,56 @@ export const en = {
         writer: 'writer',
         title: 'title',
     },
+    rating_wrapper_obj: {
+        detailed_scoring: 'detailed scoring',
+        story: 'story',
+        form: 'form',
+        norm: 'norm',
+        content: 'content',
+    },
+    rating_obj: {
+        overall_rate: 'overall rate',
+
+        novel: 'novel',
+        character: 'character',
+        reason: 'reason',
+
+        directing: 'directing',
+        acting: 'acting',
+        editing: 'editing',
+        visualization: 'visualization',
+        sound: 'sound',
+        music: 'music',
+
+        violence_range: 'violence range',
+        insulting_range: 'insulting range',
+        sexual_content: 'sexual content',
+        unsuitable_wearing: 'unsuitable wearing',
+        addiction_promotion: 'addiction promotion',
+        horror_content: 'horror content',
+        suicide_encouragement: 'suicide encouragement',
+        breaking_law_encouragement: 'breaking law encouragement',
+        gambling_promotion: 'gambling promotion',
+        alcoholic_promotion: 'alcoholic promotion',
+
+        family_subject: 'family subject',
+        individual_social_behavior: 'individual social behavior',
+        feminism_exposure: 'feminism exposure',
+        justice_seeking: 'justice seeking',
+        theism: 'theism',
+        bright_future_exposure: 'bright future exposure',
+        hope: 'hope',
+        iranian_life_style: 'iranian life style',
+        true_vision_of_enemy: 'true vision of enemy',
+        true_historiography: 'true historiography',
+    },
+    rating_value_obj: {
+        perfect: 'perfect',
+        good: 'good',
+        average: 'average',
+        bad: 'bad',
+        poor: 'poor',
+    },
 
 
 
