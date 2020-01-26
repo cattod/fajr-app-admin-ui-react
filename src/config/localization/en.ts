@@ -76,6 +76,16 @@ export const en = {
         average: 'average',
         bad: 'bad',
         poor: 'poor',
+        
+        very_much: 'very much',
+        much: 'much',
+        normal: 'normal',
+        low: 'low',
+        not_at_all: 'not at all',
+
+        promoter: 'promoter',
+        neutral: 'neutral',
+        destructive: 'destructive',
     },
 
 

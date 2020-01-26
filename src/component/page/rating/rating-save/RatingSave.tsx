@@ -19,7 +19,7 @@ import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
 import Rating from 'react-rating';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import { IUser } from '../../../../model/model.user';
+// import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
 
 type formNumberType =
@@ -102,7 +102,7 @@ interface IState {
                 value: number | undefined;
                 isValid: boolean;
             };
-        };
+        } & { comment: { value: string | undefined; isValid: boolean; } };
     };
     form_loader: boolean;
 }
@@ -127,37 +127,6 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         data: {
             info: undefined,
             form: this.getFormDefaultValue(),
-            // {
-            //     directing: { value: undefined, isValid: true },
-            //     acting: { value: undefined, isValid: true },
-            //     editin: { value: undefined, isValid: true },
-
-            //     visualization: { value: undefined, isValid: true },
-            //     sound: { value: undefined, isValid: true },
-            //     music: { value: undefined, isValid: true },
-
-            //     violence_range: { value: undefined, isValid: true },
-            //     insulting_range: { value: undefined, isValid: true },
-            //     sexual_content: { value: undefined, isValid: true },
-            //     unsuitable_wearing: { value: undefined, isValid: true },
-            //     addiction_promotion: { value: undefined, isValid: true },
-            //     horror_content: { value: undefined, isValid: true },
-            //     suicide_encouragement: { value: undefined, isValid: true },
-            //     breaking_law_encouragement: { value: undefined, isValid: true },
-            //     gambling_promotion: { value: undefined, isValid: true },
-            //     alcoholic_promotion: { value: undefined, isValid: true },
-
-            //     family_subject: { value: undefined, isValid: true },
-            //     individual_social_behavior: { value: undefined, isValid: true },
-            //     feminism_exposure: { value: undefined, isValid: true },
-            //     justice_seeking: { value: undefined, isValid: true },
-            //     theism: { value: undefined, isValid: true },
-            //     bright_future_exposure: { value: undefined, isValid: true },
-            //     hope: { value: undefined, isValid: true },
-            //     iranian_life_style: { value: undefined, isValid: true },
-            //     true_vision_of_enemy: { value: undefined, isValid: true },
-            //     true_historiography: { value: undefined, isValid: true },
-            // },
         },
         form_loader: true,
     };
@@ -178,7 +147,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     getFormDefaultValue() {
-        const obj: any = {};
+        const obj: any = { comment: { value: undefined, isValid: true } };
         formNumberTypeList.forEach(item => {
             obj[item] = { value: undefined, isValid: true };
         });
@@ -196,14 +165,14 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             });
 
         if (res) {
-            debugger;
+            // debugger;
             // if (res.data.result.length) {
             if (res.data.hasOwnProperty('id')) {
                 const rating = res.data as IRating;
                 this.ratingId = rating.id;
 
-                const formData: any = {};
-                debugger;
+                const formData: any = { comment: { value: rating.comment, isValid: true } };
+                // debugger;
                 formNumberTypeList.forEach(item => {
                     // formData[item] = { value: res.data.result[0][item], isValid: true };
                     formData[item] = { value: rating[item], isValid: true };
@@ -249,6 +218,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     private getFormData(): IRating {
         const data: any = {
             movie_id: this.movieId,
+            comment: this.state.data.form.comment.value
         };
         formNumberTypeList.forEach(item => {
             data[item] = this.state.data.form[item].value;
@@ -397,14 +367,33 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
-    private story_rate = [
-        { title: 'perfect', value: 5 },
-        { title: 'good', value: 4 },
-        { title: 'average', value: 3 },
-        { title: 'bad', value: 2 },
-        { title: 'poor', value: 1 }
-    ];
-    on_story_Changed(name: 'novel', value: number) {
+    private getRateList(mode: 1 | 2 | 3): { title: string, value: number }[] {
+        switch (mode) {
+            case 1:
+                return [
+                    { title: 'perfect', value: 5 },
+                    { title: 'good', value: 4 },
+                    { title: 'average', value: 3 },
+                    { title: 'bad', value: 2 },
+                    { title: 'poor', value: 1 }
+                ];
+            case 2:
+                return [
+                    { title: 'very_much', value: 5 },
+                    { title: 'much', value: 4 },
+                    { title: 'normal', value: 3 },
+                    { title: 'low', value: 2 },
+                    { title: 'not_at_all', value: 1 }
+                ];
+            case 3:
+                return [
+                    { title: 'promoter', value: 3 },
+                    { title: 'neutral', value: 2 },
+                    { title: 'destructive', value: 1 },
+                ];
+        }
+    }
+    on_general_el_changed(name: formNumberType, value: number) {
         this.setState({
             data: {
                 ...this.state.data,
@@ -412,6 +401,40 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             }
         });
     }
+
+    handleInputChange(value: any, isValid: boolean) {
+        this.setState({
+            data: {
+                ...this.state.data,
+                form: { ...this.state.data.form, comment: { value, isValid } }
+            }
+        });
+    }
+
+    formStructure = {
+        groups: [
+            {
+                title: 'story',
+                items: ['novel', 'character', 'reason'],
+                mode: 1
+            },
+            {
+                title: 'form',
+                items: ['directing', 'acting', 'editing', 'visualization', 'sound', 'music'],
+                mode: 1
+            },
+            {
+                title: 'norm',
+                items: ['violence_range', 'insulting_range', 'sexual_content', 'unsuitable_wearing', 'addiction_promotion', 'horror_content', 'suicide_encouragement', 'breaking_law_encouragement', 'gambling_promotion', 'alcoholic_promotion'],
+                mode: 2
+            },
+            {
+                title: 'content',
+                items: ['family_subject', 'individual_social_behavior', 'feminism_exposure', 'justice_seeking', 'theism', 'bright_future_exposure', 'hope', 'iranian_life_style', 'true_vision_of_enemy', 'true_historiography'],
+                mode: 3
+            }
+        ]
+    };
 
     widget_form_render() {
         return (<>
@@ -476,56 +499,65 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             />
                         </div>
                     </div>
+
                     <div className="row mb-3">
                         <div className="col-12 text-center">
-                            <span className="h6 text-primary">{Localization.rating_wrapper_obj.detailed_scoring}</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 mb-2">
-                            <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj.story}</div>
-                        </div>
-                        <hr />
-                        <div className="col-12">
-                            <span className="h6 text-muted">{Localization.rating_obj.novel}: </span>
-
-                            <ToggleButtonGroup
-                                className="btn-group-sm"
-                                type="radio"
-                                name="story-novel"
-                                defaultValue={this.state.data.form.novel.value}
-                                value={this.state.data.form.novel.value}
-                                onChange={(rate: number) => this.on_story_Changed('novel', rate)}
-                            >
-                                {
-                                    this.story_rate.map(rate => (
-                                        <ToggleButton
-                                            key={rate.value}
-                                            className={"min-w-70px-- btn-light "}
-                                            value={rate.value}
-                                        >
-                                            {Localization.rating_value_obj[rate.title]}
-                                        </ToggleButton>
-                                    ))
-                                }
-                            </ToggleButtonGroup>
+                            <span className="h6 text-muted">{Localization.rating_wrapper_obj.detailed_scoring}</span>
                         </div>
                     </div>
 
+                    {
+                        this.formStructure.groups.map(item => {
+                            return (<>
+                                <div className="row mb-4">
+                                    <div className="col-12 mb-2">
+                                        <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj[item.title]}</div>
+                                    </div>
 
-                    <br /><br /><br /><br /><br />
+                                    {
+                                        item.items.map(name => {
+                                            return (<>
+                                                <div className="col-12 mb-2" key={name}>
+                                                    <span className="h6 text-muted">{Localization.rating_obj[name]}: </span>
+
+                                                    <ToggleButtonGroup
+                                                        className="btn-group-sm"
+                                                        type="radio"
+                                                        name={`${item.title}-${name}`}
+                                                        defaultValue={(this.state.data.form as any)[name].value}
+                                                        value={(this.state.data.form as any)[name].value}
+                                                        onChange={(rate: number) => this.on_general_el_changed(name as formNumberType, rate)}
+                                                    >
+                                                        {
+                                                            this.getRateList(item.mode as 1 | 2 | 3).map(rate => (
+                                                                <ToggleButton
+                                                                    key={rate.value}
+                                                                    className={"min-w-70px-- btn-light "}
+                                                                    value={rate.value}
+                                                                >
+                                                                    {Localization.rating_value_obj[rate.title]}
+                                                                </ToggleButton>
+                                                            ))
+                                                        }
+                                                    </ToggleButtonGroup>
+                                                </div>
+                                            </>)
+                                        })
+                                    }
+                                </div>
+                            </>)
+                        })
+                    }
+
                     <div className="row">
                         <div className="col">
                             <Input
                                 label={'نگارش نظر'}
-                                // defaultValue={this.state.password.value}
-                                // onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
-                                // required
-                                // type={this.state.inputPasswordType}
+                                defaultValue={this.state.data.form.comment.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid) }}
                                 placeholder={'نظر در مورد فیلم'}
                                 is_textarea
-                                textarea_rows={8}
-                            // onKeyUp={(e) => this.handle_keyUp(e)}
+                                textarea_rows={5}
                             />
                         </div>
                     </div>

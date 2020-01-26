@@ -44,7 +44,7 @@ export const fa = {
         directing: 'کارگردانی',
         acting: 'بازیگری',
         editing: 'تدوین',
-        visualization: 'نصویر',
+        visualization: 'تصویر',
         sound: 'صدا',
         music: 'موسیقی',
 
@@ -76,6 +76,16 @@ export const fa = {
         average: 'متوسط',
         bad: 'بد',
         poor: 'ضعیف',
+        
+        very_much: 'خیلی زیاد',
+        much: 'زیاد',
+        normal: 'معمولی',
+        low: 'کم',
+        not_at_all: 'اصلا',
+
+        promoter: 'ترویج کننده',
+        neutral: 'خنثی',
+        destructive: 'تخریب کننده',
     },
 
 

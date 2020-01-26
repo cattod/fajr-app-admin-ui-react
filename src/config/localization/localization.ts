@@ -40,6 +40,7 @@ interface ILocalization extends LocalizedStringsMethods {
         title: string;
     };
     rating_wrapper_obj: {
+        [key: string]: string;
         detailed_scoring: string;
         story: string;
         form: string;
@@ -47,6 +48,8 @@ interface ILocalization extends LocalizedStringsMethods {
         content: string;
     };
     rating_obj: {
+        [key: string]: string;
+
         overall_rate: string;
 
         novel: string;
@@ -84,11 +87,22 @@ interface ILocalization extends LocalizedStringsMethods {
     };
     rating_value_obj: {
         [key: string]: string;
+
         perfect: string;
         good: string;
         average: string;
         bad: string;
         poor: string;
+
+        very_much: string;
+        much: string;
+        normal: string;
+        low: string;
+        not_at_all: string;
+
+        promoter: string;
+        neutral: string;
+        destructive: string;
     };
 
 
