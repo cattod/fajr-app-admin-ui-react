@@ -40,7 +40,7 @@ interface ISetup {
 
 export const Setup: ISetup = {
     endpoint: '/api',
-    documentTitle: 'bajash admin',
+    documentTitle: 'app_title',
     notify: {
         timeout: {
             error: 4000,

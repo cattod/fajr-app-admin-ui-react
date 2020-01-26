@@ -12,7 +12,7 @@ import { en } from './en';
 interface ILocalization extends LocalizedStringsMethods {
     [key: string]: any; // todo
     login: string;
-    register: String;
+    register: string;
     sign_in: string;
     Sign_out: string;
     app_title: string;
