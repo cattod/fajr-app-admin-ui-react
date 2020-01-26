@@ -69,6 +69,9 @@ export const en = {
         iranian_life_style: 'iranian life style',
         true_vision_of_enemy: 'true vision of enemy',
         true_historiography: 'true historiography',
+
+        write_comment: 'write comment',
+        comment_about_movie: 'comment about movie',
     },
     rating_value_obj: {
         perfect: 'perfect',
@@ -76,7 +79,7 @@ export const en = {
         average: 'average',
         bad: 'bad',
         poor: 'poor',
-        
+
         very_much: 'very much',
         much: 'much',
         normal: 'normal',

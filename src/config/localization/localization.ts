@@ -84,6 +84,9 @@ interface ILocalization extends LocalizedStringsMethods {
         iranian_life_style: string;
         true_vision_of_enemy: string;
         true_historiography: string;
+
+        write_comment: string;
+        comment_about_movie: string;
     };
     rating_value_obj: {
         [key: string]: string;

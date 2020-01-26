@@ -69,6 +69,9 @@ export const fa = {
         iranian_life_style: 'سبک زندگی ایرانی',
         true_vision_of_enemy: 'نگاه صحیح به دشمن',
         true_historiography: 'روایت صحیح از تاریخ',
+
+        write_comment:'نگارش نظر',
+        comment_about_movie:'نظر در مورد فیلم',
     },
     rating_value_obj: {
         perfect: 'عالی',

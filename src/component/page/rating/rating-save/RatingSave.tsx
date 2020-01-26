@@ -552,10 +552,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     <div className="row">
                         <div className="col">
                             <Input
-                                label={'نگارش نظر'}
+                                label={Localization.rating_obj.write_comment}
                                 defaultValue={this.state.data.form.comment.value}
                                 onChange={(val, isValid) => { this.handleInputChange(val, isValid) }}
-                                placeholder={'نظر در مورد فیلم'}
+                                placeholder={Localization.rating_obj.comment_about_movie}
                                 is_textarea
                                 textarea_rows={5}
                             />
