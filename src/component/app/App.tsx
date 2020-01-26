@@ -10,6 +10,7 @@ import { RouteLayoutValidUser } from '../layout/valid-user/ValidUser';
 import { RouteLayoutAccount } from '../layout/account/Account';
 import { Login } from '../page/login/Login';
 import { Register } from '../page/register/Register';
+import { ForgotPassword } from '../page/forgot-password/ForgotPassword';
 
 const appRoutes = (
   <HashRouter>
@@ -24,7 +25,7 @@ const appRoutes = (
 
       <RouteLayoutAccount path="/login" component={Login} />
       <RouteLayoutAccount path="/register" component={Register} />
-      {/* <RouteLayoutAccount path="/forgot-password" component={ForgotPassword} /> */}
+      <RouteLayoutAccount path="/forgot-password" component={ForgotPassword} />
 
       <RouteLayoutValidUser />
 
