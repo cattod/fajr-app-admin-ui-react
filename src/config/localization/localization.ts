@@ -13,7 +13,7 @@ interface ILocalization extends LocalizedStringsMethods {
     [key: string]: any; // todo
     catod: string;
     catod_logo: string;
-
+    catod_watermark: string;
     login: string;
     register: string;
     sign_in: string;

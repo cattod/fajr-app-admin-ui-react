@@ -1,6 +1,7 @@
 export const en = {
     catod: 'catod',
     catod_logo: 'catod logo',
+    catod_watermark:'all right reserved for catod @2020',
     login: "login",
     register: "register",
     sign_in: 'sign in',

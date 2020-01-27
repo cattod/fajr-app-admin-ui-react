@@ -1,6 +1,7 @@
 export const fa = {
     catod: 'کاتد',
     catod_logo: 'لوگو کاتد',
+    catod_watermark: 'تمامی حقوق برای کاتد محفوظ می‌باشد. @2020',
     login: "ورود",
     register: "ثبت نام",
     sign_in: 'ورود',

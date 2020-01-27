@@ -11,6 +11,7 @@ import { action_update_theme } from '../../../../redux/action/theme';
 import { ITheme_schema } from '../../../../redux/action/theme/themeAction';
 import { TInternationalization } from '../../../../config/setup';
 import { BaseComponent } from '../../../_base/BaseComponent';
+import { LayoutMainFooter } from './footer/Footer';
 
 export const RouteLayoutMain = ({ component: Component, ...rest }: { [key: string]: any }) => {
     return (
@@ -133,6 +134,8 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
                     </div>
 
                 </div>
+
+                <LayoutMainFooter {...this.props} />
             </>
         )
     }

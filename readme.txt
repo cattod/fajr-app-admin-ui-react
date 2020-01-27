@@ -35,10 +35,26 @@ serve -s build
 
 ====================================================================================
 
-register & forget pass
+add policy page (link in register & footer).
+
+====================================================================================
+
+
 
 ratingSve --> action btn: loader (disable while acting).
 
 breadcrumb & pageTitle
+
+====================================================================================
+
+btn larger for big finger
+
+chart for movie
+
+save movie list
+
+maximize icon change on active
+
+andaze ax  movie widget_info ziad ast
 
 ====================================================================================
