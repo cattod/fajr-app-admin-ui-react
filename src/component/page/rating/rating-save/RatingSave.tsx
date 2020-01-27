@@ -12,7 +12,7 @@ import { RatingService } from '../../../../service/service.rating';
 import { Localization } from '../../../../config/localization/localization';
 import { BtnLoader } from '../../../form/btn-loader/BtnLoader';
 import { ConfirmNotify } from '../../../form/confirm-notify/ConfirmNotify';
-import { Utility } from '../../../../asset/script/utility';
+// import { Utility } from '../../../../asset/script/utility';
 import { IMovie } from '../../../../model/model.movie';
 import { MovieService } from '../../../../service/service.movie';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
@@ -21,6 +21,7 @@ import Rating from 'react-rating';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 // import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
+import Select from 'react-select';
 
 type formNumberType =
     'overall_rate' |
@@ -102,9 +103,13 @@ interface IState {
                 value: number | undefined;
                 isValid: boolean;
             };
-        } & { comment: { value: string | undefined; isValid: boolean; } };
+        } & {
+            comment: { value: string | undefined; isValid: boolean; }
+            tags: { value: { label: string, value: string }[]; isValid: boolean; }
+        };
     };
     form_loader: boolean;
+    tags_inputValue: string;
 }
 interface IProps {
     internationalization: TInternationalization;
@@ -129,6 +134,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             form: this.getFormDefaultValue(),
         },
         form_loader: true,
+        tags_inputValue: ''
     };
     movieId!: string;
     ratingId: string | undefined;
@@ -147,7 +153,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     getFormDefaultValue() {
-        const obj: any = { comment: { value: undefined, isValid: true } };
+        const obj: any = {
+            comment: { value: undefined, isValid: true },
+            tags: { value: [], isValid: true }
+        };
         formNumberTypeList.forEach(item => {
             obj[item] = { value: undefined, isValid: true };
         });
@@ -171,7 +180,15 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 const rating = res.data as IRating;
                 this.ratingId = rating.id;
 
-                const formData: any = { comment: { value: rating.comment, isValid: true } };
+                let tagVal: any = [];
+                if (rating.tags) {
+                    tagVal = rating.tags.map(t => { return { label: t, value: t } });
+                }
+
+                const formData: any = {
+                    comment: { value: rating.comment, isValid: true },
+                    tags: { isValid: true, value: tagVal || [] }
+                };
                 // debugger;
                 formNumberTypeList.forEach(item => {
                     // formData[item] = { value: res.data.result[0][item], isValid: true };
@@ -216,9 +233,11 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private getFormData(): IRating {
+        const tags = (this.state.data.form.tags.value || []).map((item: { label: string; value: string }) => item.value);
         const data: any = {
             movie_id: this.movieId,
-            comment: this.state.data.form.comment.value
+            comment: this.state.data.form.comment.value,
+            tags,
         };
         formNumberTypeList.forEach(item => {
             data[item] = this.state.data.form[item].value;
@@ -294,6 +313,48 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     private toggleCollapse_widget_info() {
         this.setState({ widget_info_collapse: !this.state.widget_info_collapse });
     }
+
+    private handleSelectInputChange(value: { label: string, value: string }[]) {
+        this.setState({
+            ...this.state,
+            data: {
+                ...this.state.data,
+                form: {
+                    ...this.state.data.form,
+                    tags: {
+                        isValid: true,
+                        value: value || []
+                    }
+                }
+            },
+        })
+    }
+    handle_tagsKeyDown(event: any/* SyntheticKeyboardEvent<HTMLElement> */) {
+        if (!this.state.tags_inputValue) return;
+        switch (event.key) {
+            case 'Enter':
+            case 'Tab':
+                const newVal = this.state.tags_inputValue;
+                this.setState({
+                    ...this.state,
+                    data: {
+                        ...this.state.data,
+                        form: {
+                            ...this.state.data.form,
+                            tags: {
+                                isValid: true,
+                                value: [
+                                    ...this.state.data.form.tags.value,
+                                    { label: newVal, value: newVal }
+                                ]
+                            }
+                        }
+                    },
+                    tags_inputValue: ''
+                });
+                event.preventDefault();
+        }
+    };
 
     widget_info_render() {
         const movie = this.state.data.info;
@@ -507,16 +568,16 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     </div>
 
                     {
-                        this.formStructure.groups.map(item => {
-                            return (<>
-                                <div className="row mb-4">
+                        this.formStructure.groups.map((item, index) => {
+                            return (
+                                <div className="row mb-4" key={index}>
                                     <div className="col-12 mb-2">
                                         <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj[item.title]}</div>
                                     </div>
 
                                     {
                                         item.items.map(name => {
-                                            return (<>
+                                            return (
                                                 <div className="col-12 mb-2" key={name}>
                                                     <span className="h6 text-muted">{Localization.rating_obj[name]}: </span>
 
@@ -541,16 +602,35 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                         }
                                                     </ToggleButtonGroup>
                                                 </div>
-                                            </>)
+                                            )
                                         })
                                     }
                                 </div>
-                            </>)
+                            )
                         })
                     }
 
                     <div className="row">
-                        <div className="col">
+                        <div className="col-12">
+                            <div className="form-group">
+                                <label>{Localization.tags}</label>
+                                <Select
+                                    isMulti
+                                    onChange={(value: any) => this.handleSelectInputChange(value)}
+                                    value={this.state.data.form.tags.value}
+                                    placeholder={Localization.tags}
+                                    onKeyDown={(e) => this.handle_tagsKeyDown(e)}
+                                    inputValue={this.state.tags_inputValue}
+                                    menuIsOpen={false}
+                                    components={{
+                                        DropdownIndicator: null,
+                                    }}
+                                    isClearable
+                                    onInputChange={(inputVal) => this.setState({ ...this.state, tags_inputValue: inputVal })}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-12">
                             <Input
                                 label={Localization.rating_obj.write_comment}
                                 defaultValue={this.state.data.form.comment.value}

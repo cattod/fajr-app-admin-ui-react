@@ -90,6 +90,8 @@ export const en = {
         neutral: 'neutral',
         destructive: 'destructive',
     },
+    tags: 'tags',
+    
 
 
 

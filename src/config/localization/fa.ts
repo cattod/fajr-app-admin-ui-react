@@ -90,6 +90,7 @@ export const fa = {
         neutral: 'خنثی',
         destructive: 'تخریب کننده',
     },
+    tags: 'برچسب ها',
 
 
 

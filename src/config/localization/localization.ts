@@ -107,6 +107,7 @@ interface ILocalization extends LocalizedStringsMethods {
         neutral: string;
         destructive: string;
     };
+    tags: string;
 
 
 
