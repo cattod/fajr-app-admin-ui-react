@@ -30,6 +30,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     private _movieService = new MovieService();
 
     componentDidMount() {
+        CmpUtility.gotoTop();
         this.fetchGridData();
     }
 

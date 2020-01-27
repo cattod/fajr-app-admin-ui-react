@@ -39,8 +39,6 @@ add policy page (link in register & footer).
 
 ====================================================================================
 
-ratingSve --> action btn: loader (disable while acting).
-
 breadcrumb & pageTitle
 
 ====================================================================================

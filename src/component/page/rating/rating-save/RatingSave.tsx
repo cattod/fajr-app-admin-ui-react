@@ -149,6 +149,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     componentDidMount() {
+        CmpUtility.gotoTop();
         if (!this.movieId) return;
         this.fetchFormData();
     }
