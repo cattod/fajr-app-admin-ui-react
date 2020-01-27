@@ -186,35 +186,36 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
     if (this.state.forgotPasswordStep === FORGOT_PASSWORD_STEP.submit_mobile) {
       return (
         <>
-          <h3 className="desc mt-4 mb-3">
+          <div className="registerbox-caption">{Localization.register_your_mobile_number}</div>
+          {/* <h3 className="desc mt-4 mb-3">
             {Localization.register_your_mobile_number}
-          </h3>
-          <div className="account-form">
-            <div className="input-wrapper__">
-              <FixNumber
-                defaultValue={this.state.mobile.value}
-                onChange={(val, isValid) => {
-                  this.handleInputChange(val, isValid, "mobile");
-                }}
-                pattern={AppRegex.mobile}
-                patternError={Localization.validation.mobileFormat}
-                required
-                placeholder={Localization.mobile}
-                onKeyUp={(e) => this.handle_keyUp_onSubmitMobile(e)}
-              />
-            </div>
-
-            <div className="form-group">
-              <BtnLoader
-                btnClassName="btn btn-warning btn-block btn-account"
-                loading={this.state.btnLoader}
-                onClick={() => this.onSubmitMobile()}
-                disabled={!this.state.isFormValid}
-              >
-                {Localization.submit}
-              </BtnLoader>
-            </div>
+          </h3> */}
+          {/* <div className="account-form"> */}
+          <div className="registerbox-textbox pb-0">
+            <FixNumber
+              defaultValue={this.state.mobile.value}
+              onChange={(val, isValid) => {
+                this.handleInputChange(val, isValid, "mobile");
+              }}
+              pattern={AppRegex.mobile}
+              patternError={Localization.validation.mobileFormat}
+              required
+              placeholder={Localization.mobile}
+              onKeyUp={(e) => this.handle_keyUp_onSubmitMobile(e)}
+            />
           </div>
+
+          <div className="registerbox-submit">
+            <BtnLoader
+              btnClassName="btn btn-primary pull-right text-uppercase"
+              loading={this.state.btnLoader}
+              onClick={() => this.onSubmitMobile()}
+              disabled={!this.state.isFormValid}
+            >
+              {Localization.submit}
+            </BtnLoader>
+          </div>
+          {/* </div> */}
         </>
       )
     }
@@ -224,7 +225,9 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
     if (this.state.forgotPasswordStep === FORGOT_PASSWORD_STEP.submit_newPassword) {
       return (
         <>
-          <div className="mt-4 mb-3 text-muted">
+          <div className="registerbox-caption">{Localization.reset_password}</div>
+
+          <div className="registerbox-textbox text-muted">
             {Localization.mobile}: {this.state.mobile.value}
             <small
               className="text-info"
@@ -233,56 +236,61 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
               <i className="fa fa-edit"></i>
             </small>
           </div>
-          <h3 className="desc mt-4__ mb-3">
+          {/* <h3 className="desc mt-4__ mb-3">
             {Localization.reset_password}
-          </h3>
-          <div className="account-form">
-            <div className="input-wrapper">
-              <FixNumber
-                key={'forgot-password_code'}
-                defaultValue={this.state.code.value}
-                onChange={(val, isValid) => {
-                  this.handleInputChange(val, isValid, "code");
-                }}
-                required
-                placeholder={Localization.verification_code}
-                onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
-              />
-              <div className="separator" />
-              <Input
-                defaultValue={this.state.password.value}
-                onChange={(val, isValid) => {
-                  this.handleInputChange(val, isValid, "password");
-                }}
-                required
-                type="password"
-                placeholder={Localization.password}
-                onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
-              />
-              <div className="separator" />
-              <Input
-                defaultValue={this.state.confirmPassword.value}
-                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
-                placeholder={Localization.confirm_password}
-                required
-                type="password"
-                validationFunc={(val) => this.confirmPassword_validation(val)}
-                patternError={Localization.validation.confirmPassword}
-                onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
-              />
-            </div>
-
-            <div className="form-group">
-              <BtnLoader
-                btnClassName="btn btn-warning btn-block btn-account"
-                loading={this.state.btnLoader}
-                onClick={() => this.onSubmitNewPassword()}
-                disabled={!this.state.isFormValid}
-              >
-                {Localization.submit}
-              </BtnLoader>
-            </div>
+          </h3> */}
+          {/* <div className="account-form"> */}
+          <div className="registerbox-textbox">
+            <FixNumber
+              key={'forgot-password_code'}
+              defaultValue={this.state.code.value}
+              onChange={(val, isValid) => {
+                this.handleInputChange(val, isValid, "code");
+              }}
+              required
+              placeholder={Localization.verification_code}
+              onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
+              className="mb-0"
+            />
           </div>
+          <div className="registerbox-textbox">
+            <Input
+              defaultValue={this.state.password.value}
+              onChange={(val, isValid) => {
+                this.handleInputChange(val, isValid, "password");
+              }}
+              required
+              type="password"
+              placeholder={Localization.password}
+              onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
+              className="mb-0"
+            />
+          </div>
+          <div className="registerbox-textbox no-padding-bottom">
+            <Input
+              defaultValue={this.state.confirmPassword.value}
+              onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
+              placeholder={Localization.confirm_password}
+              required
+              type="password"
+              validationFunc={(val) => this.confirmPassword_validation(val)}
+              patternError={Localization.validation.confirmPassword}
+              onKeyUp={(e) => this.handle_keyUp_onSubmitNewPassword(e)}
+              className="mb-0--"
+            />
+          </div>
+
+          <div className="registerbox-submit">
+            <BtnLoader
+              btnClassName="btn btn-primary pull-right text-uppercase"
+              loading={this.state.btnLoader}
+              onClick={() => this.onSubmitNewPassword()}
+              disabled={!this.state.isFormValid}
+            >
+              {Localization.submit}
+            </BtnLoader>
+          </div>
+          {/* </div> */}
         </>
       )
     }
@@ -302,22 +310,35 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
   render() {
     return (
       <>
-        {(() => {
-          switch (this.state.forgotPasswordStep) {
-            case FORGOT_PASSWORD_STEP.submit_mobile:
-              return this.submit_mobile_render();
-            case FORGOT_PASSWORD_STEP.submit_newPassword:
-              return this.submit_newPassword_render();
-            default:
-              return undefined;
-          }
-        })()}
+        <div className="register-container animated fadeInDown">
+          <div className="registerbox bg-white pb-3">
+            <div className="registerbox-title">{Localization.forgot_password}</div>
 
-        <section>
+            {(() => {
+              switch (this.state.forgotPasswordStep) {
+                case FORGOT_PASSWORD_STEP.submit_mobile:
+                  return this.submit_mobile_render();
+                case FORGOT_PASSWORD_STEP.submit_newPassword:
+                  return this.submit_newPassword_render();
+                default:
+                  return undefined;
+              }
+            })()}
+
+            <div className="clearfix"></div>
+            <div className="registerbox-textbox text-center">
+              <NavLink exact to="/login" className="text-muted">
+                {Localization.return}
+              </NavLink>
+            </div>
+          </div>
+        </div>
+
+        {/* <section>
           <p>
             <NavLink to="/login">{Localization.return}</NavLink>
           </p>
-        </section>
+        </section> */}
 
         <ToastContainer {...this.getNotifyContainerConfig()} />
       </>
