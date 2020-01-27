@@ -11,6 +11,9 @@ import { en } from './en';
 
 interface ILocalization extends LocalizedStringsMethods {
     [key: string]: any; // todo
+    catod: string;
+    catod_logo: string;
+
     login: string;
     register: string;
     sign_in: string;

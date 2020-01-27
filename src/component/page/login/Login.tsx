@@ -166,6 +166,15 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                             </NavLink>
                         </div>
                     </div>
+
+                    <div className="logobox">
+                        <img
+                            src="/static/media/img/icon/catod-logo.svg"
+                            className="max-w-100 max-h-100"
+                            alt={Localization.catod_logo}
+                            title={Localization.catod}
+                        />
+                    </div>
                 </div>
                 {/* </div> */}
 

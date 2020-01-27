@@ -1,4 +1,6 @@
 export const en = {
+    catod: 'catod',
+    catod_logo: 'catod logo',
     login: "login",
     register: "register",
     sign_in: 'sign in',

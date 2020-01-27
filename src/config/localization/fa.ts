@@ -1,4 +1,6 @@
 export const fa = {
+    catod: 'کاتد',
+    catod_logo: 'لوگو کاتد',
     login: "ورود",
     register: "ثبت نام",
     sign_in: 'ورود',
@@ -70,8 +72,8 @@ export const fa = {
         true_vision_of_enemy: 'نگاه صحیح به دشمن',
         true_historiography: 'روایت صحیح از تاریخ',
 
-        write_comment:'نگارش نظر',
-        comment_about_movie:'نظر در مورد فیلم',
+        write_comment: 'نگارش نظر',
+        comment_about_movie: 'نظر در مورد فیلم',
     },
     rating_value_obj: {
         perfect: 'عالی',
@@ -79,7 +81,7 @@ export const fa = {
         average: 'متوسط',
         bad: 'بد',
         poor: 'ضعیف',
-        
+
         very_much: 'خیلی زیاد',
         much: 'زیاد',
         normal: 'معمولی',
