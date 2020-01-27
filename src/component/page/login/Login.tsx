@@ -167,7 +167,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         </div>
                     </div>
 
-                    <div className="logobox">
+                    <div className="logobox text-center">
                         <img
                             src="/static/media/img/icon/catod-logo.svg"
                             className="max-w-100 max-h-100"
