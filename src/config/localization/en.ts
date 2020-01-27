@@ -91,7 +91,8 @@ export const en = {
         destructive: 'destructive',
     },
     tags: 'tags',
-    
+    back_to_login: 'back to login',
+
 
 
 

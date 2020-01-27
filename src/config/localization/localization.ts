@@ -108,6 +108,7 @@ interface ILocalization extends LocalizedStringsMethods {
         destructive: string;
     };
     tags: string;
+    back_to_login: string;
 
 
 

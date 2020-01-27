@@ -35,8 +35,6 @@ serve -s build
 
 ====================================================================================
 
-tags
-
 register & forget pass
 
 ratingSve --> action btn: loader (disable while acting).

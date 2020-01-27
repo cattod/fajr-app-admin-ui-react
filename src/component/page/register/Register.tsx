@@ -149,29 +149,27 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         if (this.state.registerStep === REGISTER_STEP.submit_mobile) {
             return (
                 <>
-                    <h3 className="desc mt-4">{Localization.register_your_mobile_number}</h3>
-                    <div className="account-form">
-                        <div className="input-wrapper__">
-                            <FixNumber
-                                defaultValue={this.state.mobile.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'mobile') }}
-                                pattern={AppRegex.mobile}
-                                patternError={Localization.validation.mobileFormat}
-                                required
-                                placeholder={Localization.mobile}
-                                onKeyUp={(e) => this.handle_keyUp_onSubmit_mobile(e)}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <BtnLoader
-                                btnClassName="btn btn-warning btn-block btn-account"
-                                loading={this.state.btnLoader}
-                                onClick={() => this.onSubmit_mobile()}
-                                disabled={!this.state.isFormValid}
-                            >
-                                {Localization.submit}
-                            </BtnLoader>
-                        </div>
+                    <div className="registerbox-caption">{Localization.register_your_mobile_number}</div>
+                    <div className="registerbox-textbox pb-0">
+                        <FixNumber
+                            defaultValue={this.state.mobile.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'mobile') }}
+                            pattern={AppRegex.mobile}
+                            patternError={Localization.validation.mobileFormat}
+                            required
+                            placeholder={Localization.mobile}
+                            onKeyUp={(e) => this.handle_keyUp_onSubmit_mobile(e)}
+                        />
+                    </div>
+                    <div className="registerbox-submit">
+                        <BtnLoader
+                            btnClassName="btn btn-primary pull-right text-uppercase"
+                            loading={this.state.btnLoader}
+                            onClick={() => this.onSubmit_mobile()}
+                            disabled={!this.state.isFormValid}
+                        >
+                            {Localization.submit}
+                        </BtnLoader>
                     </div>
                 </>
             )
@@ -251,7 +249,9 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         if (this.state.registerStep === REGISTER_STEP.validate_mobile) {
             return (
                 <>
-                    <div className="mt-4 mb-3 text-muted">
+                    <div className="registerbox-caption">{Localization.verification_code_sended_via_sms_submit_here}</div>
+
+                    <div className="registerbox-textbox text-muted">
                         {Localization.mobile}: {this.state.mobile.value}
                         <small
                             className="text-info"
@@ -261,50 +261,46 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                         </small>
                     </div>
 
-                    <h3 className="desc mt-4__">{Localization.verification_code_sended_via_sms_submit_here}</h3>
-
-                    <div className="account-form">
-                        <div className="input-wrapper__">
-                            <FixNumber
-                                key={'register_code'}
-                                defaultValue={this.state.code.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'code') }}
-                                placeholder={Localization.verification_code}
-                                pattern={AppRegex.smsCode}
-                                patternError={Localization.validation.smsCodeFormat}
-                                required
-                                onKeyUp={(e) => this.handle_keyUp_onValidate_mobile(e)}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <BtnLoader
-                                btnClassName="btn btn-warning btn-block btn-account"
-                                loading={this.state.btnLoader}
-                                onClick={() => this.onValidate_mobile()}
-                                disabled={!this.state.isFormValid}
-                            >
-                                {Localization.submit}
-                            </BtnLoader>
-                        </div>
+                    <div className="registerbox-textbox pb-0">
+                        <FixNumber
+                            key={'register_code'}
+                            defaultValue={this.state.code.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'code') }}
+                            placeholder={Localization.verification_code}
+                            pattern={AppRegex.smsCode}
+                            patternError={Localization.validation.smsCodeFormat}
+                            required
+                            onKeyUp={(e) => this.handle_keyUp_onValidate_mobile(e)}
+                        />
                     </div>
 
-                    <BtnLoader
-                        btnClassName="btn btn-link btn-sm p-align-0"
-                        loading={this.state.btnSendAgain_loader}
-                        onClick={() => this.sendAgain()}
-                        disabled={this.state.sendAgain_counter > 0}
-                    >
-                        {Localization.send_again_activationCode}
-                    </BtnLoader>
-                    {
-                        this.state.sendAgain_counter > 0 &&
-                        <small>
-                            <span>{Localization.in}</span>&nbsp;
+                    <div className="registerbox-submit">
+                        <BtnLoader
+                            btnClassName="btn btn-primary pull-right text-uppercase"
+                            loading={this.state.btnLoader}
+                            onClick={() => this.onValidate_mobile()}
+                            disabled={!this.state.isFormValid}
+                        >
+                            {Localization.submit}
+                        </BtnLoader>
+
+                        <BtnLoader
+                            btnClassName="btn btn-link btn-sm p-align-0"
+                            loading={this.state.btnSendAgain_loader}
+                            onClick={() => this.sendAgain()}
+                            disabled={this.state.sendAgain_counter > 0}
+                        >
+                            {Localization.send_again_activationCode}
+                        </BtnLoader>
+                        {
+                            this.state.sendAgain_counter > 0 &&
+                            <small>
+                                <span>{Localization.in}</span>&nbsp;
                             <span>{this.state.sendAgain_counter}</span>&nbsp;
                             <span>{Localization.second}</span>
-                        </small>
-                    }
-
+                            </small>
+                        }
+                    </div>
                 </>
             )
         }
@@ -352,56 +348,62 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         if (this.state.registerStep === REGISTER_STEP.register) {
             return (
                 <>
-                    <h3 className="desc mt-4">{Localization.create_an_account}</h3>
-                    <div className="account-form">
-                        <div className="input-wrapper">
-                            <Input
-                                defaultValue={this.state.name.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'name') }}
-                                placeholder={Localization.name}
-                                required
-                                onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
-                            />
-                            <div className="separator"></div>
-                            <Input
-                                defaultValue={this.state.username.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
-                                placeholder={Localization.username}
-                                required
-                                onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
-                            />
-                            <div className="separator"></div>
-                            <Input
-                                defaultValue={this.state.password.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
-                                placeholder={Localization.password}
-                                required
-                                type="password"
-                                onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
-                            />
-                            <div className="separator"></div>
-                            <Input
-                                defaultValue={this.state.confirmPassword.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
-                                placeholder={Localization.confirm_password}
-                                required
-                                type="password"
-                                validationFunc={(val) => this.confirmPassword_validation(val)}
-                                patternError={Localization.validation.confirmPassword}
-                                onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
-                            />
-                        </div>
+                    <div className="registerbox-caption">{Localization.create_an_account}</div>
+                    <div className="registerbox-textbox">
+                        <Input
+                            defaultValue={this.state.name.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'name') }}
+                            placeholder={Localization.name}
+                            required
+                            onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
+                            className="mb-0"
+                        />
+                    </div>
+                    <hr className="wide"></hr>
+                    <div className="registerbox-textbox">
+                        <Input
+                            defaultValue={this.state.username.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
+                            placeholder={Localization.username}
+                            required
+                            onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
+                            className="mb-0"
+                        />
+                    </div>
+                    <div className="registerbox-textbox">
+                        <Input
+                            defaultValue={this.state.password.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
+                            placeholder={Localization.password}
+                            required
+                            type="password"
+                            onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
+                            className="mb-0"
+                        />
+                    </div>
+                    <div className="registerbox-textbox no-padding-bottom">
+                        <Input
+                            defaultValue={this.state.confirmPassword.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
+                            placeholder={Localization.confirm_password}
+                            required
+                            type="password"
+                            validationFunc={(val) => this.confirmPassword_validation(val)}
+                            patternError={Localization.validation.confirmPassword}
+                            onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
+                            className="mb-0--"
+                        />
+                    </div>
 
-                        <div className="form-group">
-                            <BtnLoader
-                                btnClassName="btn btn-warning btn-block btn-account"
-                                loading={this.state.btnLoader}
-                                onClick={() => this.onRegister()}
-                                disabled={!this.state.isFormValid}
-                            >
-                                {Localization.register}
-                            </BtnLoader>
-                        </div>
+                    <div className="registerbox-submit">
+                        <BtnLoader
+                            btnClassName="btn btn-primary pull-right text-uppercase"
+                            loading={this.state.btnLoader}
+                            onClick={() => this.onRegister()}
+                            disabled={!this.state.isFormValid}
+                        >
+                            {Localization.register}
+                        </BtnLoader>
                     </div>
                 </>
             )
@@ -450,82 +452,31 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                {/* <div> */}
-                {(() => {
-                    switch (this.state.registerStep) {
-                        case REGISTER_STEP.submit_mobile:
-                            return this.submit_mobile_render();
-                        case REGISTER_STEP.validate_mobile:
-                            return this.validate_mobile_render();
-                        case REGISTER_STEP.register:
-                            return this.register_render();
-                        default:
-                            return undefined;
-                    }
-                })()}
-
-
-                <br /><br /><br /><br /><br /><br /><br/><br/><br/><br/><br/>
-                <br /><br /><br /><br /><br /><br /><br/><br/><br/><br/><br/>
-
-
                 <div className="register-container animated fadeInDown">
-                    <div className="registerbox bg-white">
+                    <div className="registerbox bg-white pb-3">
                         <div className="registerbox-title">{Localization.register}</div>
-                        <div className="registerbox-caption ">Please fill in your information</div>
-                        <div className="registerbox-textbox">
-                            <input type="text" className="form-control" placeholder="Username" />
-                        </div>
-                        <div className="registerbox-textbox">
-                            <input type="password" className="form-control" placeholder="Enter Password" />
-                        </div>
-                        <div className="registerbox-textbox">
-                            <input type="password" className="form-control" placeholder="Confirm Password" />
-                        </div>
-                        <hr className="wide" />
-                        <div className="registerbox-textbox">
-                            <input type="text" className="form-control" placeholder="Name" />
-                        </div>
-                        <div className="registerbox-textbox">
-                            <input type="text" className="form-control" placeholder="Family" />
-                        </div>
-                        <div className="registerbox-textbox">
-                            <div className="row">
-                                <div className="col-lg-6 col-sm-6 col-xs-6 padding-right-10">
-                                    <input type="text" className="form-control" placeholder="Month" />
-                                </div>
-                                <div className="col-lg-3 col-sm-3 col-xs-3 no-padding padding-right-10">
-                                    <input type="text" className="form-control" placeholder="Day" />
-                                </div>
-                                <div className="col-lg-3 col-sm-3 col-xs-3 no-padding-left">
-                                    <input type="text" className="form-control" placeholder="Year" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="registerbox-textbox no-padding-bottom">
-                            <div className="checkbox">
-                                <label>
-                                    <input type="checkbox" className="colored-primary" defaultChecked />
-                                    <span className="text darkgray-- text-muted">I agree to the Company&nbsp;
-                                        {/* <a className="themeprimary-- text-primary">Terms of Service</a> */}
-                                        <NavLink className="themeprimary-- text-primary" exact to="/register">Terms of Service</NavLink>
-                                        &nbsp;and Privacy Policy
-                                        </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div className="registerbox-submit">
-                            <input type="button" className="btn btn-primary pull-right text-uppercase" value={Localization.submit} />
-                        </div>
+
+                        {(() => {
+                            switch (this.state.registerStep) {
+                                case REGISTER_STEP.submit_mobile:
+                                    return this.submit_mobile_render();
+                                case REGISTER_STEP.validate_mobile:
+                                    return this.validate_mobile_render();
+                                case REGISTER_STEP.register:
+                                    return this.register_render();
+                                default:
+                                    return undefined;
+                            }
+                        })()}
+
                         <div className="clearfix"></div>
                         <div className="registerbox-textbox text-center">
                             <NavLink exact to="/login" className="text-muted">
-                                {Localization.login}
+                                {Localization.back_to_login}
                             </NavLink>
                         </div>
                     </div>
                 </div>
-                {/* </div> */}
 
                 <ToastContainer {...this.getNotifyContainerConfig()} />
             </>

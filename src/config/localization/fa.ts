@@ -91,6 +91,7 @@ export const fa = {
         destructive: 'تخریب کننده',
     },
     tags: 'برچسب ها',
+    back_to_login: 'بازگشت به ورود',
 
 
 
