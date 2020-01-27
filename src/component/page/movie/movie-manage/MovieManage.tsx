@@ -58,7 +58,10 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                 const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
                                 return (
                                     <div className="col mb-4" key={item.id}>
-                                        <div className="card h-100 bg-light shadow-hover shadow-default cursor-pointer"
+                                        <div className={
+                                            "card h-100 bg-light-- shadow-hover shadow-default cursor-pointer " +
+                                            (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
+                                        }
                                             onClick={() => this.goto_rating(item.id)}
                                         >
                                             <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="..." />

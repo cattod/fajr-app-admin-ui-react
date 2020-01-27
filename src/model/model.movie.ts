@@ -9,4 +9,5 @@ export interface IMovie extends BaseModel {
     pub_year: string;
     title: string;
     writer: string;
+    rated_by_user: boolean;
 }
