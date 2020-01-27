@@ -1,7 +1,7 @@
 export const en = {
     catod: 'catod',
     catod_logo: 'catod logo',
-    catod_watermark:'all right reserved for catod @2020',
+    catod_watermark: 'all right reserved for catod @2020',
     login: "login",
     register: "register",
     sign_in: 'sign in',
@@ -29,6 +29,7 @@ export const en = {
         pub_year: 'publish year',
         writer: 'writer',
         title: 'title',
+        rated_by_user_: 'rated'
     },
     rating_wrapper_obj: {
         detailed_scoring: 'detailed scoring',

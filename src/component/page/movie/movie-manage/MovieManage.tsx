@@ -10,6 +10,7 @@ import { IMovie } from '../../../../model/model.movie';
 import { History } from "history";
 import { CmpUtility } from '../../../_base/CmpUtility';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
+import { Localization } from '../../../../config/localization/localization';
 
 interface IState {
     gridData: IMovie[];
@@ -73,7 +74,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                             {
                                                 item.rated_by_user ?
                                                     <div className="progress-complete">
-                                                        <div className="progress-complete-label">کارشناسی شد</div>
+                                                        <div className="progress-complete-label">{Localization.movie_obj.rated_by_user_}</div>
                                                     </div> : ''
                                             }
                                         </div>

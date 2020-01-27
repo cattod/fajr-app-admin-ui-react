@@ -29,6 +29,7 @@ export const fa = {
         pub_year: 'تاریخ انتشار',
         writer: 'نویسنده',
         title: 'عنوان',
+        rated_by_user_: 'کارشناسی شد'
     },
     rating_wrapper_obj: {
         detailed_scoring: 'نمره دهی تفصیلی',
