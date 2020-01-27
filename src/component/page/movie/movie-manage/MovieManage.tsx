@@ -51,7 +51,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="position-relative">
+                <div className="movie-manage-wrapper position-relative">
                     <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
                         {
                             this.state.gridData.map((item) => {
@@ -59,8 +59,8 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                 return (
                                     <div className="col mb-4" key={item.id}>
                                         <div className={
-                                            "card h-100 bg-light-- shadow-hover shadow-default cursor-pointer " +
-                                            (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
+                                            "card h-100 bg-light shadow-hover shadow-default cursor-pointer overflow-hidden "
+                                            // + (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
                                         }
                                             onClick={() => this.goto_rating(item.id)}
                                         >
@@ -69,6 +69,13 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                                 <h5 className="card-title">{item.title}</h5>
                                                 <p className="card-text overflow-hidden max-h-70px">{item.description}</p>
                                             </div>
+
+                                            {
+                                                item.rated_by_user ?
+                                                    <div className="progress-complete">
+                                                        <div className="progress-complete-label">کارشناسی شد</div>
+                                                    </div> : ''
+                                            }
                                         </div>
                                     </div>
                                 )
