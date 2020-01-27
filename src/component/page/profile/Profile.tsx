@@ -9,6 +9,7 @@ import { History } from "history";
 import { ToastContainer } from "react-toastify";
 import { NETWORK_STATUS } from "../../../enum/NetworkStatus";
 import { action_user_logged_in } from "../../../redux/action/user";
+import { Localization } from "../../../config/localization/localization";
 
 interface IProps {
   logged_in_user: IUser | null;
@@ -26,7 +27,7 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
   render() {
     return (
       <>
-        <div>catod profile</div>
+        <div>{Localization.profile}</div>
 
         <ToastContainer {...this.getNotifyContainerConfig()} />
       </>

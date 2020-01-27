@@ -85,7 +85,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
 
                         <div className="page-content">
 
-                            <div className="page-breadcrumbs">
+                            <div className="page-breadcrumbs d-none">
                                 <ul className="breadcrumb">
                                     <li>
                                         <i className="fa fa-home"></i>
@@ -100,7 +100,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
 
 
                             <div className="page-header position-relative">
-                                <div className="header-title">
+                                <div className="header-title d-none">
                                     <h1>Blank Page</h1>
                                 </div>
 
