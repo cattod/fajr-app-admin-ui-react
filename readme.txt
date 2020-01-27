@@ -53,8 +53,6 @@ chart for movie
 
 save movie list
 
-maximize icon change on active
-
-andaze ax  movie widget_info ziad ast
+andaze ax movie widget_info ziad ast
 
 ====================================================================================

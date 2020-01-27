@@ -121,7 +121,10 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
                                         + (this.state.fullscreen ? 'active' : '')
                                     }
                                         onClick={() => this.toggleFullscreen()}>
-                                        <i className="fa fa-arrows-alt"></i>
+                                        <i className={
+                                            "fa fa-arrows-alt-- "
+                                            + (this.state.fullscreen ? 'fa-compress' : 'fa-expand')
+                                        }></i>
                                     </a>
                                 </div>
 
