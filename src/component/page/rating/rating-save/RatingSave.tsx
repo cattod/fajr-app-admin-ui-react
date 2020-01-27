@@ -393,7 +393,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 <div className={"widget-body " + (this.state.widget_info_collapse ? 'd-none' : '')}>
                     <div className="row">
                         <div className="col-sm-3 mb-3 mb-sm-0">
-                            <img src={CmpUtility.getImageUrl(movie_img)} alt="..." className="img-thumbnail max-w-100" />
+                            <img src={CmpUtility.getImageUrl(movie_img)} alt="" className="img-thumbnail max-w-100" />
                         </div>
                         <div className="col-sm-9">
                             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">

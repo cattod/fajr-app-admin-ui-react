@@ -66,7 +66,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                         }
                                             onClick={() => this.goto_rating(item.id)}
                                         >
-                                            <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="..." />
+                                            <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="" />
                                             <div className="card-body">
                                                 <h5 className="card-title">{item.title}</h5>
                                                 <p className="card-text overflow-hidden max-h-70px">{item.description}</p>
