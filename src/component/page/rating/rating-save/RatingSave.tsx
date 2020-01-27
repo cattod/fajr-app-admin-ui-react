@@ -94,6 +94,7 @@ interface IState {
         [key in 'remove' | 'create' | 'update']: {
             visible: boolean;
             disable: boolean;
+            loading: boolean;
         };
     };
     data: {
@@ -125,9 +126,9 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         confirmNotify_remove_loader: false,
         widget_info_collapse: true,
         actionBtn: {
-            remove: { visible: false, disable: true },
-            create: { visible: false, disable: true },
-            update: { visible: false, disable: true },
+            remove: { visible: false, disable: true, loading: false },
+            create: { visible: false, disable: true, loading: false },
+            update: { visible: false, disable: true, loading: false },
         },
         data: {
             info: undefined,
@@ -198,18 +199,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     // data: { form: formData, info: res.data.result[0].movie },
                     data: { form: formData, info: rating.movie },
                     actionBtn: {
-                        remove: { visible: true, disable: false },
-                        create: { visible: false, disable: true },
-                        update: { visible: true, disable: false },
+                        remove: { visible: true, disable: false, loading: false },
+                        create: { visible: false, disable: true, loading: false },
+                        update: { visible: true, disable: false, loading: false },
                     },
                     form_loader: false
                 });
             } else {
                 this.setState({
                     actionBtn: {
-                        remove: { visible: false, disable: true },
-                        create: { visible: true, disable: false }, // disable: true
-                        update: { visible: false, disable: true },
+                        remove: { visible: false, disable: true, loading: false },
+                        create: { visible: true, disable: false, loading: false }, // disable: true
+                        update: { visible: false, disable: true, loading: false },
                     },
                 });
 
@@ -246,34 +247,46 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private async create() {
-        // debugger;
+        this.setState({
+            actionBtn: {
+                ...this.state.actionBtn,
+                create: { ...this.state.actionBtn.create, loading: true },
+            }
+        });
         const res = await this._ratingService.create(this.getFormData()).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
         });
-        debugger;
         if (res) {
-            debugger;
             this.apiSuccessNotify();
             this.ratingId = res.data.id;
             this.setState({
                 actionBtn: {
-                    remove: { visible: true, disable: false },
-                    create: { visible: false, disable: true },
-                    update: { visible: true, disable: false },
+                    remove: { visible: true, disable: false, loading: false },
+                    create: { visible: false, disable: true, loading: false },
+                    update: { visible: true, disable: false, loading: false },
                 },
             });
         }
     }
 
     private async update() {
-        debugger;
         if (!this.ratingId) return;
+        this.setState({
+            actionBtn: {
+                ...this.state.actionBtn,
+                update: { ...this.state.actionBtn.update, loading: true },
+            }
+        });
         const res = await this._ratingService.update(this.getFormData(), this.ratingId).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'update_error' } });
         });
-        debugger;
+        this.setState({
+            actionBtn: {
+                ...this.state.actionBtn,
+                update: { ...this.state.actionBtn.update, loading: false },
+            }
+        });
         if (res) {
-            debugger;
             this.apiSuccessNotify();
         }
     }
@@ -506,7 +519,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                         this.state.actionBtn.create.visible ?
                             <div className="widget-buttons buttons-bordered--">
                                 <button className="btn btn-success btn-xs btn-circle" onClick={() => this.create()}
-                                    disabled={this.state.actionBtn.create.disable}
+                                    disabled={this.state.actionBtn.create.disable || this.state.actionBtn.create.loading}
                                 >
                                     <i className="fa fa-save"></i>
                                 </button>
@@ -517,7 +530,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                         this.state.actionBtn.update.visible ?
                             <div className="widget-buttons buttons-bordered--">
                                 <button className="btn btn-primary btn-xs btn-circle" onClick={() => this.update()}
-                                    disabled={this.state.actionBtn.update.disable}
+                                    disabled={this.state.actionBtn.update.disable || this.state.actionBtn.update.loading}
                                 >
                                     <i className="fa fa-edit"></i>
                                 </button>
@@ -528,7 +541,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                         this.state.actionBtn.remove.visible ?
                             <div className="widget-buttons buttons-bordered--">
                                 <button className="btn btn-danger btn-xs btn-circle" onClick={() => this.open_confirmNotify_remove()}
-                                    disabled={this.state.actionBtn.remove.disable}
+                                    disabled={this.state.actionBtn.remove.disable || this.state.actionBtn.remove.loading}
                                 >
                                     <i className="fa fa-trash"></i>
                                 </button>
@@ -648,7 +661,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 this.state.actionBtn.create.visible ?
                                     <BtnLoader
                                         btnClassName="btn btn-success mr-1"
-                                        loading={false}
+                                        loading={this.state.actionBtn.create.loading}
                                         onClick={() => this.create()}
                                         disabled={this.state.actionBtn.create.disable}
                                     >
@@ -660,7 +673,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 this.state.actionBtn.update.visible ?
                                     <BtnLoader
                                         btnClassName="btn btn-primary mr-1"
-                                        loading={false}
+                                        loading={this.state.actionBtn.update.loading}
                                         onClick={() => this.update()}
                                         disabled={this.state.actionBtn.update.disable}
                                     >
@@ -672,7 +685,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 this.state.actionBtn.remove.visible ?
                                     <BtnLoader
                                         btnClassName="btn btn-danger"
-                                        loading={false}
+                                        loading={this.state.actionBtn.remove.loading}
                                         onClick={() => this.open_confirmNotify_remove()}
                                         disabled={this.state.actionBtn.remove.disable}
                                     >
