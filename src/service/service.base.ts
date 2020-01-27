@@ -92,7 +92,7 @@ export abstract class BaseService {
                     // New request with new token
                     const config = error.config;
                     config.headers['authorization'] = `Bearer ${token.data.id}`; // Authorization
-                    config.baseURL = '';
+                    // config.baseURL = '';
 
                     return new Promise((resolve, reject) => {
                         axios.request(config).then(response => {
