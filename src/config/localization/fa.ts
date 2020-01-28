@@ -74,7 +74,7 @@ export const fa = {
         true_vision_of_enemy: 'نگاه صحیح به دشمن',
         true_historiography: 'روایت صحیح از تاریخ',
 
-        write_comment: 'نگارش نظر',
+        write_comment: 'نظر کلی خود را درباره فیلم بیان کنید:',
         comment_about_movie: 'نظر در مورد فیلم',
     },
     rating_value_obj: {

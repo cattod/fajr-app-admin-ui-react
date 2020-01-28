@@ -54,12 +54,12 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         return (
             <>
                 <div className="movie-manage-wrapper position-relative">
-                    <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+                    <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 px-1">
                         {
                             this.state.gridData.map((item) => {
                                 const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
                                 return (
-                                    <div className="col mb-4" key={item.id}>
+                                    <div className="col mb-3 px-2" key={item.id}>
                                         <div className={
                                             "card h-100 bg-light shadow-hover shadow-default cursor-pointer overflow-hidden "
                                             // + (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
@@ -68,8 +68,12 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                                         >
                                             <img src={CmpUtility.getImageUrl(movie_img)} className="card-img-top" alt="" />
                                             <div className="card-body">
-                                                <h5 className="card-title">{item.title}</h5>
-                                                <p className="card-text overflow-hidden max-h-70px">{item.description}</p>
+                                                <h5 className="card-title font-weight-bold">{item.title}</h5>
+                                                <p className="card-text overflow-hidden max-h-70px">
+                                                    {/* {item.description} */}
+                                                    <span>{Localization.movie_obj.director}: </span>
+                                                    <span className="text-muted">{item.director}</span>
+                                                </p>
                                             </div>
 
                                             {

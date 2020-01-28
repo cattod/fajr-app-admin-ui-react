@@ -426,7 +426,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
     private _registered = false;
     async onRegister() {
         if (!this.state.isFormValid || this._registered) return;
-        debugger;
+        // debugger;
         this.setState({ ...this.state, btnLoader: true });
         const username = this.state.username.value!;
         const password = this.state.password.value!;

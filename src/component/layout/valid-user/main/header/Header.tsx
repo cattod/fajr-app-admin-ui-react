@@ -82,7 +82,8 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
     render() {
         const logged_in_user = this.props.logged_in_user;
         const username = logged_in_user ? logged_in_user.username : '';
-        const fullname = logged_in_user ? CmpUtility.getPersonFullName(logged_in_user.person) : '';
+        let fullname = logged_in_user ? CmpUtility.getPersonFullName(logged_in_user.person) : '';
+        fullname = fullname || username;
         const email = logged_in_user ? logged_in_user.person.email : '';
 
         return (
@@ -128,7 +129,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                             <Dropdown.Menu flip={false} as="ul"
                                                 className="pull-right dropdown-arrow dropdown-login-area"
                                             >
-                                                <li className="username d-block"><a className="d-block">{username}</a></li>
+                                                <li className="username d-block--"><a className="d-block">{username}</a></li>
                                                 <li className="email d-none"><a>{email}</a></li>
 
                                                 <li className="d-none">

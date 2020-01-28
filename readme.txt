@@ -43,7 +43,7 @@ breadcrumb & pageTitle
 
 ====================================================================================
 
-btn larger for big finger
+client side search
 
 chart for movie
 
