@@ -129,7 +129,8 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                                 onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
                                 required
                                 elRef={input => { this.inputUsername = input; }}
-                                placeholder={Localization.username}
+                                // placeholder={Localization.username}
+                                placeholder={`${Localization.username} (${Localization.mobile})`}
                                 onKeyUp={(e) => this.handle_keyUp(e)}
                             />
                         </div>
