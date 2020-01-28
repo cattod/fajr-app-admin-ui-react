@@ -28,12 +28,12 @@ class DashboardComponent extends BaseComponent<IProps, IState> {
     this.goto_movie();
   }
 
-  componentWillMount() {
-    console.log(44445);
-  }
-  componentDidMount() {
-    console.log(555);
-  }
+  // componentWillMount() {
+  //   console.log(44445);
+  // }
+  // componentDidMount() {
+  //   console.log(555);
+  // }
 
   private goto_movie(): void {
     this.props.history.push(`/movie/manage`);

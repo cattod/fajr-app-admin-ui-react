@@ -205,6 +205,14 @@
   body.rtl & {
     text-align: right;
   }
+
+  &.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: $white;
+  }
 }
 
 /*#endregion Login Page*/
