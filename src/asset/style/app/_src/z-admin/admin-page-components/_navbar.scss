@@ -1459,7 +1459,7 @@
 
 @media only screen and (max-width: 530px) {
   .navbar {
-    height: 90px;
+    // height: 90px; // fajr?
     .sidebar-collapse {
       // #{$dir-mode-align}: auto;
       // #{$dir-mode-align-inverse}: 0;
@@ -1486,7 +1486,7 @@
       }
     }
     .navbar-inner {
-      min-height: 90px; // ?
+      // min-height: 90px; // ?  // fajr?
       
       .navbar-header {
         float: none !important;
@@ -1507,7 +1507,7 @@
             body.rtl & {
               padding-right: 0;
             }
-            top: 45px;
+            // top: 45px; // fajr?
             > li {
               .dropdown-menu {
                 &.dropdown-notifications {

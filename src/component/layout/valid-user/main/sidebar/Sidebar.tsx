@@ -81,9 +81,9 @@ class LayoutMainSidebarComponent extends BaseComponent<IProps, any>{
         return (
             <>
                 <div className={
-                    "page-sidebar "
-                    + (this.props.theme.isSidebarHide ? 'hide ' : '')
-                    + (this.props.theme.sidebar === 'compact' ? 'menu-compact ' : '')
+                    "page-sidebar d-none "
+                    + (this.props.theme.isSidebarHide ? 'hide_____ ' : '')
+                    + (this.props.theme.sidebar === 'compact' ? 'menu-compact____ ' : '')
                 }>
                     <div className="sidebar-header-wrapper">
                         <input type="text" className="searchinput" disabled />

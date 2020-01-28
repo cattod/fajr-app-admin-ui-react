@@ -101,7 +101,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                             </div> */}
 
                             <div className={
-                                "sidebar-collapse "
+                                "sidebar-collapse d-none "
                                 + (this.props.theme.sidebar === 'compact' ? 'active' : '')
                             }
                                 onClick={() => this.toggleCompactSidebar()}

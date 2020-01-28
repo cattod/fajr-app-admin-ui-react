@@ -85,7 +85,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
 
                         <LayoutMainSidebar {...this.props} />
 
-                        <div className="page-content">
+                        <div className="page-content ml-0">
 
                             <div className="page-breadcrumbs d-none">
                                 <ul className="breadcrumb">
@@ -108,7 +108,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
 
                                 <div className="header-buttons">
                                     <a className={
-                                        "sidebar-toggler cursor-pointer "
+                                        "sidebar-toggler cursor-pointer d-none "
                                         + (this.props.theme.isSidebarHide ? 'active' : '')
                                     }
                                         onClick={() => this.toggleSidebar()}>
