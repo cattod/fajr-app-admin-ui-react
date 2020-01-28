@@ -124,7 +124,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         <span>{Localization.account_logobox_header_text}</span>
                     </div>
 
-                    <div className="loginbox bg-white">
+                    <div className="loginbox bg-white--">
                         <div className="loginbox-title text-uppercase mb-2">{Localization.sign_in}</div>
 
                         <div className="loginbox-textbox">

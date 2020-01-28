@@ -506,7 +506,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                         <span>{Localization.account_logobox_header_text}</span>
                     </div>
 
-                    <div className="registerbox bg-white pb-3">
+                    <div className="registerbox bg-white-- pb-3">
                         <div className="registerbox-title">{Localization.register}</div>
 
                         {(() => {
