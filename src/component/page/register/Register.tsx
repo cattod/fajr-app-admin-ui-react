@@ -13,6 +13,13 @@ import { FixNumber } from '../../form/fix-number/FixNumber';
 import { AppRegex } from '../../../config/regex';
 import { BtnLoader } from '../../form/btn-loader/BtnLoader';
 import { Input } from '../../form/input/Input';
+import { LoginService } from '../../../service/service.login';
+import { Utility } from '../../../asset/script/utility';
+import { IUser } from '../../../model/model.user';
+import { IToken } from '../../../model/model.token';
+import { action_user_logged_in } from '../../../redux/action/user';
+import { action_set_token } from '../../../redux/action/token';
+import { action_set_authentication } from '../../../redux/action/authentication';
 
 enum REGISTER_STEP {
     submit_mobile = 'submit_mobile',
@@ -55,11 +62,14 @@ type TInputType = 'username' | 'password' | 'name' | 'code' | 'mobile' | 'confir
 interface IProps {
     history: History;
     internationalization: TInternationalization;
+    onUserLoggedIn: (user: IUser) => void;
+    onSetToken: (token: IToken) => void;
+    onSetAuthentication: (auth: string) => void;
 }
 
 class RegisterComponent extends BaseComponent<IProps, IState> {
     state: IState = {
-        registerStep: REGISTER_STEP.submit_mobile,
+        registerStep: REGISTER_STEP.submit_mobile, // register
         mobile: {
             value: undefined,
             isValid: false,
@@ -70,7 +80,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         },
         name: {
             value: undefined,
-            isValid: false,
+            isValid: true, // false,
         },
         username: {
             value: undefined,
@@ -82,7 +92,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         },
         confirmPassword: {
             value: undefined,
-            isValid: false,
+            isValid: true, // false
         },
         isFormValid: false,
         btnLoader: false,
@@ -132,11 +142,11 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                 regFormValidate = inpObj.isValid && regFormValidate;
             });
 
-            if (inputType === 'password') {
+            /* if (inputType === 'password') {
                 regFormValidate = (this.state.confirmPassword.value === val) && regFormValidate;
             } else if (inputType === 'confirmPassword') {
                 regFormValidate = (this.state.password.value === val) && regFormValidate;
-            }
+            } */
 
             return regFormValidate;
         } else {
@@ -317,7 +327,11 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         if (!response) return;
 
         this.signup_token = response.data.signup_token;
-        this.setState({ ...this.state, registerStep: REGISTER_STEP.register, isFormValid: false });
+        this.setState({
+            ...this.state,
+            registerStep: REGISTER_STEP.register, isFormValid: false,
+            username: { value: this.state.mobile.value, isValid: true }
+        });
     }
     handle_keyUp_onValidate_mobile(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
@@ -349,7 +363,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
             return (
                 <>
                     <div className="registerbox-caption">{Localization.create_an_account}</div>
-                    <div className="registerbox-textbox">
+                    <div className="registerbox-textbox d-none">
                         <Input
                             defaultValue={this.state.name.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'name') }}
@@ -359,8 +373,8 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                             className="mb-0"
                         />
                     </div>
-                    <hr className="wide"></hr>
-                    <div className="registerbox-textbox">
+                    <hr className="wide d-none"></hr>
+                    <div className="registerbox-textbox d-none">
                         <Input
                             defaultValue={this.state.username.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
@@ -370,7 +384,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                             className="mb-0"
                         />
                     </div>
-                    <div className="registerbox-textbox">
+                    <div className="registerbox-textbox pb-0">
                         <Input
                             defaultValue={this.state.password.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
@@ -378,10 +392,10 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                             required
                             type="password"
                             onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
-                            className="mb-0"
+                            className="mb-0--"
                         />
                     </div>
-                    <div className="registerbox-textbox no-padding-bottom">
+                    <div className="registerbox-textbox pb-0 d-none">
                         <Input
                             defaultValue={this.state.confirmPassword.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
@@ -412,7 +426,10 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
     private _registered = false;
     async onRegister() {
         if (!this.state.isFormValid || this._registered) return;
+        debugger;
         this.setState({ ...this.state, btnLoader: true });
+        const username = this.state.username.value!;
+        const password = this.state.password.value!;
         let res = await this._registerService.signUp({
             "password": this.state.password.value!,
             "username": this.state.username.value!,
@@ -428,6 +445,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
 
         this._registered = true;
         this.signUpNotify();
+        this.login(username, password);
     }
     handle_keyUp_onRegister(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
@@ -438,15 +456,46 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
 
     signUpNotify() {
         return toast.success(
-            Localization.msg.ui.msg3,
+            Localization.msg.ui.registered_successful,
             this.getNotifyConfig({
                 autoClose: Setup.notify.timeout.success,
-                onClose: this.onSignUpNotifyClosed.bind(this)
+                // onClose: this.onSignUpNotifyClosed.bind(this)
             })
         );
     }
-    onSignUpNotifyClosed() {
+    private onSignUpNotifyClosed() {
         this.props.history.push('/login');
+    }
+
+    private _loginService = new LoginService();
+    async login(username: string, password: string) {
+        // if (!this.state.isFormValid) { return; }
+        // this.setState({ ...this.state, btnLoader: true });
+        debugger;
+        let authObj = { username: username, password: password };
+        let res_token = await this._loginService.login(authObj).catch((error) => {
+            this.handleError({ error: error.response, toastOptions: { toastId: 'login_error' } });
+            // this.setState({ ...this.state, btnLoader: false });
+        });
+
+        let res_user;
+
+        if (res_token) {
+            this.props.onSetAuthentication(Utility.get_encode_auth(authObj));
+            this.props.onSetToken(res_token.data);
+            // this._loginService.setToken(res_token.data);
+
+            res_user = await this._loginService.profile().catch((error) => {
+                this.handleError({ error: error.response, toastOptions: { toastId: 'login_error' } });
+            });
+        }
+
+        // this.setState({ ...this.state, btnLoader: false });
+
+        if (res_user) {
+            this.props.onUserLoggedIn(res_user.data);
+            this.props.history.push('/dashboard');
+        }
     }
 
     render() {
@@ -502,6 +551,9 @@ const state2props = (state: redux_state) => {
 
 const dispatch2props = (dispatch: Dispatch) => {
     return {
+        onUserLoggedIn: (user: IUser) => dispatch(action_user_logged_in(user)),
+        onSetToken: (token: IToken) => dispatch(action_set_token(token)),
+        onSetAuthentication: (auth: string) => dispatch(action_set_authentication(auth))
     }
 }
 
