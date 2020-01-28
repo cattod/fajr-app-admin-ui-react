@@ -12,13 +12,20 @@ class LayoutAccountFooterComponent extends React.Component<IProps>{
     render() {
         return (
             <>
-              <footer className="footer sticky-footer text-center text-muted">
-                <div className="d-inline-block mr-4">{Localization.catod_watermark}</div>
-                <div className="d-inline-block">
-                    <span className="text-muted--">{Localization.version}: </span>
-                    <span className="font-weight-bold--">{process.env.REACT_APP_VERSION}</span>
-                </div>
-            </footer>  
+                <footer className="footer sticky-footer text-center text-muted">
+                    {/* <div className="d-inline-block mr-4">{Localization.catod_watermark}</div> */}
+                    <div className="d-inline-block mr-4 footer-watermark">
+                        <span>ساخته شده با </span>
+                        <i className="fa fa-heart icon-heart"></i>
+                        <span> و </span>
+                        <i className="fa fa-coffee icon-coffee"></i>
+                        <span> در ایران.</span>
+                    </div>
+                    <div className="d-inline-block">
+                        <span className="text-muted--">{Localization.version}: </span>
+                        <span className="font-weight-bold--">{process.env.REACT_APP_VERSION}</span>
+                    </div>
+                </footer>
             </>
         )
     }
