@@ -311,6 +311,10 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
     return (
       <>
         <div className="register-container animated fadeInDown">
+          <div className="logobox text-center mt-0 mb-3 header">
+            <span>{Localization.account_logobox_header_text}</span>
+          </div>
+
           <div className="registerbox bg-white pb-3">
             <div className="registerbox-title">{Localization.forgot_password}</div>
 
@@ -333,14 +337,14 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
             </div>
           </div>
 
-          <div className="logobox text-center">
+          {/* <div className="logobox text-center">
             <img
               src="/static/media/img/icon/catod-logo.svg"
               className="max-w-100 max-h-100"
               alt={Localization.catod_logo}
               title={Localization.catod}
             />
-          </div>
+          </div> */}
         </div>
 
         <ToastContainer {...this.getNotifyContainerConfig()} />

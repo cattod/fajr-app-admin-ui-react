@@ -96,6 +96,8 @@ export const fa = {
     },
     tags: 'برچسب ها',
     back_to_login: 'بازگشت به ورود',
+    account_logobox_header_text: 'سامانه ارزیابی فیلم های جشنواره فجر 38',
+
 
 
 
@@ -119,7 +121,7 @@ export const fa = {
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
-            registered_successful:'ثبت نام با موفقیت انجام شد'
+            registered_successful: 'ثبت نام با موفقیت انجام شد'
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

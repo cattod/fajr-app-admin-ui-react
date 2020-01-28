@@ -120,8 +120,8 @@ class LoginComponent extends BaseComponent<IProps, IState> {
             <>
                 {/* <div> */}
                 <div className="login-container animated fadeInDown">
-                    <div className="logobox text-center mt-0 mb-3">
-                        <span>سامانه ارزیابی فیلم های جشنواره فجر 38</span>
+                    <div className="logobox text-center mt-0 mb-3 header">
+                        <span>{Localization.account_logobox_header_text}</span>
                     </div>
 
                     <div className="loginbox bg-white">
@@ -172,14 +172,14 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         </div>
                     </div>
 
-                    <div className="logobox text-center">
+                    {/* <div className="logobox text-center">
                         <img
                             src="/static/media/img/icon/catod-logo.svg"
                             className="max-w-100 max-h-100"
                             alt={Localization.catod_logo}
                             title={Localization.catod}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 {/* </div> */}
 

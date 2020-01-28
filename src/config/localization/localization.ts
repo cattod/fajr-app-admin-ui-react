@@ -113,6 +113,10 @@ interface ILocalization extends LocalizedStringsMethods {
     };
     tags: string;
     back_to_login: string;
+    account_logobox_header_text: string;
+
+
+
 
 
 
