@@ -91,6 +91,10 @@
   max-height: 70px;
 }
 
+.max-h-300px {
+  max-height: 300px;
+}
+
 .max-h-2 {
   max-height: 2rem;
 }
@@ -161,6 +165,10 @@ hr {
 
 .word-break-break-all {
   word-break: break-all;
+}
+
+.overflow-wrap-break-word {
+  overflow-wrap: break-word;
 }
 
 /*
