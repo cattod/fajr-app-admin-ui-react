@@ -124,7 +124,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         // formData: undefined,
         confirmNotify_remove_show: false,
         confirmNotify_remove_loader: false,
-        widget_info_collapse: true,
+        widget_info_collapse: false,
         actionBtn: {
             remove: { visible: false, disable: true, loading: false },
             create: { visible: false, disable: true, loading: false },
