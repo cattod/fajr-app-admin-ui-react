@@ -1,3 +1,11 @@
+$rating-save-btn-el-bgColor: (
+  5: #8ea604,
+  4: #f5bb00,
+  3: #ec9f05,
+  2: #d76a03,
+  1: #bf3100
+);
+
 .rating-save-wrapper {
   .form-box {
     border: 2px solid #ddd;
@@ -6,7 +14,62 @@
     .form-box-header {
       position: absolute;
       top: -1rem;
-      right: 2rem;
+      // right: 1rem;
+      body:not(.rtl) & {
+        left: 1rem;
+      }
+      body.rtl & {
+        right: 1rem;
+      }
+      background-color: #fbfbfb;
+    }
+    .form-box-body {
+      .btn-group {
+        display: flex;
+        .btn {
+          opacity: 0.5;
+          box-shadow: none;
+          body:not(.rtl) & {
+            margin-right: 0.125rem;
+          }
+          body.rtl & {
+            margin-left: 0.125rem;
+          }
+
+          &.btn-mode-1,
+          &.btn-mode-2 {
+            @for $i from 1 to 6 {
+              &.btn-el-#{$i} {
+                background-color: rgba(map-get($rating-save-btn-el-bgColor, $i), 1); // 0.5
+                border-color: rgba(map-get($rating-save-btn-el-bgColor, $i), 1); // 0.5
+
+                // &.active {
+                //   background-color: rgba(map-get($rating-save-btn-el-bgColor, $i), 1);
+                //   border-color: rgba(map-get($rating-save-btn-el-bgColor, $i), 1);
+                // }
+              }
+            }
+          }
+          &.btn-mode-3 {
+            &.btn-el-1 {
+              background-color: map-get($rating-save-btn-el-bgColor, 1);
+              border-color: map-get($rating-save-btn-el-bgColor, 1);
+            }
+            &.btn-el-2 {
+              background-color: map-get($rating-save-btn-el-bgColor, 3);
+              border-color: map-get($rating-save-btn-el-bgColor, 3);
+            }
+            &.btn-el-3 {
+              background-color: map-get($rating-save-btn-el-bgColor, 5);
+              border-color: map-get($rating-save-btn-el-bgColor, 5);
+            }
+          }
+
+          &.active {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { redux_state } from '../../../../redux/app_state';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -572,29 +572,43 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             </div>
                             : ''
                     }
-                    <div className="widget-buttons buttons-bordered ml-3">
+                    <div className="widget-buttons buttons-bordered ml-3 d-none">
                         <button className="btn btn-primary btn-xs btn-circle" onClick={() => this.goto_movie()}>
                             <i className="fa fa-reply-app"></i>
                         </button>
                     </div>
                 </div>
                 <div className="widget-body">
-                    <div className="row mb-4 mt-2">
+                    <div className="row mb-4 mt-4">
                         <div className="col-12">
-                            <span className="h5 text-muted">{Localization.rating_obj.overall_rate}: </span>
 
-                            <Rating
-                                className="rating-star"
-                                emptySymbol="fa fa-star fa-2x rating-empty"
-                                fullSymbol="fa fa-star fa-2x rating-full"
-                                // fractions={2}
-                                direction={this.props.internationalization.rtl ? 'rtl' : 'ltr'}
-                                initialRating={this.state.data.form.overall_rate.value}
-                                onChange={(newRate) => this.on_overall_rate_Change(newRate)}
-                                // onClick={(newRate) => this.on_overall_rate_Change(newRate)}
-                                // start={1}
-                                stop={10}
-                            />
+                            <div className="form-box rounded px-3 pt-4">
+                                <div className="form-box-header h5 px-2">
+                                    {Localization.rating_obj.overall_rate}
+                                </div>
+                                <div className="form-box-body">
+                                    <div className="row">
+                                        <div className="col-12 mb-4 text-center">
+                                            <Rating
+                                                className="rating-star"
+                                                emptySymbol="fa fa-star fa-2x rating-empty"
+                                                fullSymbol="fa fa-star fa-2x rating-full"
+                                                // fractions={2}
+                                                direction={this.props.internationalization.rtl ? 'rtl' : 'ltr'}
+                                                initialRating={this.state.data.form.overall_rate.value}
+                                                onChange={(newRate) => this.on_overall_rate_Change(newRate)}
+                                                // onClick={(newRate) => this.on_overall_rate_Change(newRate)}
+                                                // start={1}
+                                                stop={10}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <span className="h5 text-muted">{Localization.rating_obj.overall_rate}: </span> */}
+
+
                         </div>
                     </div>
 
@@ -607,12 +621,61 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     {
                         this.formStructure.groups.map((item, index) => {
                             return (
-                                <div className="row mb-4" key={index}>
-                                    <div className="col-12 mb-2">
-                                        <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj[item.title]}</div>
+                                <div className="row mb-5" key={index}>
+                                    <div className="col-12">
+                                        <div className="form-box rounded px-3 pt-4">
+                                            <div className="form-box-header h5 px-2">
+                                                {Localization.rating_wrapper_obj[item.title]}
+                                            </div>
+                                            <div className="form-box-body">
+                                                {
+                                                    item.items.map(name => {
+                                                        return (
+                                                            <Fragment key={name}>
+                                                                <div className="row">
+                                                                    <div className="col-12 mb-4">
+
+                                                                        <div className="h6 text-muted">
+                                                                            <i className="fa fa-circle mr-2"></i>
+                                                                            <span>{Localization.rating_obj[name]}</span>
+                                                                        </div>
+
+                                                                        <ToggleButtonGroup
+                                                                            className="btn-group-sm"
+                                                                            type="radio"
+                                                                            name={`${item.title}-${name}`}
+                                                                            defaultValue={(this.state.data.form as any)[name].value}
+                                                                            value={(this.state.data.form as any)[name].value}
+                                                                            onChange={(rate: number) => this.on_general_el_changed(name as formNumberType, rate)}
+                                                                        >
+                                                                            {
+                                                                                this.getRateList(item.mode as 1 | 2 | 3).map(rate => (
+                                                                                    <ToggleButton
+                                                                                        key={rate.value}
+                                                                                        className={`min-w-70px-- btn-el-${rate.value} btn-mode-${item.mode} `}
+                                                                                        value={rate.value}
+                                                                                    >
+                                                                                        {Localization.rating_value_obj[rate.title]}
+                                                                                    </ToggleButton>
+                                                                                ))
+                                                                            }
+                                                                        </ToggleButtonGroup>
+
+                                                                    </div>
+                                                                </div>
+                                                            </Fragment>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {
+                                    {/* <div className="col-12 mb-2">
+                                        <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj[item.title]}</div>
+                                    </div> */}
+
+                                    {/* {
                                         item.items.map(name => {
                                             return (
                                                 <div className="col-12 mb-2" key={name}>
@@ -641,7 +704,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                 </div>
                                             )
                                         })
-                                    }
+                                    } */}
                                 </div>
                             )
                         })
@@ -684,40 +747,43 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             {
                                 this.state.actionBtn.create.visible ?
                                     <BtnLoader
-                                        btnClassName="btn btn-success mr-1"
+                                        btnClassName="btn btn-success btn-sm mr-1 btn-circle"
                                         loading={this.state.actionBtn.create.loading}
                                         onClick={() => this.create()}
                                         disabled={this.state.actionBtn.create.disable}
                                     >
-                                        {Localization.create}&nbsp;<i className="fa fa-save"></i>
+                                        {/* {Localization.create}&nbsp; */}
+                                        <i className="fa fa-save"></i>
                                     </BtnLoader>
                                     : ''
                             }
                             {
                                 this.state.actionBtn.update.visible ?
                                     <BtnLoader
-                                        btnClassName="btn btn-primary mr-1"
+                                        btnClassName="btn btn-primary btn-sm mr-1 btn-circle"
                                         loading={this.state.actionBtn.update.loading}
                                         onClick={() => this.update()}
                                         disabled={this.state.actionBtn.update.disable}
                                     >
-                                        {Localization.update}&nbsp;<i className="fa fa-edit"></i>
+                                        {/* {Localization.update}&nbsp; */}
+                                        <i className="fa fa-edit"></i>
                                     </BtnLoader>
                                     : ''
                             }
                             {
                                 this.state.actionBtn.remove.visible ?
                                     <BtnLoader
-                                        btnClassName="btn btn-danger"
+                                        btnClassName="btn btn-danger btn-sm btn-circle"
                                         loading={this.state.actionBtn.remove.loading}
                                         onClick={() => this.open_confirmNotify_remove()}
                                         disabled={this.state.actionBtn.remove.disable}
                                     >
-                                        {Localization.remove}&nbsp;<i className="fa fa-trash"></i>
+                                        {/* {Localization.remove}&nbsp; */}
+                                        <i className="fa fa-trash"></i>
                                     </BtnLoader>
                                     : ''
                             }
-                            <div className="btn btn-primary pull-right" onClick={() => this.goto_movie()}>
+                            <div className="btn btn-primary pull-right d-none" onClick={() => this.goto_movie()}>
                                 {Localization.go_back}&nbsp;<i className="fa fa-reply-app"></i>
                             </div>
 
@@ -733,28 +799,30 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="row">
-                    <div className="col-12">
-                        {this.widget_info_render()}
+                <div className="rating-save-wrapper">
+                    <div className="row">
+                        <div className="col-12">
+                            {this.widget_info_render()}
+                        </div>
+
+                        <div className="col-12">
+                            {this.widget_form_render()}
+                        </div>
                     </div>
 
-                    <div className="col-12">
-                        {this.widget_form_render()}
-                    </div>
+                    <ConfirmNotify
+                        show={this.state.confirmNotify_remove_show}
+                        onHide={() => this.close_confirmNotify_remove()}
+                        onConfirm={() => this.confirmNotify_onConfirm_remove()}
+                        msg={Localization.msg.ui.item_will_be_removed_continue}
+                        confirmBtn_className='text-danger'
+                        confirmBtn_text={Localization.remove}
+                        closeBtn_text={Localization.cancel}
+                        btnLoader={this.state.confirmNotify_remove_loader}
+                    />
+
+                    <ToastContainer {...this.getNotifyContainerConfig()} />
                 </div>
-
-                <ConfirmNotify
-                    show={this.state.confirmNotify_remove_show}
-                    onHide={() => this.close_confirmNotify_remove()}
-                    onConfirm={() => this.confirmNotify_onConfirm_remove()}
-                    msg={Localization.msg.ui.item_will_be_removed_continue}
-                    confirmBtn_className='text-danger'
-                    confirmBtn_text={Localization.remove}
-                    closeBtn_text={Localization.cancel}
-                    btnLoader={this.state.confirmNotify_remove_loader}
-                />
-
-                <ToastContainer {...this.getNotifyContainerConfig()} />
             </>
         )
     }
