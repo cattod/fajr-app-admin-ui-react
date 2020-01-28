@@ -258,7 +258,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
         });
         if (res) {
-            this.apiSuccessNotify();
+            // this.apiSuccessNotify();
             this.ratingId = res.data.id;
             this.setState({
                 actionBtn: {
@@ -267,6 +267,11 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     update: { visible: true, disable: false, loading: false },
                 },
             });
+
+            setTimeout(() => {
+                this.apiSuccessNotify();
+            }, 300);
+            this.goto_movie();
         }
     }
 
@@ -288,7 +293,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             }
         });
         if (res) {
-            this.apiSuccessNotify();
+            // this.apiSuccessNotify();
+
+            setTimeout(() => {
+                this.apiSuccessNotify();
+            }, 300);
+            this.goto_movie();
         }
     }
 
@@ -299,18 +309,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         this.setState({ confirmNotify_remove_show: false });
     }
     private async confirmNotify_onConfirm_remove() {
-        debugger;
+        // debugger;
         if (!this.ratingId) return;
 
         this.setState({ confirmNotify_remove_loader: true });
 
         const res = await this._ratingService.remove(this.ratingId).catch(err => {
-            debugger;
+            // debugger;
             this.handleError({ error: err.response, toastOptions: { toastId: 'onConfirm_remove_error' } });
         });
-        debugger;
+        // debugger;
         if (res) {
-            debugger;
+            // debugger;
             setTimeout(() => {
                 this.apiSuccessNotify();
             }, 300);
@@ -329,6 +339,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private handleSelectInputChange(value: { label: string, value: string }[]) {
+        console.log(value);
         this.setState({
             ...this.state,
             data: {
@@ -343,12 +354,24 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             },
         })
     }
+    private isDuplicateTag(tagVal: string): boolean {
+        let isDup = false;
+        for (let i = 0; i < this.state.data.form.tags.value.length; i++) {
+            const c_tag = this.state.data.form.tags.value[i];
+            if (c_tag.value === tagVal) {
+                isDup = true;
+                break;
+            }
+        }
+        return isDup;
+    }
     handle_tagsKeyDown(event: any/* SyntheticKeyboardEvent<HTMLElement> */) {
         if (!this.state.tags_inputValue) return;
         switch (event.key) {
             case 'Enter':
             case 'Tab':
                 const newVal = this.state.tags_inputValue;
+                if (this.isDuplicateTag(newVal)) return;
                 this.setState({
                     ...this.state,
                     data: {
