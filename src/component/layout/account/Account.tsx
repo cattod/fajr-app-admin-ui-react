@@ -33,6 +33,16 @@ class LayoutAccountComponent extends React.Component<IProps> {
         }
     }
 
+    componentDidMount() {
+        // console.log('add class');
+        document.body.classList.add('layout-account');
+    }
+
+    componentWillUnmount() {
+        // console.log('remove class');
+        document.body.classList.remove('layout-account');
+    }
+
     shouldComponentUpdate() {
         if (this.props.logged_in_user) {
             this.props.history.push("/dashboard");
