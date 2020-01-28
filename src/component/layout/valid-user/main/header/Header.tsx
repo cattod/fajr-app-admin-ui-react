@@ -128,17 +128,17 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                             <Dropdown.Menu flip={false} as="ul"
                                                 className="pull-right dropdown-arrow dropdown-login-area"
                                             >
-                                                <li className="username"><a>{username}</a></li>
-                                                <li className="email"><a>{email}</a></li>
+                                                <li className="username d-block"><a className="d-block">{username}</a></li>
+                                                <li className="email d-none"><a>{email}</a></li>
 
-                                                <li>
+                                                <li className="d-none">
                                                     <div className="avatar-area">
                                                         <img src="/static/media/img/icon/avatar.png" className="avatar" />
                                                         {/* <span className="caption">Change Photo</span> */}
                                                     </div>
                                                 </li>
 
-                                                <li className="edit">
+                                                <li className="edit d-none">
                                                     {/* <a href="/profile.html" className="pull-left">Profile</a> */}
                                                     {/* <a href="#" className="pull-right">Setting</a> */}
 
@@ -165,7 +165,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                     </ul>
                                                 </li>
 
-                                                <li className="language-area">
+                                                <li className="language-area d-none">
                                                     <ul className="languagepicker">
                                                         <li>
                                                             <a className="cursor-pointer" onClick={() => this.changeLang('fa')} title="فارسی">
