@@ -1,13 +1,36 @@
 import React from "react";
+import { Localization } from "../../../../config/localization/localization";
+import { TInternationalization } from "../../../../config/setup";
+import { redux_state } from "../../../../redux/app_state";
+import { MapDispatchToProps, connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-class LayoutAccountFooterComponent extends React.Component<any>{
+export interface IProps {
+    internationalization: TInternationalization;
+}
+class LayoutAccountFooterComponent extends React.Component<IProps>{
     render() {
         return (
             <>
-                
+              <footer className="footer sticky-footer text-center text-muted">
+                <div className="d-inline-block mr-4">{Localization.catod_watermark}</div>
+                <div className="d-inline-block">
+                    <span className="text-muted--">{Localization.version}: </span>
+                    <span className="font-weight-bold--">{process.env.REACT_APP_VERSION}</span>
+                </div>
+            </footer>  
             </>
         )
     }
 }
 
-export const LayoutAccountFooter = LayoutAccountFooterComponent;
+const dispatch2props: MapDispatchToProps<{}, {}> = (dispatch: Dispatch) => {
+    return {
+    }
+}
+const state2props = (state: redux_state) => {
+    return {
+        internationalization: state.internationalization,
+    }
+}
+export const LayoutAccountFooter = connect(state2props, dispatch2props)(LayoutAccountFooterComponent);

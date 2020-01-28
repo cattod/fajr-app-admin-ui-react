@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import { redux_state } from '../../../redux/app_state';
 import { IUser } from '../../../model/model.user';
 import { History } from "history";
+import { LayoutAccountFooter } from './footer/Footer';
 
 export const RouteLayoutAccount = ({ component: Component, ...rest }: { [key: string]: any }) => {
     return (
@@ -45,7 +46,7 @@ class LayoutAccountComponent extends React.Component<IProps> {
             <>
                 {/* <LayoutAccountHeader /> */}
                 {this.props.children}
-                {/* <LayoutAccountFooter /> */}
+                <LayoutAccountFooter />
             </>
         )
     }
