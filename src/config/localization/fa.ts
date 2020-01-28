@@ -28,8 +28,9 @@ export const fa = {
         producer: 'تهیه کننده',
         pub_year: 'تاریخ انتشار',
         writer: 'نویسنده',
-        title: 'عنوان',
-        rated_by_user_: 'ارزیابی شده'
+        title: 'عنوان فیلم',
+        rated_by_user_: 'ارزیابی شده',
+        not_rated_by_user_: 'ارزیابی نشده',
     },
     rating_wrapper_obj: {
         detailed_scoring: 'نمره دهی تفصیلی',

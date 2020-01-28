@@ -42,6 +42,7 @@ interface ILocalization extends LocalizedStringsMethods {
         writer: string;
         title: string;
         rated_by_user_: string;
+        not_rated_by_user_: string;
     };
     rating_wrapper_obj: {
         [key: string]: string;

@@ -28,8 +28,9 @@ export const en = {
         producer: 'producer',
         pub_year: 'publish year',
         writer: 'writer',
-        title: 'title',
-        rated_by_user_: 'rated'
+        title: 'movie title',
+        rated_by_user_: 'rated',
+        not_rated_by_user_: 'not rated',
     },
     rating_wrapper_obj: {
         detailed_scoring: 'detailed scoring',

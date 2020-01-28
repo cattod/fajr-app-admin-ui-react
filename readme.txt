@@ -43,12 +43,11 @@ breadcrumb & pageTitle
 
 ====================================================================================
 
-client side search
+cmp ratingSave:
+    bar asas manfi budan ya mosbat budan sefat: rang sabz & ghermez jabeja shavad.
 
 chart for movie
 
 save movie list
-
-andaze ax movie widget_info ziad ast
 
 ====================================================================================
