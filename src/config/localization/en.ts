@@ -119,6 +119,7 @@ export const en = {
             login_again: 'login again',
             sync_error: 'error occured while syncing',
             change_password_successful: 'password successfully changed',
+            registered_successful:'registered successfully',
         },
         back: {
             user_already_exists: 'user already exists',

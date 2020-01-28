@@ -120,6 +120,10 @@ class LoginComponent extends BaseComponent<IProps, IState> {
             <>
                 {/* <div> */}
                 <div className="login-container animated fadeInDown">
+                    <div className="logobox text-center mt-0 mb-3">
+                        <span>سامانه ارزیابی فیلم های جشنواره فجر 38</span>
+                    </div>
+
                     <div className="loginbox bg-white">
                         <div className="loginbox-title text-uppercase mb-2">{Localization.sign_in}</div>
 

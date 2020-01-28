@@ -12,6 +12,7 @@ import { ITheme_schema } from '../../../../redux/action/theme/themeAction';
 import { TInternationalization } from '../../../../config/setup';
 import { BaseComponent } from '../../../_base/BaseComponent';
 import { LayoutMainFooter } from './footer/Footer';
+import { NavLink } from 'react-router-dom';
 
 export const RouteLayoutMain = ({ component: Component, ...rest }: { [key: string]: any }) => {
     return (
@@ -126,6 +127,13 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
                                             + (this.state.fullscreen ? 'fa-compress' : 'fa-expand')
                                         }></i>
                                     </a>
+
+
+                                    <NavLink exact to="/movie/manage" activeClassName="active">
+                                        <i className={
+                                            "fa fa-video-camera "
+                                        }></i>
+                                    </NavLink>
                                 </div>
 
                             </div>

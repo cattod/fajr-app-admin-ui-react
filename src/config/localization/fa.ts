@@ -29,7 +29,7 @@ export const fa = {
         pub_year: 'تاریخ انتشار',
         writer: 'نویسنده',
         title: 'عنوان',
-        rated_by_user_: 'کارشناسی شد'
+        rated_by_user_: 'ارزیابی شده'
     },
     rating_wrapper_obj: {
         detailed_scoring: 'نمره دهی تفصیلی',
@@ -119,7 +119,7 @@ export const fa = {
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
-
+            registered_successful:'ثبت نام با موفقیت انجام شد'
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

@@ -138,6 +138,7 @@ interface ILocalization extends LocalizedStringsMethods {
             login_again: string;
             sync_error: string;
             change_password_successful: string;
+            registered_successful: string;
         },
         back: {
             [key: string]: any; // todo
