@@ -125,6 +125,7 @@ export const en = {
             sync_error: 'error occured while syncing',
             change_password_successful: 'password successfully changed',
             registered_successful: 'registered successfully',
+            movie_filled_any: "please rate at least one of movie's aspects or leave a comment or tag(s).",
         },
         back: {
             user_already_exists: 'user already exists',

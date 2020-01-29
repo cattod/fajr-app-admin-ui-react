@@ -122,7 +122,8 @@ export const fa = {
             login_again: 'مجددا وارد شوید',
             sync_error: 'هنگام همگام سازی خطایی روی داد',
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
-            registered_successful: 'ثبت نام با موفقیت انجام شد'
+            registered_successful: 'ثبت نام با موفقیت انجام شد',
+            movie_filled_any: 'لطفا حداقل به یکی از مشخصه های فیلم نمره دهید یا نظر و یا برچسبی بگذارید.',
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

@@ -144,6 +144,7 @@ interface ILocalization extends LocalizedStringsMethods {
             sync_error: string;
             change_password_successful: string;
             registered_successful: string;
+            movie_filled_any: string;
         },
         back: {
             [key: string]: any; // todo

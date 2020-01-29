@@ -471,7 +471,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
     async login(username: string, password: string) {
         // if (!this.state.isFormValid) { return; }
         // this.setState({ ...this.state, btnLoader: true });
-        debugger;
+        // debugger;
         let authObj = { username: username, password: password };
         let res_token = await this._loginService.login(authObj).catch((error) => {
             this.handleError({ error: error.response, toastOptions: { toastId: 'login_error' } });

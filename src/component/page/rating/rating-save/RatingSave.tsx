@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { redux_state } from '../../../../redux/app_state';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { BaseComponent } from '../../../_base/BaseComponent';
-import { TInternationalization } from '../../../../config/setup';
+import { TInternationalization, Setup } from '../../../../config/setup';
 import { Input } from '../../../form/input/Input';
 import { History } from "history";
 // import { IRating } from '../../../../model/model.rating';
@@ -235,27 +235,44 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         }
     }
 
-    private getFormData(): IRating {
+    private getFormData(): { data: IRating, filledAny: boolean } {
+        let filledAny = false;
         const tags = (this.state.data.form.tags.value || []).map((item: { label: string; value: string }) => item.value);
         const data: any = {
             movie_id: this.movieId,
             comment: this.state.data.form.comment.value,
             tags,
         };
+        if (data.comment || data.tags.length) {
+            filledAny = true;
+        }
         formNumberTypeList.forEach(item => {
             data[item] = this.state.data.form[item].value;
+            if (data[item] !== undefined && data[item] !== null && data[item] !== '') {
+                filledAny = true;
+            }
         });
-        return data;
+        return { data, filledAny };
+    }
+
+    private fillAnyNotify() {
+        const msg = Localization.msg.ui.movie_filled_any;
+        toast.warn(msg, this.getNotifyConfig({ autoClose: Setup.notify.timeout.warning }));
     }
 
     private async create() {
+        const { data: fData, filledAny } = this.getFormData();
+        if (!filledAny) {
+            this.fillAnyNotify();
+            return;
+        }
         this.setState({
             actionBtn: {
                 ...this.state.actionBtn,
                 create: { ...this.state.actionBtn.create, loading: true },
             }
         });
-        const res = await this._ratingService.create(this.getFormData()).catch(err => {
+        const res = await this._ratingService.create(fData).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
         });
         if (res) {
@@ -278,13 +295,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     private async update() {
         if (!this.ratingId) return;
+        const { data: fData, filledAny } = this.getFormData();
+        if (!filledAny) {
+            this.fillAnyNotify();
+            return;
+        }
         this.setState({
             actionBtn: {
                 ...this.state.actionBtn,
                 update: { ...this.state.actionBtn.update, loading: true },
             }
         });
-        const res = await this._ratingService.update(this.getFormData(), this.ratingId).catch(err => {
+        const res = await this._ratingService.update(fData, this.ratingId).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'update_error' } });
         });
         this.setState({
