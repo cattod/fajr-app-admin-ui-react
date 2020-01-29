@@ -22,6 +22,7 @@ import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 // import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
+import { ratingFormStructure, getRateList, getRateAdjValue } from './ratingFormStructure';
 
 type formNumberType =
     'overall_rate' |
@@ -468,32 +469,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
-    private getRateList(mode: 1 | 2 | 3): { title: string, value: number }[] {
-        switch (mode) {
-            case 1:
-                return [
-                    { title: 'perfect', value: 5 },
-                    { title: 'good', value: 4 },
-                    { title: 'average', value: 3 },
-                    { title: 'bad', value: 2 },
-                    { title: 'poor', value: 1 }
-                ];
-            case 2:
-                return [
-                    { title: 'very_much', value: 5 },
-                    { title: 'much', value: 4 },
-                    { title: 'normal', value: 3 },
-                    { title: 'low', value: 2 },
-                    { title: 'not_at_all', value: 1 }
-                ];
-            case 3:
-                return [
-                    { title: 'promoter', value: 3 },
-                    { title: 'neutral', value: 2 },
-                    { title: 'destructive', value: 1 },
-                ];
-        }
-    }
+
     on_general_el_changed(name: formNumberType, value: number) {
         this.setState({
             data: {
@@ -511,31 +487,6 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             }
         });
     }
-
-    formStructure = {
-        groups: [
-            {
-                title: 'story',
-                items: ['novel', 'character', 'reason'],
-                mode: 1
-            },
-            {
-                title: 'form',
-                items: ['directing', 'acting', 'editing', 'visualization', 'sound', 'music'],
-                mode: 1
-            },
-            {
-                title: 'norm',
-                items: ['violence_range', 'insulting_range', 'sexual_content', 'unsuitable_wearing', 'addiction_promotion', 'horror_content', 'suicide_encouragement', 'breaking_law_encouragement', 'gambling_promotion', 'alcoholic_promotion'],
-                mode: 2
-            },
-            {
-                title: 'content',
-                items: ['family_subject', 'individual_social_behavior', 'feminism_exposure', 'justice_seeking', 'theism', 'bright_future_exposure', 'hope', 'iranian_life_style', 'true_vision_of_enemy', 'true_historiography'],
-                mode: 3
-            }
-        ]
-    };
 
     widget_form_render() {
         return (<>
@@ -622,40 +573,42 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     </div>
 
                     {
-                        this.formStructure.groups.map((item, index) => {
+                        ratingFormStructure.groups.map((grp, grpIndex) => {
                             return (
-                                <div className="row mb-5" key={index}>
+                                <div className="row mb-5" key={grpIndex}>
                                     <div className="col-12">
                                         <div className="form-box rounded px-3 pt-4">
                                             <div className="form-box-header h5 px-2">
-                                                {Localization.rating_wrapper_obj[item.title]}
+                                                {Localization.rating_wrapper_obj[grp.title]}
                                             </div>
                                             <div className="form-box-body">
                                                 {
-                                                    item.items.map(name => {
+                                                    grp.items.map(g_prp => {
                                                         return (
-                                                            <Fragment key={name}>
+                                                            <Fragment key={g_prp.title}>
                                                                 <div className="row">
                                                                     <div className="col-12 mb-4">
 
                                                                         <div className="h6 text-muted">
                                                                             <i className="fa fa-circle mr-2"></i>
-                                                                            <span>{Localization.rating_obj[name]}</span>
+                                                                            <span>{Localization.rating_obj[g_prp.title]}</span>
                                                                         </div>
 
                                                                         <ToggleButtonGroup
                                                                             className="btn-group-sm"
                                                                             type="radio"
-                                                                            name={`${item.title}-${name}`}
-                                                                            defaultValue={(this.state.data.form as any)[name].value}
-                                                                            value={(this.state.data.form as any)[name].value}
-                                                                            onChange={(rate: number) => this.on_general_el_changed(name as formNumberType, rate)}
+                                                                            name={`${grp.title}-${g_prp.title}`}
+                                                                            defaultValue={(this.state.data.form as any)[g_prp.title].value}
+                                                                            value={(this.state.data.form as any)[g_prp.title].value}
+                                                                            onChange={(rate: number) => this.on_general_el_changed(g_prp.title as formNumberType, rate)}
                                                                         >
                                                                             {
-                                                                                this.getRateList(item.mode as 1 | 2 | 3).map(rate => (
+                                                                                getRateList(grp.mode as 1 | 2 | 3).map(rate => (
                                                                                     <ToggleButton
                                                                                         key={rate.value}
-                                                                                        className={`min-w-70px-- btn-el-${rate.value} btn-mode-${item.mode} `}
+                                                                                        className={
+                                                                                            `btn-el-${getRateAdjValue(grp.mode, rate.value, g_prp.adj)} btn-mode-${grp.mode} `
+                                                                                        }
                                                                                         value={rate.value}
                                                                                     >
                                                                                         {Localization.rating_value_obj[rate.title]}
@@ -674,40 +627,6 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         </div>
                                     </div>
 
-                                    {/* <div className="col-12 mb-2">
-                                        <div className="h5 text-muted ml-4">{Localization.rating_wrapper_obj[item.title]}</div>
-                                    </div> */}
-
-                                    {/* {
-                                        item.items.map(name => {
-                                            return (
-                                                <div className="col-12 mb-2" key={name}>
-                                                    <span className="h6 text-muted">{Localization.rating_obj[name]}: </span>
-
-                                                    <ToggleButtonGroup
-                                                        className="btn-group-sm"
-                                                        type="radio"
-                                                        name={`${item.title}-${name}`}
-                                                        defaultValue={(this.state.data.form as any)[name].value}
-                                                        value={(this.state.data.form as any)[name].value}
-                                                        onChange={(rate: number) => this.on_general_el_changed(name as formNumberType, rate)}
-                                                    >
-                                                        {
-                                                            this.getRateList(item.mode as 1 | 2 | 3).map(rate => (
-                                                                <ToggleButton
-                                                                    key={rate.value}
-                                                                    className={"min-w-70px-- btn-light "}
-                                                                    value={rate.value}
-                                                                >
-                                                                    {Localization.rating_value_obj[rate.title]}
-                                                                </ToggleButton>
-                                                            ))
-                                                        }
-                                                    </ToggleButtonGroup>
-                                                </div>
-                                            )
-                                        })
-                                    } */}
                                 </div>
                             )
                         })
