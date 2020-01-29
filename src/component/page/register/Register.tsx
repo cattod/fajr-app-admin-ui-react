@@ -375,7 +375,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                     </div>
                     <hr className="wide d-none"></hr>
                     <div className="registerbox-textbox d-none">
-                        <Input
+                        <FixNumber
                             defaultValue={this.state.username.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
                             placeholder={Localization.username}
@@ -385,7 +385,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                         />
                     </div>
                     <div className="registerbox-textbox pb-0">
-                        <Input
+                        <FixNumber
                             defaultValue={this.state.password.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
                             placeholder={Localization.password}
@@ -396,7 +396,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                         />
                     </div>
                     <div className="registerbox-textbox pb-0 d-none">
-                        <Input
+                        <FixNumber
                             defaultValue={this.state.confirmPassword.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
                             placeholder={Localization.confirm_password}

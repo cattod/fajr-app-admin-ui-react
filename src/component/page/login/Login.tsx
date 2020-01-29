@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoginService } from '../../../service/service.login';
-import { Input } from '../../form/input/Input';
+// import { Input } from '../../form/input/Input';
 import { redux_state } from '../../../redux/app_state';
 import { Dispatch } from 'redux';
 import { IUser } from '../../../model/model.user';
@@ -17,6 +17,7 @@ import { action_set_token } from '../../../redux/action/token';
 import { History } from 'history';
 import { action_set_authentication } from '../../../redux/action/authentication';
 import { Utility } from '../../../asset/script/utility';
+import { FixNumber } from '../../form/fix-number/FixNumber';
 
 type inputType = 'username' | 'password';
 
@@ -128,7 +129,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         <div className="loginbox-title text-uppercase mb-2">{Localization.sign_in}</div>
 
                         <div className="loginbox-textbox">
-                            <Input
+                            <FixNumber
                                 defaultValue={this.state.username.value}
                                 onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'username') }}
                                 required
@@ -140,7 +141,7 @@ class LoginComponent extends BaseComponent<IProps, IState> {
                         </div>
 
                         <div className="loginbox-textbox">
-                            <Input
+                            <FixNumber
                                 defaultValue={this.state.password.value}
                                 onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'password') }}
                                 required

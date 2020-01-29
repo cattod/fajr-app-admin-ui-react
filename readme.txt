@@ -46,6 +46,8 @@ breadcrumb & pageTitle
 cmp ratingSave:
     bar asas manfi budan ya mosbat budan sefat: rang sabz & ghermez jabeja shavad.
 
+    shomare mobile & username & password (convert fa number to en (use fixNumber and change it to any tye))
+
 chart for movie
 
 save movie list

@@ -1,6 +1,6 @@
 import React from "react";
 import { LoginService } from "../../../service/service.login";
-import { Input } from "../../form/input/Input";
+// import { Input } from "../../form/input/Input";
 import { redux_state } from "../../../redux/app_state";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -254,7 +254,7 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
             />
           </div>
           <div className="registerbox-textbox">
-            <Input
+            <FixNumber
               defaultValue={this.state.password.value}
               onChange={(val, isValid) => {
                 this.handleInputChange(val, isValid, "password");
@@ -267,7 +267,7 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
             />
           </div>
           <div className="registerbox-textbox no-padding-bottom">
-            <Input
+            <FixNumber
               defaultValue={this.state.confirmPassword.value}
               onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'confirmPassword') }}
               placeholder={Localization.confirm_password}
