@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { redux_state } from '../../../../redux/app_state';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
