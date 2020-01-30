@@ -160,9 +160,9 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                     this.state.gridData.map((item) => {
                         const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
                         const visible = this.checkMovieVisibility(item);
-                        if (!visible) return <Fragment key={item.id}></Fragment>;
+                        // if (!visible) return <Fragment key={item.id}></Fragment>;
                         return (
-                            <div className="col mb-3 px-2" key={item.id}>
+                            <div className={"col mb-3 px-2 " + (visible ? '' : 'd-none')} key={item.id}>
                                 <div className={
                                     "card h-100 bg-light shadow-hover shadow-default cursor-pointer overflow-hidden "
                                     // + (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
