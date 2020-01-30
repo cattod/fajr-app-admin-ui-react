@@ -13,9 +13,12 @@ import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { Localization } from '../../../../config/localization/localization';
 import { Input } from '../../../form/input/Input';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { IMovie_schema } from '../../../../redux/action/movie/movieAction';
+import { action_update_Movie } from '../../../../redux/action/movie';
+import { Store2 } from '../../../../redux/store';
 
 interface IState {
-    gridData: IMovie[];
+    // gridData: IMovie[];
     gridLoader: boolean;
     widget_search_collapse: boolean;
     search: {
@@ -26,12 +29,13 @@ interface IState {
 interface IProps {
     internationalization: TInternationalization;
     history: History;
+    movie: IMovie_schema;
 }
 
 class MovieManageComponent extends BaseComponent<IProps, IState> {
     state: IState = {
-        gridData: [],
-        gridLoader: true,
+        // gridData: [],
+        gridLoader: false,
         widget_search_collapse: false,
         search: {
             movieTitle: '',
@@ -47,15 +51,24 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     }
 
     async fetchGridData() {
+        if (this.props.movie.list.length) {
+            // this.setState({ gridData: this.props.movie.list }); // , gridLoader: false
+        } else {
+            this.setState({ gridLoader: true });
+        }
         const res = await this._movieService.search(1000, 0, {}).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'fetchGridData_error' } });
         });
 
         if (res) {
-            this.setState({ gridData: res.data.result, gridLoader: false });
-        } else {
-            this.setState({ gridLoader: false });
+            // this.setState({ gridData: res.data.result, gridLoader: false });
+            Store2.dispatch(action_update_Movie({ ...this.props.movie, list: res.data.result }));
         }
+        // else {
+        //     this.setState({ gridLoader: false });
+        // }
+
+        this.setState({ gridLoader: false });
     }
 
     private goto_rating(movie_id: string): void {
@@ -135,7 +148,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                         </div>
                     </div>
 
-                    <ContentLoader gutterClassName="gutter-0" show={this.state.gridLoader}></ContentLoader>
+                    {/* <ContentLoader gutterClassName="gutter-0" show={this.state.gridLoader}></ContentLoader> */}
                 </div>
             </div>
         </>)
@@ -157,7 +170,8 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         return (<>
             <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 px-1">
                 {
-                    this.state.gridData.map((item) => {
+                    // this.state.gridData.map((item) => {
+                    this.props.movie.list.map((item) => {
                         const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
                         const visible = this.checkMovieVisibility(item);
                         // if (!visible) return <Fragment key={item.id}></Fragment>;
@@ -226,6 +240,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
 const state2props = (state: redux_state) => {
     return {
         internationalization: state.internationalization,
+        movie: state.movie,
     }
 }
 
