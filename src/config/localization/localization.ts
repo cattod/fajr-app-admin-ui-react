@@ -28,6 +28,7 @@ interface ILocalization extends LocalizedStringsMethods {
     save: string;
     movie_rating: string;
     movie_rating_obj: {
+        rating: string;
         save: string;
         delete: string;
         view: string;

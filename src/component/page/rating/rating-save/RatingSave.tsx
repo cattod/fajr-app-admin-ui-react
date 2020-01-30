@@ -23,6 +23,7 @@ import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
 import { ratingFormStructure, getRateList, getRateAdjValue, TFormNumberType, formNumberTypeList, TGroupTitle } from './ratingFormStructure';
+import { Utility } from '../../../../asset/script/utility';
 
 interface IState {
     // formData: IRating | undefined;
@@ -324,7 +325,9 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private handleSelectInputChange(value: { label: string, value: string }[]) {
-        console.log(value);
+        // debugger;
+        // console.log('handleSelectInputChange', value);
+        // return;
         this.setState({
             ...this.state,
             data: {
@@ -350,7 +353,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         }
         return isDup;
     }
-    handle_tagsKeyDown(event: any/* SyntheticKeyboardEvent<HTMLElement> */) {
+    private handle_tagsKeyDown(event: any/* SyntheticKeyboardEvent<HTMLElement> */) {
         if (!this.state.tags_inputValue) return;
         switch (event.key) {
             case 'Enter':
@@ -374,9 +377,37 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     },
                     tags_inputValue: ''
                 });
-                event.preventDefault();
+                // event.preventDefault();
+                // event.persist();
         }
     };
+    private async handle_tagsBlur(event: any) {
+        if (!this.state.tags_inputValue) return;
+        const newVal = this.state.tags_inputValue;
+        /* cmp react-select remove inputValue onBlur, so here we keep the inputValue & add it after 300 ms. */
+        await Utility.waitOnMe(300);
+        if (this.isDuplicateTag(newVal)) return;
+        // event.preventDefault();
+        this.setState({
+            ...this.state,
+            data: {
+                ...this.state.data,
+                form: {
+                    ...this.state.data.form,
+                    tags: {
+                        isValid: true,
+                        value: [
+                            ...this.state.data.form.tags.value,
+                            { label: newVal, value: newVal }
+                        ]
+                    }
+                }
+            },
+            tags_inputValue: ''
+        });
+        // event.preventDefault();
+        // event.persist();
+    }
 
     widget_info_render() {
         const movie = this.state.data.info;
@@ -476,10 +507,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         return (<>
             <div className="widget position-relative">
                 <div className="widget-header bordered-bottom bordered-system bg-white">
-                    <span className="widget-caption text-dark">{Localization.movie_rating_obj.save}</span>
+                    <span className="widget-caption text-dark">{Localization.movie_rating_obj.rating}</span>
                     {
                         this.state.actionBtn.create.visible ?
-                            <div className="widget-buttons buttons-bordered--">
+                            <div className="widget-buttons buttons-bordered-- d-none">
                                 <button className="btn btn-success btn-xs btn-circle" onClick={() => this.create()}
                                     disabled={this.state.actionBtn.create.disable || this.state.actionBtn.create.loading}
                                 >
@@ -490,7 +521,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     }
                     {
                         this.state.actionBtn.update.visible ?
-                            <div className="widget-buttons buttons-bordered--">
+                            <div className="widget-buttons buttons-bordered-- d-none">
                                 <button className="btn btn-primary btn-xs btn-circle" onClick={() => this.update()}
                                     disabled={this.state.actionBtn.update.disable || this.state.actionBtn.update.loading}
                                 >
@@ -501,7 +532,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     }
                     {
                         this.state.actionBtn.remove.visible ?
-                            <div className="widget-buttons buttons-bordered--">
+                            <div className="widget-buttons buttons-bordered-- d-none">
                                 <button className="btn btn-danger btn-xs btn-circle" onClick={() => this.open_confirmNotify_remove()}
                                     disabled={this.state.actionBtn.remove.disable || this.state.actionBtn.remove.loading}
                                 >
@@ -631,11 +662,13 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             <div className="form-group">
                                 <label>{Localization.tags}</label>
                                 <Select
+                                    isRtl={this.props.internationalization.rtl}
                                     isMulti
                                     onChange={(value: any) => this.handleSelectInputChange(value)}
                                     value={this.state.data.form.tags.value}
                                     placeholder={Localization.tags}
                                     onKeyDown={(e) => this.handle_tagsKeyDown(e)}
+                                    onBlur={(e) => this.handle_tagsBlur(e)}
                                     inputValue={this.state.tags_inputValue}
                                     menuIsOpen={false}
                                     components={{
@@ -669,20 +702,20 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={this.state.actionBtn.create.disable}
                                     >
                                         {/* {Localization.create}&nbsp; */}
-                                        <i className="fa fa-save"></i>
+                                        <i className="fa fa-save fa-2x"></i>
                                     </BtnLoader>
                                     : ''
                             }
                             {
                                 this.state.actionBtn.update.visible ?
                                     <BtnLoader
-                                        btnClassName="btn btn-primary btn-sm mr-1 btn-circle"
+                                        btnClassName="btn btn-primary-- btn-success btn-sm mr-1 btn-circle"
                                         loading={this.state.actionBtn.update.loading}
                                         onClick={() => this.update()}
                                         disabled={this.state.actionBtn.update.disable}
                                     >
                                         {/* {Localization.update}&nbsp; */}
-                                        <i className="fa fa-edit"></i>
+                                        <i className="fa fa-edit-- fa-save fa-2x"></i>
                                     </BtnLoader>
                                     : ''
                             }
@@ -695,12 +728,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={this.state.actionBtn.remove.disable}
                                     >
                                         {/* {Localization.remove}&nbsp; */}
-                                        <i className="fa fa-trash"></i>
+                                        <i className="fa fa-trash fa-2x"></i>
                                     </BtnLoader>
                                     : ''
                             }
                             <div className="btn btn-primary pull-right d-none" onClick={() => this.goto_movie()}>
-                                {Localization.go_back}&nbsp;<i className="fa fa-reply-app"></i>
+                                {Localization.go_back}&nbsp;<i className="fa fa-reply-app fa-2x"></i>
                             </div>
 
                         </div>

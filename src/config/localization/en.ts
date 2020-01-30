@@ -16,6 +16,7 @@ export const en = {
     save: 'save',
     movie_rating: 'movie rating',
     movie_rating_obj: {
+        rating: 'movie rating',
         save: 'save movie rating',
         delete: 'delete movie rating',
         view: 'view movie rating',

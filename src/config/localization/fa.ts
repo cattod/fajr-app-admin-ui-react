@@ -14,12 +14,13 @@ export const fa = {
     movie: 'فیلم',
     go_back: 'بازگشت',
     save: 'ذخیره',
-    movie_rating: 'کارشناسی فیلم',
+    movie_rating: 'ارزیابی فیلم',
     movie_rating_obj: {
-        save: 'ذخیره کارشناسی فیلم',
-        delete: 'حذف کارشناسی فیلم',
-        view: 'نمایش کارشناسی فیلم',
-        manage: 'مدیریت کارشناسی فیلم',
+        rating: 'ارزیابی فیلم',
+        save: 'ذخیره ارزیابی فیلم',
+        delete: 'حذف ارزیابی فیلم',
+        view: 'نمایش ارزیابی فیلم',
+        manage: 'مدیریت ارزیابی فیلم',
     },
     movie_obj: {
         director: 'کارگردان',
@@ -40,7 +41,7 @@ export const fa = {
         content: 'محتوا',
     },
     rating_obj: {
-        overall_rate: 'نمره دهی کلی فیلم',
+        overall_rate: 'نمره کلی فیلم',
 
         novel: 'قصه',
         character: 'شخصیت',
