@@ -110,7 +110,9 @@ interface ILocalization extends LocalizedStringsMethods {
         not_at_all: string;
 
         promoter: string;
+        agree: string;
         neutral: string;
+        disagree: string;
         destructive: string;
     };
     tags: string;

@@ -115,8 +115,10 @@ export function getRateList(mode: 1 | 2 | 3): Array<{ title: string, value: numb
             ];
         case 3:
             return [
-                { title: 'promoter', value: 3 },
-                { title: 'neutral', value: 2 },
+                { title: 'promoter', value: 5 },
+                { title: 'agree', value: 4 },
+                { title: 'neutral', value: 3 },
+                { title: 'disagree', value: 2 },
                 { title: 'destructive', value: 1 },
             ];
     }
@@ -125,9 +127,11 @@ export function getRateList(mode: 1 | 2 | 3): Array<{ title: string, value: numb
 export function getRateAdjValue(mode: 1 | 2 | 3, value: number, adj?: boolean): number {
     if (adj === true || adj === undefined) return value;
 
-    if (mode === 1 || mode === 2) {
-        return 6 - value; // 5 + 1
-    } else { // if (mode === 3) {
-        return 4 - value; // 3 + 1
-    }
+    return 6 - value; // 5 + 1
+
+    // if (mode === 1 || mode === 2) {
+    //     return 6 - value; // 5 + 1
+    // } else { // if (mode === 3) {
+    //     return 4 - value; // 3 + 1
+    // }
 }

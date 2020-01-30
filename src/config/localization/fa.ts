@@ -93,7 +93,9 @@ export const fa = {
         not_at_all: 'ندارد',
 
         promoter: 'ترویج کننده',
+        agree: 'موافق',
         neutral: 'خنثی',
+        disagree: 'مخالف',
         destructive: 'تخریب کننده',
     },
     tags: 'برچسب ها',

@@ -37,7 +37,8 @@ $rating-save-btn-el-bgColor: (
           }
 
           &.btn-mode-1,
-          &.btn-mode-2 {
+          &.btn-mode-2,
+          &.btn-mode-3 {
             @for $i from 1 to 6 {
               &.btn-el-#{$i} {
                 background-color: rgba(map-get($rating-save-btn-el-bgColor, $i), 1); // 0.5
@@ -50,7 +51,7 @@ $rating-save-btn-el-bgColor: (
               }
             }
           }
-          &.btn-mode-3 {
+          &.btn-mode-3----- {
             &.btn-el-1 {
               background-color: map-get($rating-save-btn-el-bgColor, 1);
               border-color: map-get($rating-save-btn-el-bgColor, 1);

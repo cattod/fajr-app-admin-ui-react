@@ -93,7 +93,9 @@ export const en = {
         not_at_all: 'not at all',
 
         promoter: 'promoter',
+        agree: 'agree',
         neutral: 'neutral',
+        disagree: 'disagree',
         destructive: 'destructive',
     },
     tags: 'tags',
