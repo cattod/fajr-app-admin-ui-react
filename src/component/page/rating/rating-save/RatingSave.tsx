@@ -24,6 +24,7 @@ import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
 import { ratingFormStructure, getRateList, getRateAdjValue, TFormNumberType, formNumberTypeList, TGroupTitle } from './ratingFormStructure';
 import { Utility } from '../../../../asset/script/utility';
+import { Store2 } from '../../../../redux/store';
 
 interface IState {
     // formData: IRating | undefined;
@@ -88,12 +89,10 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     private _ratingService = new RatingService();
     private _movieService = new MovieService();
 
-    componentWillMount() {
+    componentDidMount() {
         this.movieId = this.props.match.params.movieId;
         if (!this.movieId) this.goto_movie();
-    }
 
-    componentDidMount() {
         CmpUtility.gotoTop();
         if (!this.movieId) return;
         this.fetchFormData();
@@ -115,19 +114,17 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         return obj;
     }
 
-    async fetchFormData() {
-        // if (!this.props.logged_in_user) return;
+    private async fetchFormData() {
+        const { /* persisted, */ rated } = this.fetchOfflineData();
+        
+        this.setState({ form_loader: rated });
 
-        // const personId = this.props.logged_in_user.person.id;
-        // const res = await this._ratingService.search(1, 0, { movie_id: this.movieId, person_id: personId })
         const res = await this._ratingService.getMovieRating(this.movieId)
             .catch(err => {
                 this.handleError({ error: err.response, toastOptions: { toastId: 'fetchFormData_error' } });
             });
 
         if (res) {
-            // debugger;
-            // if (res.data.result.length) {
             if (res.data.hasOwnProperty('id')) {
                 const rating = res.data as IRating;
                 this.ratingId = rating.id;
@@ -188,6 +185,26 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             this.setState({ form_loader: false });
         }
     }
+
+    private fetchOfflineData(): { persisted: boolean, rated: boolean } {
+        const persisted_movie_list = Store2.getState().movie.list;
+        let persisted = false;
+        let rated = false;
+        if (persisted_movie_list.length) {
+            const thisMovie = persisted_movie_list.find(m => m.id === this.movieId);
+            if (thisMovie) {
+                persisted = true;
+                rated = thisMovie.rated_by_user;
+                this.setState({
+                    data: { ...this.state.data, info: thisMovie },
+                    form_loader: rated!
+                });
+            }
+        }
+
+        return { persisted, rated };
+    }
+
 
     private getFormData(): { data: IRating, filledAny: boolean } {
         let filledAny = false;
@@ -377,8 +394,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     },
                     tags_inputValue: ''
                 });
-                // event.preventDefault();
-                // event.persist();
+            // event.preventDefault();
+            // event.persist();
         }
     };
     private async handle_tagsBlur(event: any) {
@@ -469,7 +486,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                         </div>
                     </div>
 
-                    <ContentLoader gutterClassName="gutter-0" show={this.state.form_loader}></ContentLoader>
+                    {/* <ContentLoader gutterClassName="gutter-0" show={this.state.form_loader}></ContentLoader> */}
                 </div>
             </div>
         </>)

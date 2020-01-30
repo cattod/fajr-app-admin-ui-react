@@ -38,7 +38,7 @@ export const fa = {
         story: 'داستان',
         form: 'تکنیک',
         norm: 'هنجار',
-        content: 'محتوا',
+        content: 'درون‌مایه',
     },
     rating_obj: {
         overall_rate: 'نمره کلی فیلم',
