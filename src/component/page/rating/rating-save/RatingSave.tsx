@@ -27,6 +27,7 @@ import { Utility } from '../../../../asset/script/utility';
 import { Store2 } from '../../../../redux/store';
 import RcSlider, { Handle } from 'rc-slider';
 import Tooltip from 'rc-tooltip';
+import { action_update_Movie } from '../../../../redux/action/movie';
 
 interface IState {
     // formData: IRating | undefined;
@@ -207,6 +208,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         return { persisted, rated };
     }
 
+    private offline_toggleMovieRate(rate: boolean): void {
+        const PM = Store2.getState().movie;
+        const persisted_movie_list = [...PM.list];
+        if (persisted_movie_list.length) {
+            const thisMovie = persisted_movie_list.find(m => m.id === this.movieId);
+            if (thisMovie) {
+                thisMovie.rated_by_user = rate;
+                Store2.dispatch(action_update_Movie({ ...PM, list: persisted_movie_list }));
+            }
+        }
+    }
+
 
     private getFormData(): { data: IRating, filledAny: boolean } {
         let filledAny = false;
@@ -268,6 +281,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 },
             });
 
+            this.offline_toggleMovieRate(true);
+
             setTimeout(() => {
                 this.apiSuccessNotify();
             }, 300);
@@ -314,23 +329,18 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         this.setState({ confirmNotify_remove_show: false });
     }
     private async confirmNotify_onConfirm_remove() {
-        // debugger;
         if (!this.ratingId) return;
-
         this.setState({ confirmNotify_remove_loader: true });
-
         const res = await this._ratingService.remove(this.ratingId).catch(err => {
-            // debugger;
             this.handleError({ error: err.response, toastOptions: { toastId: 'onConfirm_remove_error' } });
         });
-        // debugger;
         if (res) {
-            // debugger;
+            this.offline_toggleMovieRate(false);
+
             setTimeout(() => {
                 this.apiSuccessNotify();
             }, 300);
         }
-
         this.setState({ confirmNotify_remove_show: false, confirmNotify_remove_loader: false });
         this.goto_movie();
     }
@@ -551,7 +561,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     sliderHandle(props: any) {
         const { value, dragging, index, ...restProps } = props;
-        console.log(props);
+        // console.log(props);
         return (
             <Tooltip
                 prefixCls="rc-slider-tooltip"
