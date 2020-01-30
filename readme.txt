@@ -12,6 +12,7 @@ npm i react-bootstrap @types/react-bootstrap
 
 npm i react-rating
 npm i react-select @types/react-select
+npm i rc-slider @types/rc-slider
 
 ====================================================================================
 ????????????????????????????????????????????????????????????????????????????????????
@@ -20,7 +21,7 @@ npm i react-select @types/react-select
 
 npm i -D redux-logger @types/redux-logger
 npm i react-dropzone
-npm i rc-slider @types/rc-slider
+
 npm i react-app-rewired worker-loader -D
 
 npm i lokijs @types/lokijs
@@ -35,21 +36,10 @@ serve -s build
 
 ====================================================================================
 
-add policy page (link in register & footer).
-
 ====================================================================================
 
-breadcrumb & pageTitle
-
 ====================================================================================
-
-cmp ratingSave:
-    bar asas manfi budan ya mosbat budan sefat: rang sabz & ghermez jabeja shavad.
-
-    shomare mobile & username & password (convert fa number to en (use fixNumber and change it to any tye))
 
 chart for movie
-
-save movie list
 
 ====================================================================================
