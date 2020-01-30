@@ -17,7 +17,7 @@ import { IMovie } from '../../../../model/model.movie';
 import { MovieService } from '../../../../service/service.movie';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
-import Rating from 'react-rating';
+// import Rating from 'react-rating';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 // import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
@@ -25,6 +25,8 @@ import Select from 'react-select';
 import { ratingFormStructure, getRateList, getRateAdjValue, TFormNumberType, formNumberTypeList, TGroupTitle } from './ratingFormStructure';
 import { Utility } from '../../../../asset/script/utility';
 import { Store2 } from '../../../../redux/store';
+import RcSlider, { Handle } from 'rc-slider';
+import Tooltip from 'rc-tooltip';
 
 interface IState {
     // formData: IRating | undefined;
@@ -116,7 +118,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     private async fetchFormData() {
         const { /* persisted, */ rated } = this.fetchOfflineData();
-        
+
         this.setState({ form_loader: rated });
 
         const res = await this._ratingService.getMovieRating(this.movieId)
@@ -493,6 +495,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     on_overall_rate_Change(newRate: number) {
+        // const newVal = newRate > 0 ? newRate : undefined;
+        if (newRate === 0) return;
         this.setState({
             data: {
                 ...this.state.data,
@@ -519,6 +523,49 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             }
         });
     }
+
+    sliderMarks() {
+        const obj: any = { 0: '' };
+        for (let i = 1; i < 11; i++) {
+            obj[i] = i;
+        }
+        return obj;
+    }
+
+    sliderTrackStyle() {
+        switch (this.state.data.form.overall_rate.value) {
+            case 1: case 2:
+                return { backgroundColor: '#bf3100' };
+            case 3: case 4:
+                return { backgroundColor: '#d76a03' };
+            case 5: case 6:
+                return { backgroundColor: '#ec9f05' };
+            case 7: case 8:
+                return { backgroundColor: '#f5bb00' };
+            case 9: case 10:
+                return { backgroundColor: '#8ea604' };
+            default:
+                return {};
+        }
+    }
+
+    sliderHandle(props: any) {
+        const { value, dragging, index, ...restProps } = props;
+        console.log(props);
+        return (
+            <Tooltip
+                prefixCls="rc-slider-tooltip"
+                overlayClassName={`rating rating-${value}`}
+                overlay={value}
+                visible={dragging}
+                // visible
+                placement="top"
+                key={index}
+            >
+                <Handle value={value} {...restProps} />
+            </Tooltip>
+        );
+    };
 
     widget_form_render() {
         return (<>
@@ -575,7 +622,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 <div className="form-box-body">
                                     <div className="row">
                                         <div className="col-12 mb-4 text-center">
-                                            <Rating
+                                            {/* <Rating
                                                 className="rating-star"
                                                 emptySymbol="fa fa-star fa-2x rating-empty"
                                                 fullSymbol="fa fa-star fa-2x rating-full"
@@ -586,6 +633,24 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                 // onClick={(newRate) => this.on_overall_rate_Change(newRate)}
                                                 // start={1}
                                                 stop={10}
+                                            /> */}
+
+                                            <RcSlider
+                                                className={
+                                                    "rc-slider-system-- "
+                                                    + (this.props.internationalization.rtl ? 'reverse' : '')
+                                                }
+                                                min={0}
+                                                // step={null}
+                                                max={10}
+                                                reverse={this.props.internationalization.rtl}
+                                                defaultValue={this.state.data.form.overall_rate.value}
+                                                onChange={(v) => this.on_overall_rate_Change(v)}
+                                                value={this.state.data.form.overall_rate.value}
+                                                dots
+                                                marks={this.sliderMarks()}
+                                                trackStyle={this.sliderTrackStyle()}
+                                                handle={(p) => this.sliderHandle(p)}
                                             />
                                         </div>
                                     </div>
