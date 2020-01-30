@@ -19,7 +19,7 @@ class LayoutAccountFooterComponent extends React.Component<IProps>{
                         <i className="fa fa-heart icon-heart"></i>
                         <span> و </span>
                         <i className="fa fa-coffee icon-coffee"></i>
-                        <span> در ایران.</span>
+                        <span> در کاتد.</span>
                     </div>
                     <div className="d-inline-block">
                         <span className="text-muted--">{Localization.version}: </span>
