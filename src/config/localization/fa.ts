@@ -35,7 +35,7 @@ export const fa = {
     rating_wrapper_obj: {
         detailed_scoring: 'نمره دهی تفصیلی',
         story: 'داستان',
-        form: 'فرم',
+        form: 'تکنیک',
         norm: 'هنجار',
         content: 'محتوا',
     },
@@ -87,9 +87,9 @@ export const fa = {
 
         very_much: 'خیلی زیاد',
         much: 'زیاد',
-        normal: 'معمولی',
+        normal: 'متوسط',
         low: 'کم',
-        not_at_all: 'اصلا',
+        not_at_all: 'ندارد',
 
         promoter: 'ترویج کننده',
         neutral: 'خنثی',
@@ -98,6 +98,9 @@ export const fa = {
     tags: 'برچسب ها',
     back_to_login: 'بازگشت به ورود',
     account_logobox_header_text: 'سامانه ارزیابی فیلم های جشنواره فجر 38',
+
+
+
 
 
 
