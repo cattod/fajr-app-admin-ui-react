@@ -77,6 +77,7 @@ export const fa = {
 
         write_comment: 'نظر کلی خود را درباره فیلم بیان کنید:',
         comment_about_movie: 'نظر در مورد فیلم',
+        further_details: 'توضیحات تکمیلی',
     },
     rating_value_obj: {
         perfect: 'عالی',

@@ -92,6 +92,7 @@ interface ILocalization extends LocalizedStringsMethods {
 
         write_comment: string;
         comment_about_movie: string;
+        further_details: string;
     };
     rating_value_obj: {
         [key: string]: string;

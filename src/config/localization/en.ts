@@ -77,6 +77,7 @@ export const en = {
 
         write_comment: 'write comment',
         comment_about_movie: 'comment about movie',
+        further_details: 'further details',
     },
     rating_value_obj: {
         perfect: 'perfect',

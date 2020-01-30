@@ -22,69 +22,7 @@ import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 // import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
-import { ratingFormStructure, getRateList, getRateAdjValue } from './ratingFormStructure';
-
-type formNumberType =
-    'overall_rate' |
-
-    'novel' | 'character' | 'reason' |
-
-    'directing' | 'acting' | 'editing' |
-    'visualization' | 'sound' | 'music' |
-
-    'violence_range' |
-    'insulting_range' |
-    'sexual_content' |
-    'unsuitable_wearing' |
-    'addiction_promotion' |
-    'horror_content' |
-    'suicide_encouragement' |
-    'breaking_law_encouragement' |
-    'gambling_promotion' |
-    'alcoholic_promotion' |
-
-    'family_subject' |
-    'individual_social_behavior' |
-    'feminism_exposure' |
-    'justice_seeking' |
-    'theism' |
-    'bright_future_exposure' |
-    'hope' |
-    'iranian_life_style' |
-    'true_vision_of_enemy' |
-    'true_historiography'
-    ;
-
-const formNumberTypeList: formNumberType[] = [
-    'overall_rate',
-
-    'novel', 'character', 'reason',
-
-    'directing', 'acting', 'editing',
-    'visualization', 'sound', 'music',
-
-    'violence_range',
-    'insulting_range',
-    'sexual_content',
-    'unsuitable_wearing',
-    'addiction_promotion',
-    'horror_content',
-    'suicide_encouragement',
-    'breaking_law_encouragement',
-    'gambling_promotion',
-    'alcoholic_promotion',
-
-    'family_subject',
-    'individual_social_behavior',
-    'feminism_exposure',
-    'justice_seeking',
-    'theism',
-    'bright_future_exposure',
-    'hope',
-    'iranian_life_style',
-    'true_vision_of_enemy',
-    'true_historiography'
-];
+import { ratingFormStructure, getRateList, getRateAdjValue, TFormNumberType, formNumberTypeList, TGroupTitle } from './ratingFormStructure';
 
 interface IState {
     // formData: IRating | undefined;
@@ -101,13 +39,18 @@ interface IState {
     data: {
         info: IMovie | undefined;
         form: {
-            [key in formNumberType]: {
+            [key in TFormNumberType]: {
                 value: number | undefined;
                 isValid: boolean;
             };
         } & {
-            comment: { value: string | undefined; isValid: boolean; }
-            tags: { value: { label: string, value: string }[]; isValid: boolean; }
+            comment: { value: string | undefined; isValid: boolean; };
+            tags: { value: { label: string, value: string }[]; isValid: boolean; };
+
+            story: { value: string | undefined; isValid: boolean; };
+            form: { value: string | undefined; isValid: boolean; };
+            norm: { value: string | undefined; isValid: boolean; };
+            content: { value: string | undefined; isValid: boolean; };
         };
     };
     form_loader: boolean;
@@ -158,7 +101,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     getFormDefaultValue() {
         const obj: any = {
             comment: { value: undefined, isValid: true },
-            tags: { value: [], isValid: true }
+            tags: { value: [], isValid: true },
+
+            story: { value: undefined, isValid: true },
+            form: { value: undefined, isValid: true },
+            norm: { value: undefined, isValid: true },
+            content: { value: undefined, isValid: true },
         };
         formNumberTypeList.forEach(item => {
             obj[item] = { value: undefined, isValid: true };
@@ -190,7 +138,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
                 const formData: any = {
                     comment: { value: rating.comment, isValid: true },
-                    tags: { isValid: true, value: tagVal || [] }
+                    tags: { isValid: true, value: tagVal || [] },
+
+                    story: { value: rating.question_1, isValid: true },
+                    form: { value: rating.question_2, isValid: true },
+                    norm: { value: rating.question_3, isValid: true },
+                    content: { value: rating.question_4, isValid: true },
                 };
                 // debugger;
                 formNumberTypeList.forEach(item => {
@@ -242,8 +195,17 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             movie_id: this.movieId,
             comment: this.state.data.form.comment.value,
             tags,
+
+            question_1: this.state.data.form.story.value,
+            question_2: this.state.data.form.form.value,
+            question_3: this.state.data.form.norm.value,
+            question_4: this.state.data.form.content.value,
         };
-        if (data.comment || data.tags.length) {
+        if (
+            data.comment
+            || data.question_1 || data.question_2 || data.question_3 || data.question_4
+            || data.tags.length
+        ) {
             filledAny = true;
         }
         formNumberTypeList.forEach(item => {
@@ -492,7 +454,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     }
 
 
-    on_general_el_changed(name: formNumberType, value: number) {
+    on_general_el_changed(name: TFormNumberType, value: number) {
         this.setState({
             data: {
                 ...this.state.data,
@@ -501,11 +463,11 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
-    handleInputChange(value: any, isValid: boolean) {
+    handleInputChange(value: any, isValid: boolean, inputType: TGroupTitle | 'comment') {
         this.setState({
             data: {
                 ...this.state.data,
-                form: { ...this.state.data.form, comment: { value, isValid } }
+                form: { ...this.state.data.form, [inputType]: { value, isValid } }
             }
         });
     }
@@ -582,9 +544,6 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 </div>
                             </div>
 
-                            {/* <span className="h5 text-muted">{Localization.rating_obj.overall_rate}: </span> */}
-
-
                         </div>
                     </div>
 
@@ -622,7 +581,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                                             name={`${grp.title}-${g_prp.title}`}
                                                                             defaultValue={(this.state.data.form as any)[g_prp.title].value}
                                                                             value={(this.state.data.form as any)[g_prp.title].value}
-                                                                            onChange={(rate: number) => this.on_general_el_changed(g_prp.title as formNumberType, rate)}
+                                                                            onChange={(rate: number) => this.on_general_el_changed(g_prp.title as TFormNumberType, rate)}
                                                                         >
                                                                             {
                                                                                 getRateList(grp.mode as 1 | 2 | 3).map(rate => (
@@ -645,6 +604,19 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                         )
                                                     })
                                                 }
+
+                                                <div className="row">
+                                                    <div className="col-12 mb-2">
+                                                        <Input
+                                                            label={`${Localization.rating_obj.further_details} (${Localization.rating_wrapper_obj[grp.title]})`}
+                                                            defaultValue={this.state.data.form[grp.title].value}
+                                                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, grp.title) }}
+                                                            placeholder={`${Localization.rating_obj.further_details} (${Localization.rating_wrapper_obj[grp.title]})`}
+                                                            is_textarea
+                                                            textarea_rows={3}
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -678,7 +650,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             <Input
                                 label={Localization.rating_obj.write_comment}
                                 defaultValue={this.state.data.form.comment.value}
-                                onChange={(val, isValid) => { this.handleInputChange(val, isValid) }}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'comment') }}
                                 placeholder={Localization.rating_obj.comment_about_movie}
                                 is_textarea
                                 textarea_rows={5}

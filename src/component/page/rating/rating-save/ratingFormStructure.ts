@@ -1,6 +1,70 @@
+export type TFormNumberType =
+    'overall_rate' |
+
+    'novel' | 'character' | 'reason' |
+
+    'directing' | 'acting' | 'editing' |
+    'visualization' | 'sound' | 'music' |
+
+    'violence_range' |
+    'insulting_range' |
+    'sexual_content' |
+    'unsuitable_wearing' |
+    'addiction_promotion' |
+    'horror_content' |
+    'suicide_encouragement' |
+    'breaking_law_encouragement' |
+    'gambling_promotion' |
+    'alcoholic_promotion' |
+
+    'family_subject' |
+    'individual_social_behavior' |
+    'feminism_exposure' |
+    'justice_seeking' |
+    'theism' |
+    'bright_future_exposure' |
+    'hope' |
+    'iranian_life_style' |
+    'true_vision_of_enemy' |
+    'true_historiography'
+    ;
+
+export const formNumberTypeList: TFormNumberType[] = [
+    'overall_rate',
+
+    'novel', 'character', 'reason',
+
+    'directing', 'acting', 'editing',
+    'visualization', 'sound', 'music',
+
+    'violence_range',
+    'insulting_range',
+    'sexual_content',
+    'unsuitable_wearing',
+    'addiction_promotion',
+    'horror_content',
+    'suicide_encouragement',
+    'breaking_law_encouragement',
+    'gambling_promotion',
+    'alcoholic_promotion',
+
+    'family_subject',
+    'individual_social_behavior',
+    'feminism_exposure',
+    'justice_seeking',
+    'theism',
+    'bright_future_exposure',
+    'hope',
+    'iranian_life_style',
+    'true_vision_of_enemy',
+    'true_historiography'
+];
+
+export type TGroupTitle = 'story' | 'form' | 'norm' | 'content';
+
 interface IRatingFormStructure {
     groups: Array<{
-        title: string;
+        title: TGroupTitle;
         items: Array<{ title: string; adj?: boolean; }>,
         mode: 1 | 2 | 3
     }>;
