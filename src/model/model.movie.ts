@@ -10,4 +10,5 @@ export interface IMovie extends BaseModel {
     title: string;
     writer: string;
     rated_by_user: boolean;
+    order_filed: number;
 }

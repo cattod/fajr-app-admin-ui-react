@@ -56,7 +56,12 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         } else {
             this.setState({ gridLoader: true });
         }
-        const res = await this._movieService.search(1000, 0, {}).catch(err => {
+        const res = await this._movieService.search(
+            1000,
+            0,
+            {},
+            ['order_filed+', 'creation_date-']
+        ).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'fetchGridData_error' } });
         });
 
