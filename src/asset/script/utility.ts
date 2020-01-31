@@ -80,16 +80,28 @@ export abstract class Utility {
         return Math.trunc(float * pfixed) / pfixed; // === parseInt(value) === ~~value
     }
 
-    private static persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
-    private static arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+    private static persianNumbers_reg = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+    private static persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    private static arabicNumbers_reg = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+    private static englishNumbers_reg = [/0/g, /1/g, /2/g, /3/g, /4/g, /5/g, /6/g, /7/g, /8/g, /9/g];
     static fix_phrase_numbers(str: string) {
         if (typeof str === 'string') {
             for (var i = 0; i < 10; i++) {
-                str = str.replace(this.persianNumbers[i], i.toLocaleString()).replace(this.arabicNumbers[i], i.toLocaleString());
+                str = str.replace(this.persianNumbers_reg[i], i.toLocaleString()).replace(this.arabicNumbers_reg[i], i.toLocaleString());
             }
         }
         return str;
     };
+
+    static toPersianNumber(str: string): string {
+        if (typeof str === 'string') {
+            for (var i = 0; i < 10; i++) {
+                str = str.replace(this.englishNumbers_reg[i], this.persianNumbers[i])
+                    .replace(this.arabicNumbers_reg[i], i.toLocaleString());
+            }
+        }
+        return str;
+    }
 
     /**
      * conver second duration to timer.

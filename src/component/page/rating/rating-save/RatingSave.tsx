@@ -534,15 +534,16 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
-    sliderMarks() {
+    private sliderMarks() {
+        const rtl = this.props.internationalization.rtl;
         const obj: any = { 0: '' };
         for (let i = 1; i < 11; i++) {
-            obj[i] = i;
+            obj[i] = rtl ? Utility.toPersianNumber(i.toLocaleString()) : i.toLocaleString();
         }
         return obj;
     }
 
-    sliderTrackStyle() {
+    private sliderTrackStyle() {
         switch (this.state.data.form.overall_rate.value) {
             case 1: case 2:
                 return { backgroundColor: '#bf3100' };
@@ -559,7 +560,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         }
     }
 
-    sliderHandle(props: any) {
+    private sliderHandle(props: any) {
         const { value, dragging, index, ...restProps } = props;
         // console.log(props);
         return (
@@ -568,7 +569,6 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                 overlayClassName={`rating rating-${value}`}
                 overlay={value}
                 visible={dragging}
-                // visible
                 placement="top"
                 key={index}
             >
@@ -576,6 +576,14 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
             </Tooltip>
         );
     };
+
+    /** @deprecated */
+    private sliderTipFormatter(value: number): string {
+        console.log('sliderTipFormatter: ', value);
+        const rtl = this.props.internationalization.rtl;
+        const val = rtl ? Utility.toPersianNumber(value.toLocaleString()) : value.toLocaleString();
+        return val + 'aaaaaaa';
+    }
 
     widget_form_render() {
         return (<>
@@ -646,14 +654,14 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                             /> */}
 
                                             <RcSlider
-                                                className={
-                                                    "rc-slider-system-- "
-                                                    + (this.props.internationalization.rtl ? 'reverse' : '')
-                                                }
+                                                // className={
+                                                //     "rc-slider-system-- "
+                                                //     + (this.props.internationalization.rtl ? 'reverse--' : '')
+                                                // }
+                                                // reverse={this.props.internationalization.rtl}
                                                 min={0}
                                                 // step={null}
                                                 max={10}
-                                                reverse={this.props.internationalization.rtl}
                                                 defaultValue={this.state.data.form.overall_rate.value}
                                                 onChange={(v) => this.on_overall_rate_Change(v)}
                                                 value={this.state.data.form.overall_rate.value}
@@ -661,6 +669,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                 marks={this.sliderMarks()}
                                                 trackStyle={this.sliderTrackStyle()}
                                                 handle={(p) => this.sliderHandle(p)}
+                                            // tipFormatter={v => this.sliderTipFormatter(v)}
+                                            // tipFormatter={value => `${value}%`}
                                             />
                                         </div>
                                     </div>
