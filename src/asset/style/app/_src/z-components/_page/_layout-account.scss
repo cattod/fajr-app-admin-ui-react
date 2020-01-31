@@ -1,4 +1,9 @@
 body.layout-account {
+  // background-image: url(/static/media/img/icon/bg-1.jpg);
+  background-image: url(/static/media/img/icon/bg-4.jpg);
+  background-repeat: repeat;
+  background-size: contain;
+
   &:before {
     // background-image: url(/static/media/img/icon/fajr-logo.png);
     background-image: url(/static/media/img/icon/fajr-logo.jpg);
@@ -6,5 +11,15 @@ body.layout-account {
     background-attachment: fixed;
     background-position: center;
     background-size: contain;
+
+    background-color: unset;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  body.layout-account {
+    &:before {
+      background-size: cover;
+    }
   }
 }
