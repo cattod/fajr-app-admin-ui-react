@@ -1,0 +1,9 @@
+body {
+  &:before {
+    background-image: url(/static/media/img/icon/bg-4.jpg);
+  }
+
+  .page-body {
+    background-color: unset;
+  }
+}
