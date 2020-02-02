@@ -130,6 +130,7 @@ export const en = {
             change_password_successful: 'password successfully changed',
             registered_successful: 'registered successfully',
             movie_filled_any: "please rate at least one of movie's aspects or leave a comment or tag(s).",
+            movie_x_will_be_removed_continue: 'movie {0} will be removed continue?',
         },
         back: {
             user_already_exists: 'user already exists',

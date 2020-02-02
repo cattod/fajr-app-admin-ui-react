@@ -16,6 +16,11 @@ import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { IMovie_schema } from '../../../../redux/action/movie/movieAction';
 import { action_update_Movie } from '../../../../redux/action/movie';
 import { Store2 } from '../../../../redux/store';
+import { Fab, Action } from 'react-tiny-fab';
+import { ConfirmNotify } from '../../../form/confirm-notify/ConfirmNotify';
+import { RatingService } from '../../../../service/service.rating';
+import { AccessService } from '../../../../service/service.access';
+import { PERMISSIONS } from '../../../../enum/Permission';
 
 interface IState {
     // gridData: IMovie[];
@@ -25,6 +30,9 @@ interface IState {
         movieTitle: string;
         ratedByUser: boolean | 'all';
     };
+    actionMode: boolean;
+    confirmNotify_remove_show: boolean;
+    confirmNotify_remove_loader: boolean;
 }
 interface IProps {
     internationalization: TInternationalization;
@@ -40,10 +48,14 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         search: {
             movieTitle: '',
             ratedByUser: 'all',
-        }
+        },
+        actionMode: false,
+        confirmNotify_remove_show: false,
+        confirmNotify_remove_loader: false,
     };
 
     private _movieService = new MovieService();
+    private _ratingService = new RatingService();
 
     componentDidMount() {
         CmpUtility.gotoTop();
@@ -180,11 +192,28 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                         const movie_img = (item.images && item.images.length !== 0) ? item.images[0] : '';
                         const visible = this.checkMovieVisibility(item);
                         // if (!visible) return <Fragment key={item.id}></Fragment>;
+
+                        const ac_movieUpdate = AccessService.checkAccess(PERMISSIONS.EDIT_MOVIE_PREMIUM);
+                        const ac_movieRemove = AccessService.checkAccess(PERMISSIONS.DELETE_MOVIE_PREMIUM);
+
                         return (
-                            <div className={"col mb-3 px-2 " + (visible ? '' : 'd-none')} key={item.id}>
+                            <div className={"col mb-3 px-2 movie-item " + (visible ? '' : 'd-none')} key={item.id}>
+                                {
+                                    (!ac_movieUpdate && !ac_movieRemove) ? '' :
+                                        <div className={"item-actions-wrapper " + (this.state.actionMode ? '' : 'd-none')}>
+                                            <div className="item-actions">
+                                                {ac_movieUpdate ? <div className="item-action" onClick={() => this.gotoEdit(item.id)}>
+                                                    <i className="fa fa-edit fa-2x text-primary"></i>
+                                                </div> : ''}
+                                                {ac_movieRemove ? <div className="item-action" onClick={() => this.open_confirmNotify_remove(item)}>
+                                                    <i className="fa fa-trash fa-2x text-danger"></i>
+                                                </div> : ''}
+                                            </div>
+                                        </div>
+                                }
+
                                 <div className={
                                     "card h-100 bg-light shadow-hover shadow-default cursor-pointer overflow-hidden "
-                                    // + (item.rated_by_user ? 'bg-primary text-white' : 'bg-light')
                                 }
                                     onClick={() => this.goto_rating(item.id)}
                                 >
@@ -220,6 +249,123 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         </>)
     }
 
+    fab_render() {
+        const ac_movieReports = AccessService.checkAccess(PERMISSIONS.GET_MOVIE_PREMIUM);
+        const ac_movieCreate = AccessService.checkAccess(PERMISSIONS.ADD_MOVIE_PREMIUM);
+        const ac_movieUpdate = AccessService.checkAccess(PERMISSIONS.EDIT_MOVIE_PREMIUM);
+        const ac_movieRemove = AccessService.checkAccess(PERMISSIONS.DELETE_MOVIE_PREMIUM);
+
+        if (!ac_movieReports && !ac_movieCreate && !ac_movieUpdate && !ac_movieRemove) return <></>;
+
+        return (
+            <Fab
+                icon={<i className="fa fa-gears"></i>}
+                mainButtonStyles={{ backgroundColor: '#e74c3c' }}
+                event='click'
+                position={{
+                    bottom: 0,
+                    [this.props.internationalization.rtl ? 'left' : 'right']: 0
+                }}
+            >
+                {ac_movieReports ? <Action
+                    text="‌گزارش ارزیابی‌ها"
+                    style={{ backgroundColor: '#01aaa4' }}
+                    onClick={() => this.ratingsReport()}
+                >
+                    <i className="fa fa-bar-chart"></i>
+                </Action> : <></>}
+                {ac_movieCreate ? <Action
+                    text="ایجاد فیلم جدید"
+                    style={{ backgroundColor: '#40b292' }}
+                    onClick={() => this.gotoCreate()}
+                >
+                    <i className="fa fa-plus"></i>
+                </Action> : <></>}
+                {(ac_movieUpdate || ac_movieRemove) ? <Action
+                    text="اقدامات"
+                    style={{ backgroundColor: this.state.actionMode ? '#232264' : '#2dc3e8' }}
+                    onClick={() => this.toggleActionMode()}
+                >
+                    <i className="fa fa-film"></i>
+                </Action> : <></>}
+            </Fab>
+        )
+    }
+
+    private async ratingsReport() {
+        debugger;
+        const res = await this._ratingService.movieReport().catch(err => {
+            this.handleError({ error: err.response, toastOptions: { toastId: 'ratingsReport_error' } });
+        });
+        debugger;
+    }
+
+    private gotoCreate() {
+        debugger;
+    }
+
+    private gotoEdit(id: string) {
+        debugger;
+    }
+
+    private toggleActionMode() {
+        this.setState({ actionMode: !this.state.actionMode });
+    }
+
+    private _selected_movie_toRemove: IMovie | undefined;
+    private open_confirmNotify_remove(movie: IMovie) {
+        this._selected_movie_toRemove = movie;
+        this.setState({ confirmNotify_remove_show: true });
+    }
+    private close_confirmNotify_remove() {
+        this.setState({ confirmNotify_remove_show: false });
+    }
+    private async confirmNotify_onConfirm_remove() {
+        if (this._selected_movie_toRemove === undefined) return;
+        this.setState({ confirmNotify_remove_loader: true });
+        const res = await this._movieService.remove(this._selected_movie_toRemove.id).catch(err => {
+            this.handleError({ error: err.response, toastOptions: { toastId: 'onConfirm_remove_error' } });
+        });
+        if (res) {
+            this.apiSuccessNotify();
+            const oldList = [...this.props.movie.list];
+            if (oldList.length) {
+                const index = oldList.findIndex(m => m.id === this._selected_movie_toRemove!.id);
+                if (index !== -1) {
+                    const newList = oldList.splice(index, 1);
+                    Store2.dispatch(action_update_Movie({ ...this.props.movie, list: newList }));
+                }
+            }
+            this._selected_movie_toRemove = undefined;
+
+            this.setState({ confirmNotify_remove_show: false, confirmNotify_remove_loader: false });
+        } else {
+            this.setState({ confirmNotify_remove_loader: false });
+        }
+    }
+
+    confirmNotify_render() {
+        const movie = this._selected_movie_toRemove;
+        let msg = Localization.msg.ui.movie_x_will_be_removed_continue;
+        if (movie) {
+            msg = Localization.formatString(
+                Localization.msg.ui.movie_x_will_be_removed_continue, `"${movie.title}"`
+            ) as string;
+        }
+        return (
+            <ConfirmNotify
+                show={this.state.confirmNotify_remove_show}
+                onHide={() => this.close_confirmNotify_remove()}
+                onConfirm={() => this.confirmNotify_onConfirm_remove()}
+                msg={msg}
+                confirmBtn_className='text-danger'
+                confirmBtn_text={Localization.remove}
+                closeBtn_text={Localization.cancel}
+                btnLoader={this.state.confirmNotify_remove_loader}
+            />
+        )
+    }
+
     render() {
         return (
             <>
@@ -234,6 +380,10 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                         {this.movie_list_render()}
                     </div>
                 </div>
+
+                {this.fab_render()}
+
+                {this.confirmNotify_render()}
 
                 <ToastContainer {...this.getNotifyContainerConfig()} />
             </>

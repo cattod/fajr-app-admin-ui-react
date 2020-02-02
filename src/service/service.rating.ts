@@ -27,4 +27,8 @@ export class RatingService extends BaseService {
         return this.axiosTokenInstance.put(`/ratings/${ratingId}`, data);
     }
 
+    movieReport() {
+        return this.axiosTokenInstance.get(`/ratings/report/csv`);
+    }
+
 }

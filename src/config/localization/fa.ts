@@ -131,6 +131,7 @@ export const fa = {
             change_password_successful: 'رمز عبور با موفقیت بروز شد',
             registered_successful: 'ثبت نام با موفقیت انجام شد',
             movie_filled_any: 'لطفا حداقل به یکی از مشخصه های فیلم نمره دهید یا نظر و یا برچسبی بگذارید.',
+            movie_x_will_be_removed_continue: 'فیلم {0} حذف خواهد شد، تایید می‌کنید؟',
         },
         back: {
             user_already_exists: 'کاربر از قبل وجود دارد.',

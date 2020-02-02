@@ -149,6 +149,7 @@ interface ILocalization extends LocalizedStringsMethods {
             change_password_successful: string;
             registered_successful: string;
             movie_filled_any: string;
+            movie_x_will_be_removed_continue: string;
         },
         back: {
             [key: string]: any; // todo

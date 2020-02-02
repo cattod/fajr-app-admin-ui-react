@@ -7,8 +7,20 @@ export class MovieService extends BaseService {
         return this.axiosTokenInstance.post(`/movies/_search`, { limit, skip, filter, sort });
     }
 
-    getById(movie_id: string): Promise<IAPI_Response<IMovie>> {
-        return this.axiosTokenInstance.get(`/movies/${movie_id}`);
+    getById(movieId: string): Promise<IAPI_Response<IMovie>> {
+        return this.axiosTokenInstance.get(`/movies/${movieId}`);
+    }
+
+    remove(movieId: string): Promise<any> {
+        return this.axiosTokenInstance.delete(`/movies/${movieId}`);
+    }
+
+    create(data: IMovie): Promise<IAPI_Response<IMovie>> {
+        return this.axiosTokenInstance.post(`/movies`, data);
+    }
+
+    update(data: IMovie, movieId: string): Promise<IAPI_Response<IMovie>> {
+        return this.axiosTokenInstance.put(`/movies/${movieId}`, data);
     }
 
 }
