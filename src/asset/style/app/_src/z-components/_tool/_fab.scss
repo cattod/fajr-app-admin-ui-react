@@ -1,0 +1,44 @@
+@import "~react-tiny-fab/dist/styles.css";
+
+ul.rtf {
+  padding: 0;
+  direction: ltr;
+}
+
+// _DELETE_ME
+body.rtl--_DELETE_ME {
+  .rtf {
+    padding-left: unset;
+    padding-right: 0;
+    // &.open .rtf--mb > * {
+    //   transform: rotate(315deg);
+    // }
+  }
+
+  .rtf--mb__c > span {
+    margin-right: 4px;
+    margin-left: 6px;
+  }
+
+  .rtf--mb__c > span.right {
+    right: unset;
+    left: 100%;
+  }
+
+  .rtf--ab__c {
+    right: unset;
+    left: 1px;
+  }
+  .rtf--ab__c > span {
+    margin-right: unset;
+    margin-left: 6px;
+  }
+  .rtf--ab__c > span.right {
+    right: unset;
+    left: 100%;
+  }
+  .rtf--ab {
+    margin-right: unset;
+    margin-left: 4px;
+  }
+}
