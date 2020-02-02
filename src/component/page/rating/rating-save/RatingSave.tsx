@@ -467,7 +467,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             />
                         </div>
                         <div className="col-sm-9">
-                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
+                            {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3"> */}
+                            <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2">
                                 <div className="col mb-2">
                                     <span className="text-muted-- h5">{Localization.movie_obj.title}: </span>
                                     <span className="h5">{movie.title}</span>
