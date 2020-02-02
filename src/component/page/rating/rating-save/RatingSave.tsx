@@ -445,11 +445,11 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
         }
         const movie_img = (movie.images && movie.images.length !== 0) ? movie.images[0] : '';
         return (<>
-            <div className="widget position-relative">
-                <div className="widget-header bordered-bottom bordered-info bg-white">
+            <div className="widget radius-bordered-- position-relative">
+                <div className="widget-header bordered-bottom-- bordered-info bg-white d-none">
                     <i className="widget-icon fa fa-video-camera text-dark"></i>
                     <span className="widget-caption text-dark">{movie.title}</span>
-                    <div className="widget-buttons">
+                    <div className="widget-buttons d-none">
                         <a className="cursor-pointer"
                             data-toggle="collapse"
                             onClick={() => this.toggleCollapse_widget_info()}
@@ -458,40 +458,44 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                         </a>
                     </div>
                 </div>
-                <div className={"widget-body " + (this.state.widget_info_collapse ? 'd-none' : '')}>
+                <div className={"widget-body rounded " + (this.state.widget_info_collapse ? 'd-none' : '')}>
                     <div className="row">
                         <div className="col-sm-3 mb-3 mb-sm-0 text-center">
                             <img src={CmpUtility.getImageUrl(movie_img)} alt=""
-                                className="img-thumbnail max-w-100 max-h-300px"
+                                className="img-thumbnail max-w-100 max-h-300px--"
                                 loading="lazy"
                             />
                         </div>
                         <div className="col-sm-9">
                             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
                                 <div className="col mb-2">
-                                    <span className="text-muted h6">{Localization.movie_obj.director}: </span>
+                                    <span className="text-muted-- h5">{Localization.movie_obj.title}: </span>
+                                    <span className="h5">{movie.title}</span>
+                                </div>
+                                <div className="col mb-2">
+                                    <span className="text-muted-- h6">{Localization.movie_obj.director}: </span>
                                     <span className="h6">{movie.director}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted h6">{Localization.movie_obj.producer}: </span>
+                                    <span className="text-muted-- h6">{Localization.movie_obj.producer}: </span>
                                     <span className="h6">{movie.producer}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted h6">{Localization.movie_obj.writer}: </span>
+                                    <span className="text-muted-- h6">{Localization.movie_obj.writer}: </span>
                                     <span className="h6">{movie.writer}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted h6">{Localization.movie_obj.genre}: </span>
+                                    <span className="text-muted-- h6">{Localization.movie_obj.genre}: </span>
                                     <span className="h6">{movie.genre}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted h6">{Localization.movie_obj.pub_year}: </span>
+                                    <span className="text-muted-- h6">{Localization.movie_obj.pub_year}: </span>
                                     <span className="h6">{movie.pub_year}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    <span className="text-muted h6">{Localization.movie_obj.description}: </span>
+                                    <span className="text-muted-- h6">{Localization.movie_obj.description}: </span>
                                     <span className="h6 overflow-wrap-break-word">{movie.description}</span>
                                 </div>
                             </div>
@@ -587,8 +591,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     widget_form_render() {
         return (<>
-            <div className="widget position-relative">
-                <div className="widget-header bordered-bottom bordered-system bg-white">
+            <div className="widget radius-bordered position-relative">
+                <div className="widget-header bordered-bottom-- bordered-system bg-white">
                     <span className="widget-caption text-dark">{Localization.movie_rating_obj.rating}</span>
                     {
                         this.state.actionBtn.create.visible ?

@@ -94,11 +94,11 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
 
     widget_search_render() {
         return (<>
-            <div className="widget position-relative">
-                <div className="widget-header bordered-bottom bordered-system bg-white">
+            <div className="widget radius-bordered position-relative">
+                <div className="widget-header bordered-bottom-- bordered-system bg-white">
                     <i className="widget-icon fa fa-search text-dark"></i>
                     <span className="widget-caption text-dark">{'کدام فیلم را ارزیابی می کنید؟'}</span>
-                    <div className="widget-buttons">
+                    <div className="widget-buttons d-none">
                         <a className="cursor-pointer"
                             data-toggle="collapse"
                             onClick={() => this.toggleCollapse_widget_search()}
@@ -108,7 +108,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                     </div>
                 </div>
                 <div className={"widget-body " + (this.state.widget_search_collapse ? 'd-none' : '')}>
-                    <div className="row">
+                    <div className="row mb-n3">
                         <div className="col-md-6">
                             <Input
                                 label={Localization.movie_obj.title}
