@@ -119,7 +119,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                     <ul className="account-area">
                                         <li className="d-none d-sm-block">
                                             <NavLink to="/movie/manage" className="text-white text-center p-2">
-                                                <span>فیلم های جشنواره فجر 38</span>
+                                                <span className="d-inline-block mt-1">فیلم های جشنواره فجر 38</span>
                                             </NavLink>
                                         </li>
                                         <li>
@@ -127,7 +127,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                 href="/static/other/filmsanj-booklet.pdf"
                                                 target="_blank"
                                             >
-                                                <span>راهنما</span>
+                                                <span className="d-inline-block mt-1">راهنما</span>
                                             </a>
                                         </li>
                                         <Dropdown as="li">
