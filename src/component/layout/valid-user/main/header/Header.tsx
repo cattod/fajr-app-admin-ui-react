@@ -6,7 +6,7 @@ import { History } from "history";
 import { NETWORK_STATUS } from '../../../../../enum/NetworkStatus';
 import { IUser } from '../../../../../model/model.user';
 import { CmpUtility } from '../../../../_base/CmpUtility';
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Localization } from '../../../../../config/localization/localization';
 import { Dropdown } from 'react-bootstrap';
 import { TInternationalization } from '../../../../../config/setup';
@@ -88,17 +88,22 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
 
         return (
             <>
-                <div className="navbar">
+                <div className="navbar navbar-fixed-top sticky-top-- fixed-top">
                     <div className="navbar-inner">
                         <div className="navbar-container">
 
-                            {/* <div className="navbar-header pull-left">
-                                <a href="#" className="navbar-brand">
+                            <div className="navbar-header pull-left">
+                                <NavLink to="/movie/manage" className="navbar-brand">
+                                    {/* <a href="#" className="navbar-brand"> */}
                                     <small>
-                                        <img src="assets/img/logo.png" alt="" />
+                                        <img src="/static/media/img/icon/filmsanj-logo-tr.png"
+                                            alt="filmsanj logo"
+                                            className="w-auto"
+                                        />
                                     </small>
-                                </a>
-                            </div> */}
+                                    {/* </a> */}
+                                </NavLink>
+                            </div>
 
                             <div className={
                                 "sidebar-collapse d-none "
@@ -112,6 +117,19 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                             <div className="navbar-header pull-right">
                                 <div className="navbar-account">
                                     <ul className="account-area">
+                                        <li className="d-none d-sm-block">
+                                            <NavLink to="/movie/manage" className="text-white text-center p-2">
+                                                <span>فیلم های جشنواره فجر 38</span>
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <a className="text-white text-center p-2"
+                                                href="/static/other/filmsanj-booklet.pdf"
+                                                target="_blank"
+                                            >
+                                                <span>راهنما</span>
+                                            </a>
+                                        </li>
                                         <Dropdown as="li">
                                             <Dropdown.Toggle
                                                 as="a"

@@ -872,6 +872,7 @@
                 @include box-shadow(0 2px 40px rgba(0, 0, 0, 0.4));
               }
             }
+            &.show, // ? fajr 
             &.open {
               > a {
                 background-color: $admin-primary-color;
@@ -1487,7 +1488,7 @@
     }
     .navbar-inner {
       // min-height: 90px; // ?  // fajr?
-      
+
       .navbar-header {
         float: none !important;
         display: block;
@@ -1606,11 +1607,11 @@
     }
   }
 
-  .navbar-fixed-top {
-    + .main-container {
-      margin-top: 90px !important;
-    }
-  }
+  // .navbar-fixed-top {
+  //   + .main-container {
+  //     // margin-top: 90px !important; // ? fajr
+  //   }
+  // }
   .breadcrumbs-fixed {
     top: 90px !important;
     + .page-header {

@@ -101,7 +101,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
                             </div>
 
 
-                            <div className="page-header position-relative">
+                            <div className="page-header position-relative d-none">
                                 <div className="header-title d-none">
                                     <h1>Blank Page</h1>
                                 </div>

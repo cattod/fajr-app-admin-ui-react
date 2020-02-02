@@ -1,5 +1,5 @@
 import React from "react";
-import { Localization } from "../../../../config/localization/localization";
+// import { Localization } from "../../../../config/localization/localization";
 
 class LayoutAccountHeaderComponent extends React.Component<any>{
     render() {
