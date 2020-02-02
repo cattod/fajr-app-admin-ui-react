@@ -32,6 +32,13 @@ export const fa = {
         title: 'عنوان فیلم',
         rated_by_user_: 'ارزیابی شده',
         not_rated_by_user_: 'ارزیابی نشده',
+        crud: {
+            create: 'ایجاد فیلم',
+            update: 'ویرایش فیلم',
+            remove: 'حذف فیلم',
+            view: 'نمایش فیلم',
+            manage: 'مدیریت فیلم',
+        },
     },
     rating_wrapper_obj: {
         detailed_scoring: 'نمره دهی تفصیلی',

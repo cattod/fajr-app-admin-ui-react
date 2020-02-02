@@ -32,6 +32,13 @@ export const en = {
         title: 'movie title',
         rated_by_user_: 'rated',
         not_rated_by_user_: 'not rated',
+        crud: {
+            create: 'create movie',
+            update: 'update movie',
+            remove: 'delete movie',
+            view: 'view movie',
+            manage: 'movie manage',
+        },
     },
     rating_wrapper_obj: {
         detailed_scoring: 'detailed scoring',

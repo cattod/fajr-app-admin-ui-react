@@ -302,10 +302,12 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
 
     private gotoCreate() {
         debugger;
+        this.props.history.push(`/movie/create`);
     }
 
     private gotoEdit(id: string) {
         debugger;
+        this.props.history.push(`/movie/update/${id}`);
     }
 
     private toggleActionMode() {

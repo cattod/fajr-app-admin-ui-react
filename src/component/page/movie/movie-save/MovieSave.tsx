@@ -16,15 +16,11 @@ import { MovieService } from '../../../../service/service.movie';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
 // import Rating from 'react-rating';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 // import { IUser } from '../../../../model/model.user';
-import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
 
 import { Utility } from '../../../../asset/script/utility';
 import { Store2 } from '../../../../redux/store';
-import RcSlider, { Handle } from 'rc-slider';
-import Tooltip from 'rc-tooltip';
 import { action_update_Movie } from '../../../../redux/action/movie';
 
 interface IState {
@@ -170,7 +166,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         return { persisted, rated };
     }
 
-    
+
 
 
     private getFormData(): IMovie {
@@ -260,7 +256,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
     }
 
 
-    handleInputChange(value: any, isValid: boolean, inputType: 'gholi' | 'comment') {
+    handleInputChange(value: any, isValid: boolean, inputType: 'title' | 'comment') {
         this.setState({
             data: {
                 ...this.state.data,
@@ -275,12 +271,54 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         return (<>
             <div className="widget radius-bordered position-relative">
                 <div className="widget-header bordered-bottom-- bordered-system bg-white">
-                    <span className="widget-caption text-dark">{Localization.movie_rating_obj.rating}</span>
+                    <span className="widget-caption text-dark">{
+                        this.movieId ? Localization.movie_obj.crud.update
+                            : Localization.movie_obj.crud.create
+                    }</span>
                 </div>
                 <div className="widget-body">
                     <div className="row mb-4 mt-4">
                         <div className="col-12">
+                            <Input
+                                label={Localization.movie_obj.title}
+                                defaultValue={this.state.data.form.title.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'title') }}
+                                placeholder={Localization.movie_obj.title}
+                                // is_textarea
+                                // textarea_rows={5}
+                                required
+                            />
+                        </div>
+                    </div>
 
+                    <div className="row mt-3">
+                        <div className="col-12">
+                            {
+                                this.state.actionBtn.create.visible ?
+                                    <BtnLoader
+                                        btnClassName="btn btn-success btn-sm mr-1 btn-circle"
+                                        loading={this.state.actionBtn.create.loading}
+                                        onClick={() => this.create()}
+                                        disabled={this.state.actionBtn.create.disable}
+                                    >
+                                        {/* {Localization.create}&nbsp; */}
+                                        <i className="fa fa-save fa-2x"></i>
+                                    </BtnLoader>
+                                    : ''
+                            }
+                            {
+                                this.state.actionBtn.update.visible ?
+                                    <BtnLoader
+                                        btnClassName="btn btn-primary btn-success-- btn-sm mr-1 btn-circle"
+                                        loading={this.state.actionBtn.update.loading}
+                                        onClick={() => this.update()}
+                                        disabled={this.state.actionBtn.update.disable}
+                                    >
+                                        {/* {Localization.update}&nbsp; */}
+                                        <i className="fa fa-edit fa-save-- fa-2x"></i>
+                                    </BtnLoader>
+                                    : ''
+                            }
                         </div>
                     </div>
 
