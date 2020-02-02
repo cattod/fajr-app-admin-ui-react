@@ -18,17 +18,31 @@ class LayoutMainFooterComponent extends BaseComponent<IProps, any>{
     render() {
         return (
             <footer className="footer sticky-footer text-center text-muted">
-                {/* <div className="d-inline-block mr-4">{Localization.catod_watermark}</div> */}
-                <div className="d-inline-block mr-4 footer-watermark">
-                    <span>ساخته شده با </span>
-                    <i className="fa fa-heart icon-heart"></i>
-                    <span> و </span>
-                    <i className="fa fa-coffee icon-coffee"></i>
-                    <span> در کاتد.</span>
+                <div className="footer-logo-wrapper">
+                    <div className="footer-logo">
+                        <img src="/static/media/img/icon/ermia-logo.png" alt="" />
+                    </div>
+                    <div className="footer-logo">
+                        <img src="/static/media/img/icon/saye-logo.png" alt="" />
+                    </div>
+                    <div className="footer-logo">
+                        <img src="/static/media/img/icon/filmsanj-logo-inverse.png" alt="" />
+                    </div>
                 </div>
-                <div className="d-inline-block">
-                    <span className="text-muted--">{Localization.version}: </span>
-                    <span className="font-weight-bold--">{process.env.REACT_APP_VERSION}</span>
+                
+                <div className="py-1">
+                    {/* <div className="d-inline-block mr-4">{Localization.catod_watermark}</div> */}
+                    <div className="d-inline-block mr-4 footer-watermark">
+                        <span>ساخته شده با </span>
+                        <i className="fa fa-heart icon-heart"></i>
+                        <span> و </span>
+                        <i className="fa fa-coffee icon-coffee"></i>
+                        <span> در کاتد.</span>
+                    </div>
+                    <div className="d-inline-block">
+                        <span className="text-muted--">{Localization.version}: </span>
+                        <span className="font-weight-bold--">{process.env.REACT_APP_VERSION}</span>
+                    </div>
                 </div>
             </footer>
         )
