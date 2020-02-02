@@ -46,13 +46,10 @@ interface IProps {
 
 class LayoutValidUserComponent extends React.Component<IProps> {
 
-    componentWillMount() {
-        // debugger;
+    componentDidMount() {
         if (!this.props.logged_in_user) {
             this.props.history.push("/login");
-
         } else {
-
         }
     }
 

@@ -137,7 +137,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                 className="login-area"
                                             >
                                                 <div className="avatar" title="View your public profile">
-                                                    <img src="/static/media/img/icon/avatar.png" />
+                                                    <img src="/static/media/img/icon/avatar.png" alt="" />
                                                 </div>
                                                 <section>
                                                     <h2><span className="profile"><span>{fullname}</span></span></h2>
@@ -152,7 +152,7 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
 
                                                 <li className="d-none">
                                                     <div className="avatar-area">
-                                                        <img src="/static/media/img/icon/avatar.png" className="avatar" />
+                                                        <img src="/static/media/img/icon/avatar.png" className="avatar" alt="" />
                                                         {/* <span className="caption">Change Photo</span> */}
                                                     </div>
                                                 </li>
@@ -188,12 +188,12 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                     <ul className="languagepicker">
                                                         <li>
                                                             <a className="cursor-pointer" onClick={() => this.changeLang('fa')} title="فارسی">
-                                                                <img src="/static/media/img/flag/ir.png" />
+                                                                <img src="/static/media/img/flag/ir.png" alt="فارسی" />
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a className="cursor-pointer" onClick={() => this.changeLang('en')} title="English">
-                                                                <img src="/static/media/img/flag/us.png" />
+                                                                <img src="/static/media/img/flag/us.png" alt="English" />
                                                             </a>
                                                         </li>
                                                     </ul>
