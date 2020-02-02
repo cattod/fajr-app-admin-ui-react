@@ -13,6 +13,7 @@ import { LayoutNoWrapNotFound } from './no-wrap/not-found/NotFound';
 import { RouteLayoutNoWrap } from './no-wrap/NoWrap';
 import { MovieManage } from '../../page/movie/movie-manage/MovieManage';
 import { RatingSave } from '../../page/rating/rating-save/RatingSave';
+import { MovieSave } from '../../page/movie/movie-save/MovieSave';
 
 const appValidUserRoutes = (
     <HashRouter>
@@ -22,8 +23,10 @@ const appValidUserRoutes = (
             <RouteLayoutMain path="/profile" component={Profile} />
             {/* <RouteLayoutMain path="/blank" component={Blank} /> */}
             <RouteLayoutMain path="/movie/manage" component={MovieManage} />
+            <RouteLayoutMain path="/movie/create" component={MovieSave} />
+            <RouteLayoutMain path="/movie/update/:movieId" component={MovieSave} />
             <RouteLayoutMain path="/rating/save/:movieId" component={RatingSave} />
-            
+
             {/* keep "cmp LayoutNoWrapNotFound" last */}
             <RouteLayoutNoWrap component={LayoutNoWrapNotFound} />
         </Switch>

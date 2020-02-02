@@ -21,6 +21,8 @@ const appRoutes = (
       <RouteLayoutValidUser path="/profile" />
       {/* <RouteLayoutValidUser path="/blank" /> */}
       <RouteLayoutValidUser path="/movie/manage" />
+      <RouteLayoutValidUser path="/movie/create" />
+      <RouteLayoutValidUser path="/movie/update/:movieId" />
       <RouteLayoutValidUser path="/rating/save/:movieId" />
 
       <RouteLayoutAccount path="/login" component={Login} />
