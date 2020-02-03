@@ -335,12 +335,12 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
         });
         if (res) {
             this.apiSuccessNotify();
-            const oldList = [...this.props.movie.list];
-            if (oldList.length) {
-                const index = oldList.findIndex(m => m.id === this._selected_movie_toRemove!.id);
+            const persistedMovieList = [...this.props.movie.list];
+            if (persistedMovieList.length) {
+                const index = persistedMovieList.findIndex(m => m.id === this._selected_movie_toRemove!.id);
                 if (index !== -1) {
-                    const newList = oldList.splice(index, 1);
-                    Store2.dispatch(action_update_Movie({ ...this.props.movie, list: newList }));
+                    persistedMovieList.splice(index, 1);
+                    Store2.dispatch(action_update_Movie({ ...this.props.movie, list: persistedMovieList }));
                 }
             }
             this._selected_movie_toRemove = undefined;
