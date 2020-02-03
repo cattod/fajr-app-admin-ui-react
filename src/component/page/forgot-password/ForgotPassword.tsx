@@ -311,7 +311,7 @@ class ForgotPasswordComponent extends BaseComponent<IProps, IState> {
     return (
       <>
         <div className="register-container animated fadeInDown">
-          <div className="logobox text-center mt-0 mb-3 header">
+          <div className="logobox text-center mt-0 mb-3 header d-none">
             <span>{Localization.account_logobox_header_text}</span>
           </div>
 

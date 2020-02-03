@@ -2,23 +2,18 @@ import React, { Fragment } from 'react';
 import { redux_state } from '../../../../redux/app_state';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { BaseComponent } from '../../../_base/BaseComponent';
 import { TInternationalization, Setup } from '../../../../config/setup';
 import { Input } from '../../../form/input/Input';
 import { History } from "history";
-// import { IRating } from '../../../../model/model.rating';
 import { Localization } from '../../../../config/localization/localization';
 import { BtnLoader } from '../../../form/btn-loader/BtnLoader';
-// import { Utility } from '../../../../asset/script/utility';
 import { IMovie } from '../../../../model/model.movie';
 import { MovieService } from '../../../../service/service.movie';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
-// import Rating from 'react-rating';
-// import { IUser } from '../../../../model/model.user';
 import Select from 'react-select';
-
 import { Utility } from '../../../../asset/script/utility';
 import { Store2 } from '../../../../redux/store';
 import { action_update_Movie } from '../../../../redux/action/movie';
@@ -28,10 +23,6 @@ import { UploadService } from '../../../../service/service.upload';
 import Dropzone from "react-dropzone";
 
 interface IState {
-    // formData: IRating | undefined;
-    // confirmNotify_remove_show: boolean;
-    // confirmNotify_remove_loader: boolean;
-    // widget_info_collapse: boolean;
     actionBtn: {
         [key in 'remove' | 'create' | 'update']: {
             visible: boolean;
@@ -67,17 +58,12 @@ type TInputType = 'title' | 'director' | 'description' | 'producer' | 'pub_year'
 
 class MovieSaveComponent extends BaseComponent<IProps, IState> {
     state: IState = {
-        // formData: undefined,
-        // confirmNotify_remove_show: false,
-        // confirmNotify_remove_loader: false,
-        // widget_info_collapse: false,
         actionBtn: {
             remove: { visible: false, disable: true, loading: false },
             create: { visible: false, disable: true, loading: false },
             update: { visible: false, disable: true, loading: false },
         },
         data: {
-            // info: undefined,
             form: this.formDataObj(),
         },
         form_loader: false,
@@ -85,18 +71,14 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         isFormValid: false,
     };
     movieId: string | undefined;
-    // ratingId: string | undefined;
 
-    // private _ratingService = new RatingService();
     private _movieService = new MovieService();
     private _uploadService = new UploadService();
 
     componentDidMount() {
         this.movieId = this.props.match.params.movieId;
-        // if (!this.movieId) this.gotoManage();
 
         CmpUtility.gotoTop();
-        // if (!this.movieId) return;
         this.fetchFormData();
     }
 
@@ -131,8 +113,6 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
             return;
         }
 
-        // const { /* persisted, */ rated } = this.fetchOfflineData();
-
         this.setState({ form_loader: true });
 
         const res = await this._movieService.getById(this.movieId)
@@ -155,25 +135,6 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
             this.setState({ form_loader: false });
         }
     }
-
-    // private fetchOfflineData(): { persisted: boolean, rated: boolean } {
-    //     const persisted_movie_list = Store2.getState().movie.list;
-    //     let persisted = false;
-    //     let rated = false;
-    //     if (persisted_movie_list.length) {
-    //         const thisMovie = persisted_movie_list.find(m => m.id === this.movieId);
-    //         if (thisMovie) {
-    //             persisted = true;
-    //             rated = thisMovie.rated_by_user;
-    //             this.setState({
-    //                 data: { ...this.state.data },
-    //                 form_loader: rated!
-    //             });
-    //         }
-    //     }
-
-    //     return { persisted, rated };
-    // }
 
     private persistedMovie_update(movie: IMovie): void {
         const PM = Store2.getState().movie;

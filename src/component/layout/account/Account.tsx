@@ -1,13 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-// import { LayoutAccountHeader } from './header/Header';
-// import { LayoutAccountFooter } from './footer/Footer';
 import { MapDispatchToProps, connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { redux_state } from '../../../redux/app_state';
 import { IUser } from '../../../model/model.user';
 import { History } from "history";
 import { LayoutAccountFooter } from './footer/Footer';
+import { LayoutAccountHeader } from './header/Header';
 
 export const RouteLayoutAccount = ({ component: Component, ...rest }: { [key: string]: any }) => {
     return (
@@ -32,17 +31,26 @@ class LayoutAccountComponent extends React.Component<IProps> {
             this.props.history.push("/dashboard");
         } else {
             document.body.classList.add('layout-account');
+
+            this.handleScroll();
+            window.addEventListener('scroll', this.handleScroll, { passive: true })
         }
     }
 
-    // componentDidMount() {
-    //     // console.log('add class');
-    //     document.body.classList.add('layout-account');
-    // }
-
     componentWillUnmount() {
-        // console.log('remove class');
         document.body.classList.remove('layout-account');
+
+        window.removeEventListener('scroll', this.handleScroll)
+        document.body.classList.remove('expand-navbar');
+    }
+
+    private handleScroll() {
+        const top = window.pageYOffset || window.pageYOffset;
+        if (top < 32) {
+            document.body.classList.add('expand-navbar');
+        } else {
+            document.body.classList.remove('expand-navbar');
+        }
     }
 
     shouldComponentUpdate() {
@@ -56,7 +64,7 @@ class LayoutAccountComponent extends React.Component<IProps> {
     render() {
         return (
             <>
-                {/* <LayoutAccountHeader /> */}
+                <LayoutAccountHeader />
                 {this.props.children}
                 <LayoutAccountFooter />
             </>

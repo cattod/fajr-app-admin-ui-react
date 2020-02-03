@@ -4,3 +4,68 @@
     border-bottom: 1px solid #fff !important;
   }
 }
+
+// body.layout-account {
+body {
+  .navbar {
+    .navbar-inner {
+      transition: height 0.3s;
+      height: 45px;
+
+      .navbar-header {
+        .navbar-account {
+          .account-area {
+            > li {
+              > a {
+                transition: padding-top 0.3s;
+              }
+            }
+          }
+        }
+      }
+    }
+    .navbar-brand {
+      img {
+        transition: height 0.3s;
+      }
+    }
+  }
+
+  &.expand-navbar {
+    .navbar {
+      .navbar-inner {
+        height: 80px;
+
+        .navbar-header {
+          .navbar-account {
+            .account-area {
+              > li {
+                height: 80px;
+
+                .dropdown-arrow {
+                  &:before {
+                    top: -81px;
+                  }
+                }
+
+                > a {
+                  height: 80px;
+                  padding-top: 24px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+      .navbar-brand {
+        img {
+          height: 80px;
+        }
+      }
+
+      &.navbar-fixed-top + .main-container {
+        margin-top: 80px;
+      }
+    }
+  }
+}

@@ -41,6 +41,25 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
         fullscreen: false,
     }
 
+    componentDidMount() {
+        this.handleScroll();
+        window.addEventListener('scroll', this.handleScroll, { passive: true })
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll)
+        document.body.classList.remove('expand-navbar');
+    }
+
+    private handleScroll() {
+        const top = window.pageYOffset || window.pageYOffset;
+        if (top < 32) {
+            document.body.classList.add('expand-navbar');
+        } else {
+            document.body.classList.remove('expand-navbar');
+        }
+    }
+
     reloadApp() {
         window.location.reload();
     }
