@@ -46,7 +46,7 @@ class LayoutAccountComponent extends React.Component<IProps> {
 
     private handleScroll() {
         const top = window.pageYOffset || window.pageYOffset;
-        if (top < 32) {
+        if (top < 80) {
             document.body.classList.add('expand-navbar');
         } else {
             document.body.classList.remove('expand-navbar');

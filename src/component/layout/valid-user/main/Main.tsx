@@ -53,7 +53,7 @@ class LayoutMainComponent extends BaseComponent<IProps, IState> {
 
     private handleScroll() {
         const top = window.pageYOffset || window.pageYOffset;
-        if (top < 32) {
+        if (top < 80) {
             document.body.classList.add('expand-navbar');
         } else {
             document.body.classList.remove('expand-navbar');
