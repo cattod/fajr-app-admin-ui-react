@@ -487,7 +487,16 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- h6">{Localization.movie_obj.genre}: </span>
-                                    <span className="h6">{movie.genre}</span>
+                                    <span className="h6">{
+                                        (movie.genre && movie.genre.length) ?
+                                            movie.genre.map((g, index) => (
+                                                <div key={g} className="mr-2 d-inline-block">
+                                                    {g}
+                                                    <span className={(index === movie.genre.length - 1) ? 'd-none' : ''}> - </span>
+                                                </div>
+                                            ))
+                                            : ''
+                                    }</span>
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- h6">{Localization.movie_obj.pub_year}: </span>
@@ -809,7 +818,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={this.state.actionBtn.create.disable}
                                     >
                                         {/* {Localization.create}&nbsp; */}
-                                        <i className="fa fa-save fa-2x"></i>
+                                        <i className="fa fa-save"></i>
                                     </BtnLoader>
                                     : ''
                             }
@@ -822,7 +831,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={this.state.actionBtn.update.disable}
                                     >
                                         {/* {Localization.update}&nbsp; */}
-                                        <i className="fa fa-edit-- fa-save fa-2x"></i>
+                                        <i className="fa fa-edit-- fa-save"></i>
                                     </BtnLoader>
                                     : ''
                             }
@@ -835,12 +844,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={this.state.actionBtn.remove.disable}
                                     >
                                         {/* {Localization.remove}&nbsp; */}
-                                        <i className="fa fa-trash fa-2x"></i>
+                                        <i className="fa fa-trash"></i>
                                     </BtnLoader>
                                     : ''
                             }
                             <div className="btn btn-primary pull-right d-none" onClick={() => this.goto_movie()}>
-                                {Localization.go_back}&nbsp;<i className="fa fa-reply-app fa-2x"></i>
+                                {Localization.go_back}&nbsp;<i className="fa fa-reply-app"></i>
                             </div>
 
                         </div>
