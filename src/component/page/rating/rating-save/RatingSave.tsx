@@ -470,23 +470,23 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                             {/* <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3"> */}
                             <div className="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2">
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h5">{Localization.movie_obj.title}: </span>
-                                    <span className="h5">{movie.title}</span>
+                                    {/* <span className="text-muted-- font-weight-bold h5">{Localization.movie_obj.title}: </span> */}
+                                    <span className="h5 text-primary">{movie.title}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.director}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.director}: </span>
                                     <span className="h6">{movie.director}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.producer}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.producer}: </span>
                                     <span className="h6">{movie.producer}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.writer}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.writer}: </span>
                                     <span className="h6">{movie.writer}</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.genre}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.genre}: </span>
                                     <span className="h6">{
                                         (movie.genre && movie.genre.length) ?
                                             movie.genre.map((g, index) => (
@@ -499,13 +499,13 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                     }</span>
                                 </div>
                                 <div className="col mb-2">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.pub_year}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.pub_year}: </span>
                                     <span className="h6">{movie.pub_year}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    <span className="text-muted-- h6">{Localization.movie_obj.description}: </span>
+                                    <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.description}: </span>
                                     <span className="h6 overflow-wrap-break-word">{movie.description}</span>
                                 </div>
                             </div>
