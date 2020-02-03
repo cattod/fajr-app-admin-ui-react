@@ -117,9 +117,10 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                             <div className="navbar-header pull-right">
                                 <div className="navbar-account">
                                     <ul className="account-area">
-                                        <li className="d-none d-sm-block">
+                                        <li className="d-none--d-sm-block">
                                             <NavLink to="/movie/manage" className="text-white text-center p-2">
-                                                <span className="d-inline-block mt-1">فیلم های جشنواره فجر 38</span>
+                                                <span className="d-none d-sm-inline-block mt-1">فیلم‌های جشنواره فجر 38</span>
+                                                <span className="d-inline-block d-sm-none mt-1">فیلم‌ها</span>
                                             </NavLink>
                                         </li>
                                         <li>
