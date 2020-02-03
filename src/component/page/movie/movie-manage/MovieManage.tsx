@@ -293,20 +293,25 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     }
 
     private async ratingsReport() {
-        debugger;
         const res = await this._ratingService.movieReport().catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'ratingsReport_error' } });
         });
-        debugger;
+        if (res) {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'report.csv');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
     }
 
     private gotoCreate() {
-        debugger;
         this.props.history.push(`/movie/create`);
     }
 
     private gotoEdit(id: string) {
-        debugger;
         this.props.history.push(`/movie/update/${id}`);
     }
 
