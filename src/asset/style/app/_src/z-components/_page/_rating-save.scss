@@ -84,10 +84,12 @@ $rating-save-btn-el-bgColor: (
 }
 
 .rc-slider-tooltip.rating {
-  &.rating-0 {
+  // &.rating-0 {
+  &.rating--1 {
     display: none;
   }
 
+  &.rating-0,
   &.rating-1,
   &.rating-2 {
     .rc-slider-tooltip-arrow {

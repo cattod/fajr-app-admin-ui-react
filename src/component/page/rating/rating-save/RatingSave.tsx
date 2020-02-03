@@ -520,7 +520,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     on_overall_rate_Change(newRate: number) {
         // const newVal = newRate > 0 ? newRate : undefined;
-        if (newRate === 0) return;
+        // if (newRate === 0) return;
+        if (newRate === -1) return;
         this.setState({
             data: {
                 ...this.state.data,
@@ -550,8 +551,8 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     private sliderMarks() {
         const rtl = this.props.internationalization.rtl;
-        const obj: any = { 0: '' };
-        for (let i = 1; i < 11; i++) {
+        const obj: any = {}; // 0: ''
+        for (let i = 0; i < 11; i++) { // 1
             obj[i] = rtl ? Utility.toPersianNumber(i.toLocaleString()) : i.toLocaleString();
         }
         return obj;
@@ -559,7 +560,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
 
     private sliderTrackStyle() {
         switch (this.state.data.form.overall_rate.value) {
-            case 1: case 2:
+            case 0: case 1: case 2:
                 return { backgroundColor: '#bf3100' };
             case 3: case 4:
                 return { backgroundColor: '#d76a03' };
@@ -592,12 +593,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     };
 
     /** @deprecated */
-    private sliderTipFormatter(value: number): string {
+    /* private sliderTipFormatter(value: number): string {
         console.log('sliderTipFormatter: ', value);
         const rtl = this.props.internationalization.rtl;
         const val = rtl ? Utility.toPersianNumber(value.toLocaleString()) : value.toLocaleString();
         return val + 'aaaaaaa';
-    }
+    } */
 
     widget_form_render() {
         return (<>
@@ -674,7 +675,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                                 //     + (this.props.internationalization.rtl ? 'reverse--' : '')
                                                 // }
                                                 // reverse={this.props.internationalization.rtl}
-                                                min={0}
+                                                min={-1}
                                                 // step={null}
                                                 max={10}
                                                 defaultValue={this.state.data.form.overall_rate.value}
