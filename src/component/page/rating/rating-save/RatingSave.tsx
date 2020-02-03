@@ -668,6 +668,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                             /> */}
 
                                             <RcSlider
+                                                className="rc-slider-2x"
                                                 // className={
                                                 //     "rc-slider-system-- "
                                                 //     + (this.props.internationalization.rtl ? 'reverse--' : '')

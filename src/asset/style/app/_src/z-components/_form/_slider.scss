@@ -33,3 +33,33 @@
     }
   }
 }
+
+.rc-slider {
+  &.rc-slider-2x {
+    height: 28px;
+    .rc-slider-rail {
+      height: 0.5rem;
+    }
+    .rc-slider-track {
+      height: 0.5rem;
+    }
+    .rc-slider-step {
+      height: 0.5rem;
+      .rc-slider-dot {
+        bottom: -4px;
+        margin-left: -0.5rem;
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+    .rc-slider-handle {
+      width: 24px;
+      height: 24px;
+      margin-top: -9px;
+    }
+    .rc-slider-mark {
+      top: 24px;
+      font-size: 1rem;
+    }
+  }
+}
