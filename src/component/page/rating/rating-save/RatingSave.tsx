@@ -7,19 +7,15 @@ import { BaseComponent } from '../../../_base/BaseComponent';
 import { TInternationalization, Setup } from '../../../../config/setup';
 import { Input } from '../../../form/input/Input';
 import { History } from "history";
-// import { IRating } from '../../../../model/model.rating';
 import { RatingService } from '../../../../service/service.rating';
 import { Localization } from '../../../../config/localization/localization';
 import { BtnLoader } from '../../../form/btn-loader/BtnLoader';
 import { ConfirmNotify } from '../../../form/confirm-notify/ConfirmNotify';
-// import { Utility } from '../../../../asset/script/utility';
 import { IMovie } from '../../../../model/model.movie';
 import { MovieService } from '../../../../service/service.movie';
 import { ContentLoader } from '../../../form/content-loader/ContentLoader';
 import { CmpUtility } from '../../../_base/CmpUtility';
-// import Rating from 'react-rating';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-// import { IUser } from '../../../../model/model.user';
 import { IRating } from '../../../../model/model.rating';
 import Select from 'react-select';
 import { ratingFormStructure, getRateList, getRateAdjValue, TFormNumberType, formNumberTypeList, TGroupTitle } from './ratingFormStructure';
@@ -30,7 +26,6 @@ import Tooltip from 'rc-tooltip';
 import { action_update_Movie } from '../../../../redux/action/movie';
 
 interface IState {
-    // formData: IRating | undefined;
     confirmNotify_remove_show: boolean;
     confirmNotify_remove_loader: boolean;
     widget_info_collapse: boolean;
@@ -70,7 +65,6 @@ interface IProps {
 
 class RatingSaveComponent extends BaseComponent<IProps, IState> {
     state: IState = {
-        // formData: undefined,
         confirmNotify_remove_show: false,
         confirmNotify_remove_loader: false,
         widget_info_collapse: false,
@@ -151,6 +145,12 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                     // formData[item] = { value: res.data.result[0][item], isValid: true };
                     formData[item] = { value: rating[item], isValid: true };
                 });
+
+                /** note: rc_slider bug: if null stop at position zero */
+                if (formData.overall_rate.value === null) {
+                    formData.overall_rate.value = undefined;
+                }
+
                 this.setState({
                     // data: { form: formData, info: res.data.result[0].movie },
                     data: { form: formData, info: rating.movie },
