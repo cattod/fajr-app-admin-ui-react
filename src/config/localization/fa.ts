@@ -32,6 +32,8 @@ export const fa = {
         title: 'عنوان فیلم',
         rated_by_user_: 'ارزیابی شده',
         not_rated_by_user_: 'ارزیابی نشده',
+        order_filed: 'اولویت',
+        images: 'پوستر فیلم',
         crud: {
             create: 'ایجاد فیلم',
             update: 'ویرایش فیلم',
@@ -224,6 +226,7 @@ export const fa = {
         confirmPassword: 'رمز عبور با تایید آن همخوانی ندارد.',
         emailFormat: 'فرمت ایمیل صحیح نیست',
         phoneFormat: 'فرمت تلفن صحیح نیست',
+        integerFormat: 'فقط عدد صحیح وارد کنید',
     },
     username: 'نام کاربری',
     password: 'رمز عبور',

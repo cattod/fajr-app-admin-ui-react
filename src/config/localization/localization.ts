@@ -44,6 +44,8 @@ interface ILocalization extends LocalizedStringsMethods {
         title: string;
         rated_by_user_: string;
         not_rated_by_user_: string;
+        order_filed: string;
+        images: string;
 
         crud: {
             create: string;
@@ -245,6 +247,7 @@ interface ILocalization extends LocalizedStringsMethods {
         confirmPassword: string;
         emailFormat: string;
         phoneFormat: string;
+        integerFormat: string;
     },
     username: string;
     password: string;

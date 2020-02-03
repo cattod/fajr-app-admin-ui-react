@@ -32,6 +32,8 @@ export const en = {
         title: 'movie title',
         rated_by_user_: 'rated',
         not_rated_by_user_: 'not rated',
+        order_filed: 'order',
+        images:'movie poster',
         crud: {
             create: 'create movie',
             update: 'update movie',
@@ -226,6 +228,7 @@ export const en = {
         confirmPassword: 'confirm password not match password.',
         emailFormat: 'email format is not valid',
         phoneFormat: 'phone format is not valid',
+        integerFormat: 'integer format is not valid',
     },
     username: 'username',
     password: 'password',

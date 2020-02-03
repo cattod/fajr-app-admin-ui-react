@@ -22,6 +22,10 @@ import Select from 'react-select';
 import { Utility } from '../../../../asset/script/utility';
 import { Store2 } from '../../../../redux/store';
 import { action_update_Movie } from '../../../../redux/action/movie';
+import { FixNumber } from '../../../form/fix-number/FixNumber';
+import { AppRegex } from '../../../../config/regex';
+import { UploadService } from '../../../../service/service.upload';
+import Dropzone from "react-dropzone";
 
 interface IState {
     // formData: IRating | undefined;
@@ -45,7 +49,7 @@ interface IState {
             pub_year: { value: string | undefined; isValid: boolean; };
             title: { value: string | undefined; isValid: boolean; };
             writer: { value: string | undefined; isValid: boolean; };
-            order_filed: { value: number | undefined; isValid: boolean; };
+            order_filed: { value: string | undefined; isValid: boolean; };
         };
     };
     form_loader: boolean;
@@ -58,6 +62,8 @@ interface IProps {
     match: any;
     // logged_in_user: IUser | null;
 }
+
+type TInputType = 'title' | 'director' | 'description' | 'producer' | 'pub_year' | 'writer' | 'order_filed';
 
 class MovieSaveComponent extends BaseComponent<IProps, IState> {
     state: IState = {
@@ -83,6 +89,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
 
     // private _ratingService = new RatingService();
     private _movieService = new MovieService();
+    private _uploadService = new UploadService();
 
     componentDidMount() {
         this.movieId = this.props.match.params.movieId;
@@ -149,61 +156,100 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         }
     }
 
-    private fetchOfflineData(): { persisted: boolean, rated: boolean } {
-        const persisted_movie_list = Store2.getState().movie.list;
-        let persisted = false;
-        let rated = false;
+    // private fetchOfflineData(): { persisted: boolean, rated: boolean } {
+    //     const persisted_movie_list = Store2.getState().movie.list;
+    //     let persisted = false;
+    //     let rated = false;
+    //     if (persisted_movie_list.length) {
+    //         const thisMovie = persisted_movie_list.find(m => m.id === this.movieId);
+    //         if (thisMovie) {
+    //             persisted = true;
+    //             rated = thisMovie.rated_by_user;
+    //             this.setState({
+    //                 data: { ...this.state.data },
+    //                 form_loader: rated!
+    //             });
+    //         }
+    //     }
+
+    //     return { persisted, rated };
+    // }
+
+    private persistedMovie_update(movie: IMovie): void {
+        const PM = Store2.getState().movie;
+        const persisted_movie_list = [...PM.list];
         if (persisted_movie_list.length) {
-            const thisMovie = persisted_movie_list.find(m => m.id === this.movieId);
-            if (thisMovie) {
-                persisted = true;
-                rated = thisMovie.rated_by_user;
-                this.setState({
-                    data: { ...this.state.data },
-                    form_loader: rated!
-                });
+            for (let i = 0; i < persisted_movie_list.length; i++) {
+                const m = persisted_movie_list[i];
+                if (m.id === movie.id) {
+                    persisted_movie_list[i] = movie;
+                    Store2.dispatch(action_update_Movie({ ...PM, list: persisted_movie_list }));
+                    break;
+                }
             }
         }
+    }
 
-        return { persisted, rated };
+    private persistedMovie_add(movie: IMovie): void {
+        const PM = Store2.getState().movie;
+        const persisted_movie_list = [...PM.list];
+        if (persisted_movie_list.length) {
+            persisted_movie_list.push(movie);
+            Store2.dispatch(action_update_Movie({ ...PM, list: persisted_movie_list }));
+        }
     }
 
 
-
-
     private getFormData(): IMovie {
-        // const tags = (this.state.data.form.genre.value || []).map((item: { label: string; value: string }) => item.value);
+        const genre = (this.state.data.form.genre.value || []).map(
+            (item: { label: string; value: string }) => item.value
+        );
+        const order_filed = this.state.data.form.order_filed.value ?
+            parseInt(this.state.data.form.order_filed.value) : undefined;
         const data: any = {
-            // movie_id: this.movieId,
-            // comment: this.state.data.form.comment.value,
-            // tags,
-
-            // question_1: this.state.data.form.story.value,
-            // question_2: this.state.data.form.form.value,
-            // question_3: this.state.data.form.norm.value,
-            // question_4: this.state.data.form.content.value,
+            description: this.state.data.form.description.value,
+            genre,
+            director: this.state.data.form.director.value,
+            producer: this.state.data.form.producer.value,
+            pub_year: this.state.data.form.pub_year.value,
+            title: this.state.data.form.title.value,
+            writer: this.state.data.form.writer.value,
+            order_filed,
         };
         return data;
     }
 
     private async create() {
-        const data = this.getFormData();
-        // if (!filledAny) {
-        //     this.fillAnyNotify();
-        //     return;
-        // }
+        // debugger;
+        const formData = this.getFormData();
         this.setState({
             actionBtn: {
                 ...this.state.actionBtn,
                 create: { ...this.state.actionBtn.create, loading: true },
             }
         });
-        const res = await this._movieService.create(data).catch(err => {
+
+        let imgUrls = await this.uploadFileReq().catch(error => {
+            this.handleError({ error: error.response, toastOptions: { toastId: 'create_upload_error' } });
+        });
+        if (!imgUrls || !imgUrls.length) {
+            this.setState({
+                actionBtn: {
+                    ...this.state.actionBtn,
+                    create: { ...this.state.actionBtn.create, loading: false },
+                }
+            });
+            return
+        }
+        formData.images = imgUrls;
+
+        const res = await this._movieService.create(formData).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'create_error' } });
         });
+
         if (res) {
             // this.apiSuccessNotify();
-            // this.ratingId = res.data.id;
+
             this.setState({
                 actionBtn: {
                     remove: { visible: true, disable: false, loading: false },
@@ -212,7 +258,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                 },
             });
 
-            // this.offline_toggleMovieRate(true);
+            this.persistedMovie_add(res.data);
 
             setTimeout(() => {
                 this.apiSuccessNotify();
@@ -222,29 +268,43 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
     }
 
     private async update() {
+        // debugger;
         if (!this.movieId) return;
-        const data = this.getFormData();
-        // if (!filledAny) {
-        //     this.fillAnyNotify();
-        //     return;
-        // }
+        const formData = this.getFormData();
         this.setState({
             actionBtn: {
                 ...this.state.actionBtn,
                 update: { ...this.state.actionBtn.update, loading: true },
             }
         });
-        const res = await this._movieService.update(data, this.movieId).catch(err => {
+
+        let imgUrls = await this.uploadFileReq().catch(error => {
+            this.handleError({ error: error.response, toastOptions: { toastId: 'update_upload_error' } });
+        });
+        if (!imgUrls || !imgUrls.length) {
+            this.setState({
+                actionBtn: {
+                    ...this.state.actionBtn,
+                    update: { ...this.state.actionBtn.update, loading: false },
+                }
+            });
+            return
+        }
+        formData.images = imgUrls;
+
+        const res = await this._movieService.update(formData, this.movieId).catch(err => {
             this.handleError({ error: err.response, toastOptions: { toastId: 'update_error' } });
         });
+
         this.setState({
             actionBtn: {
                 ...this.state.actionBtn,
                 update: { ...this.state.actionBtn.update, loading: false },
             }
         });
+
         if (res) {
-            // this.apiSuccessNotify();
+            this.persistedMovie_update(res.data);
 
             setTimeout(() => {
                 this.apiSuccessNotify();
@@ -257,8 +317,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         this.props.history.push(`/movie/manage`);
     }
 
-
-    handleInputChange(value: any, isValid: boolean, inputType: 'title' | 'comment') {
+    handleInputChange(value: any, isValid: boolean, inputType: TInputType) {
         this.setState({
             data: {
                 ...this.state.data,
@@ -362,6 +421,77 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         });
     }
 
+    private async uploadFileReq(): Promise<string[]> {
+        let fileImg = (this.state.data.form.images.value || []).filter(img => typeof img !== "string");
+        let strImg = (this.state.data.form.images.value || []).filter(img => typeof img === "string");
+        if (fileImg && (fileImg || []).length) {
+            return new Promise(async (res, rej) => {
+                let urls = await this._uploadService.upload(fileImg).catch(e => {
+                    rej(e);
+                });
+                if (urls) {
+                    res([...strImg, ...urls.data.result]);
+                }
+            });
+        } else {
+            return new Promise((res, rej) => {
+                res(strImg || []);
+            });
+        }
+    }
+    //#region dropzone
+    private onDropRejected(files: any[], event: any) {
+        this.onDropRejectedNotify(files);
+    }
+
+    private onDropRejectedNotify(files: any[]) {
+        const msg = Localization.formatString(Localization.msg.ui.profile_img_not_uploaded_max_size_n, '500KB');
+        this.toastNotify(msg as string, { autoClose: Setup.notify.timeout.warning, toastId: 'file_could_not_be_uploaded' }, 'warn');
+    }
+
+    private removePreviousImgNotify() {
+        const msg = Localization.msg.ui.one_img_upload_allowed_remove_existing_one;
+        this.toastNotify(msg, { autoClose: Setup.notify.timeout.warning, toastId: 'one_img_upload_allowed_remove_existing_one' }, 'warn');
+    }
+
+    private onDrop(files: any[]) {
+        if (!files || !files.length) return;
+        if (this.state.data.form.images.value && this.state.data.form.images.value!.length) {
+            this.removePreviousImgNotify();
+            return;
+        }
+        this.setState({
+            data: {
+                ...this.state.data,
+                form: { ...this.state.data.form, images: { value: files, isValid: true } }
+            },
+            isFormValid: this.checkFormValidate(true, 'images')
+        });
+    }
+
+    private tmpUrl_list: string[] = [];
+
+    private getTmpUrl(file: any): string {
+        const tmUrl = URL.createObjectURL(file);
+        this.tmpUrl_list.push(tmUrl);
+        return tmUrl;
+    }
+
+    private removeItemFromDZ(index: number/* , url: string */) {
+        let newFiles = (this.state.data.form.images.value || []);
+        if (newFiles && newFiles.length) {
+            newFiles.splice(index, 1);
+        }
+        const isValid = (newFiles && newFiles.length) ? true : false;
+        this.setState({
+            data: {
+                ...this.state.data,
+                form: { ...this.state.data.form, images: { value: [...newFiles], isValid: isValid } }
+            },
+            isFormValid: this.checkFormValidate(isValid, 'images')
+        });
+    }
+    //#endregion
 
     widget_form_render() {
         return (<>
@@ -373,16 +503,67 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                     }</span>
                 </div>
                 <div className="widget-body">
-                    <div className="row mb-4 mt-4">
-                        <div className="col-12">
+                    <div className="row mb-4 mt-1">
+                        <div className="col-lg-4">
                             <Input
                                 label={Localization.movie_obj.title}
                                 defaultValue={this.state.data.form.title.value}
                                 onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'title') }}
                                 placeholder={Localization.movie_obj.title}
-                                // is_textarea
-                                // textarea_rows={5}
                                 required
+                            />
+                        </div>
+                        <div className="col-lg-4">
+                            <Input
+                                label={Localization.movie_obj.director}
+                                defaultValue={this.state.data.form.director.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'director') }}
+                                placeholder={Localization.movie_obj.director}
+                                required
+                            />
+                        </div>
+                        <div className="col-lg-4">
+                            <Input
+                                label={Localization.movie_obj.producer}
+                                defaultValue={this.state.data.form.producer.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'producer') }}
+                                placeholder={Localization.movie_obj.producer}
+                            />
+                        </div>
+                        <div className="col-lg-4">
+                            <Input
+                                label={Localization.movie_obj.pub_year}
+                                defaultValue={this.state.data.form.pub_year.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'pub_year') }}
+                                placeholder={Localization.movie_obj.pub_year}
+                            />
+                        </div>
+                        <div className="col-lg-4">
+                            <Input
+                                label={Localization.movie_obj.writer}
+                                defaultValue={this.state.data.form.writer.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'writer') }}
+                                placeholder={Localization.movie_obj.writer}
+                            />
+                        </div>
+                        <div className="col-lg-4">
+                            <FixNumber
+                                label={Localization.movie_obj.order_filed}
+                                defaultValue={this.state.data.form.order_filed.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'order_filed') }}
+                                placeholder={Localization.movie_obj.order_filed}
+                                pattern={AppRegex.integer}
+                                patternError={Localization.validation.integerFormat}
+                            />
+                        </div>
+                        <div className="col-12">
+                            <Input
+                                label={Localization.movie_obj.description}
+                                defaultValue={this.state.data.form.description.value}
+                                onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'description') }}
+                                placeholder={Localization.movie_obj.description}
+                                is_textarea
+                                textarea_rows={5}
                             />
                         </div>
                         <div className="col-12">
@@ -406,6 +587,81 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 />
                             </div>
                         </div>
+
+                        <div className="col-lg-4 col-md-6">
+                            <div className="app-dropzone">
+                                <label>
+                                    {Localization.movie_obj.images}
+                                    <span className="text-danger">*</span>
+                                </label>
+                                <div className="dropzone-container rounded py-3">
+                                    <Dropzone
+                                        multiple={false}
+                                        onDrop={(files) => this.onDrop(files)}
+                                        // maxSize={1000000}
+                                        maxSize={524288}
+                                        accept="image/*"
+                                        onDropRejected={(files, event) => this.onDropRejected(files, event)}
+                                    >
+                                        {
+                                            (({ getRootProps, getInputProps }) => (
+                                                <section className="px-3">
+                                                    <div {...getRootProps({ className: 'dropzone' })}
+                                                        className={
+                                                            (this.state.data.form.images.value && this.state.data.form.images.value.length
+                                                                ? 'd-none' : '')
+                                                        }
+                                                    >
+                                                        <input {...getInputProps()} />
+                                                        <p
+                                                            className="drag-drop-section text-center text-muted p-3 mt-3-- mb-0 cursor-pointer rounded"
+                                                        >{Localization.choose_image}</p>
+                                                    </div>
+                                                    <aside className={
+                                                        "mt-3-- " +
+                                                        (this.state.data.form.images.value && this.state.data.form.images.value.length
+                                                            ? '' : 'd-none')
+                                                    }>
+                                                        {/* <h5 className="m-2">{Localization.preview}:</h5> */}
+                                                        <div className="file-wrapper px-2 pt-2 pb-0 rounded">{
+                                                            (this.state.data.form.images.value || []).map((file: any, index) => {
+                                                                let tmUrl = '';
+                                                                let fileName = '';
+                                                                let fileSize = '';
+                                                                if (typeof file === "string") {
+                                                                    // fileName = file;
+                                                                    tmUrl = '/api/serve-files/' + file;
+                                                                } else {
+                                                                    fileName = file.name;
+                                                                    fileSize = '- ' + parseFloat((file.size / 1024).toFixed(2)) + ' KB';
+                                                                    tmUrl = this.getTmpUrl(file);
+                                                                }
+                                                                return <Fragment key={index}>
+                                                                    <div className="file-item-row justify-content-center mb-2">
+                                                                        <button title={Localization.remove}
+                                                                            className="remove-file-btn-- btn btn-outline-danger btn-xs btn-circle mr-2"
+                                                                            onClick={() => this.removeItemFromDZ(index/* , tmUrl */)}
+                                                                        >&times;</button>
+                                                                        <div className="file-preview circle--">
+                                                                            <img className="w-100px-- w-200px h-100px--"
+                                                                                src={tmUrl}
+                                                                                alt=""
+                                                                            // onError={e => this.personImageOnError(e)}
+                                                                            />
+                                                                        </div>
+                                                                        <span className="ml-2 phone-text">{fileName} {fileSize}</span>
+                                                                    </div>
+                                                                </Fragment>
+                                                            })
+                                                        }</div>
+                                                    </aside>
+                                                </section>
+                                            ))
+                                        }
+                                    </Dropzone>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="row mt-3">
@@ -420,7 +676,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={!this.state.isFormValid}
                                     >
                                         {/* {Localization.create}&nbsp; */}
-                                        <i className="fa fa-save fa-2x"></i>
+                                        <i className="fa fa-save"></i>
                                     </BtnLoader>
                                     : ''
                             }
@@ -434,7 +690,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                         disabled={!this.state.isFormValid}
                                     >
                                         {/* {Localization.update}&nbsp; */}
-                                        <i className="fa fa-edit fa-save-- fa-2x"></i>
+                                        <i className="fa fa-edit fa-save--"></i>
                                     </BtnLoader>
                                     : ''
                             }
