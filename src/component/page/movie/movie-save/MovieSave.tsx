@@ -49,7 +49,8 @@ interface IState {
         };
     };
     form_loader: boolean;
-    // tags_inputValue: string;
+    tags_inputValue: string;
+    isFormValid: boolean;
 }
 interface IProps {
     internationalization: TInternationalization;
@@ -74,7 +75,8 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
             form: this.formDataObj(),
         },
         form_loader: false,
-        // tags_inputValue: ''
+        tags_inputValue: '',
+        isFormValid: false,
     };
     movieId: string | undefined;
     // ratingId: string | undefined;
@@ -261,10 +263,104 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
             data: {
                 ...this.state.data,
                 form: { ...this.state.data.form, [inputType]: { value, isValid } }
-            }
+            },
+            isFormValid: this.checkFormValidate(isValid, inputType)
         });
     }
 
+    checkFormValidate(isValid: boolean, inputType: any): boolean {
+        let valid = true;
+        let formObj: any = { ...this.state.data.form };
+
+        for (let i = 0; i < Object.keys(this.state.data.form).length; i++) {
+            let IT = Object.keys(this.state.data.form)[i];
+            if (IT !== inputType) {
+                valid = valid && formObj[IT].isValid;
+                if (!formObj[IT].isValid) {
+                    break;
+                }
+            }
+        }
+        valid = valid && isValid;
+        return valid;
+    }
+
+    private handleSelectInputChange(value: { label: string, value: string }[]) {
+        this.setState({
+            ...this.state,
+            data: {
+                ...this.state.data,
+                form: {
+                    ...this.state.data.form,
+                    genre: {
+                        isValid: true,
+                        value: value || []
+                    }
+                }
+            },
+        })
+    }
+    private isDuplicateTag(tagVal: string): boolean {
+        let isDup = false;
+        for (let i = 0; i < this.state.data.form.genre.value.length; i++) {
+            const c_tag = this.state.data.form.genre.value[i];
+            if (c_tag.value === tagVal) {
+                isDup = true;
+                break;
+            }
+        }
+        return isDup;
+    }
+    private handle_tagsKeyDown(event: any) {
+        if (!this.state.tags_inputValue) return;
+        switch (event.key) {
+            case 'Enter':
+            case 'Tab':
+                const newVal = this.state.tags_inputValue;
+                if (this.isDuplicateTag(newVal)) return;
+                this.setState({
+                    ...this.state,
+                    data: {
+                        ...this.state.data,
+                        form: {
+                            ...this.state.data.form,
+                            genre: {
+                                isValid: true,
+                                value: [
+                                    ...this.state.data.form.genre.value,
+                                    { label: newVal, value: newVal }
+                                ]
+                            }
+                        }
+                    },
+                    tags_inputValue: ''
+                });
+        }
+    };
+    private async handle_tagsBlur(event: any) {
+        if (!this.state.tags_inputValue) return;
+        const newVal = this.state.tags_inputValue;
+        /* cmp react-select remove inputValue onBlur, so here we keep the inputValue & add it after 300 ms. */
+        await Utility.waitOnMe(300);
+        if (this.isDuplicateTag(newVal)) return;
+        this.setState({
+            ...this.state,
+            data: {
+                ...this.state.data,
+                form: {
+                    ...this.state.data.form,
+                    genre: {
+                        isValid: true,
+                        value: [
+                            ...this.state.data.form.genre.value,
+                            { label: newVal, value: newVal }
+                        ]
+                    }
+                }
+            },
+            tags_inputValue: ''
+        });
+    }
 
 
     widget_form_render() {
@@ -289,6 +385,27 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 required
                             />
                         </div>
+                        <div className="col-12">
+                            <div className="form-group">
+                                <label>{Localization.movie_obj.genre}</label>
+                                <Select
+                                    isRtl={this.props.internationalization.rtl}
+                                    isMulti
+                                    onChange={(value: any) => this.handleSelectInputChange(value)}
+                                    value={this.state.data.form.genre.value}
+                                    placeholder={Localization.movie_obj.genre}
+                                    onKeyDown={(e) => this.handle_tagsKeyDown(e)}
+                                    onBlur={(e) => this.handle_tagsBlur(e)}
+                                    inputValue={this.state.tags_inputValue}
+                                    menuIsOpen={false}
+                                    components={{
+                                        DropdownIndicator: null,
+                                    }}
+                                    isClearable
+                                    onInputChange={(inputVal) => this.setState({ ...this.state, tags_inputValue: inputVal })}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <div className="row mt-3">
@@ -299,7 +416,8 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                         btnClassName="btn btn-success btn-sm mr-1 btn-circle"
                                         loading={this.state.actionBtn.create.loading}
                                         onClick={() => this.create()}
-                                        disabled={this.state.actionBtn.create.disable}
+                                        // disabled={this.state.actionBtn.create.disable}
+                                        disabled={!this.state.isFormValid}
                                     >
                                         {/* {Localization.create}&nbsp; */}
                                         <i className="fa fa-save fa-2x"></i>
@@ -312,7 +430,8 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                         btnClassName="btn btn-primary btn-success-- btn-sm mr-1 btn-circle"
                                         loading={this.state.actionBtn.update.loading}
                                         onClick={() => this.update()}
-                                        disabled={this.state.actionBtn.update.disable}
+                                        // disabled={this.state.actionBtn.update.disable}
+                                        disabled={!this.state.isFormValid}
                                     >
                                         {/* {Localization.update}&nbsp; */}
                                         <i className="fa fa-edit fa-save-- fa-2x"></i>
