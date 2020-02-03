@@ -504,7 +504,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                 </div>
                 <div className="widget-body">
                     <div className="row mb-4 mt-1">
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <Input
                                 label={Localization.movie_obj.title}
                                 defaultValue={this.state.data.form.title.value}
@@ -513,7 +513,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 required
                             />
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <Input
                                 label={Localization.movie_obj.director}
                                 defaultValue={this.state.data.form.director.value}
@@ -522,7 +522,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 required
                             />
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <Input
                                 label={Localization.movie_obj.producer}
                                 defaultValue={this.state.data.form.producer.value}
@@ -530,7 +530,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 placeholder={Localization.movie_obj.producer}
                             />
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <Input
                                 label={Localization.movie_obj.pub_year}
                                 defaultValue={this.state.data.form.pub_year.value}
@@ -538,7 +538,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 placeholder={Localization.movie_obj.pub_year}
                             />
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <Input
                                 label={Localization.movie_obj.writer}
                                 defaultValue={this.state.data.form.writer.value}
@@ -546,7 +546,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
                                 placeholder={Localization.movie_obj.writer}
                             />
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-md-6">
                             <FixNumber
                                 label={Localization.movie_obj.order_filed}
                                 defaultValue={this.state.data.form.order_filed.value}
