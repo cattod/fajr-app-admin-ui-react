@@ -65,11 +65,11 @@
 }
 
 .modal-content {
-  -webkit-border-radius: 0;
+  // -webkit-border-radius: 0; // ?
   -webkit-background-clip: padding-box;
-  -moz-border-radius: 0;
+  // -moz-border-radius: 0; // ?
   -moz-background-clip: padding;
-  border-radius: 0;
+  // border-radius: 0; // ?
   background-clip: padding-box;
   -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
