@@ -221,6 +221,9 @@ export abstract class BaseComponent<p extends IBaseProps, S = {}, SS = any> exte
         // appLocalStorage.afterAppLogout();
 
         history.push('/login');
+        setTimeout(() => {
+            history.push('/login');
+        }, 300);
 
     }
 

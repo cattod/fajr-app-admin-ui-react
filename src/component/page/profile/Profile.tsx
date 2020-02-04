@@ -20,6 +20,7 @@ import { AppRegex } from "../../../config/regex";
 import Dropzone from "react-dropzone";
 import { CmpUtility } from "../../_base/CmpUtility";
 import { BtnLoader } from "../../form/btn-loader/BtnLoader";
+import { Prompt } from "react-router-dom";
 
 interface IProps {
   logged_in_user: IUser | null;
@@ -111,26 +112,29 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
 
   componentDidMount() {
     this.fetchPerson();
-    // this.setOnReg();
   }
 
-  // unregisterLeaveHook: any;
-  // setOnReg() {
-  //   const pp: any = this.props;
-  //   console.log(pp, pp.router, pp.route);
-  //   if (pp.router && pp.route)
-  //     this.unregisterLeaveHook = pp.router.setRouteLeaveHook(
-  //       pp.route, this.routerWillLeave.bind(this)
-  //     );
-  // }
-  // routerWillLeave(nextLocation: any) {
-  //   return false;
-  // }
-  // componentWillUnmount() {
-  //   this.unregisterLeaveHook && this.unregisterLeaveHook();
-  // }
+  private canLeave(): boolean {
+    if (!this.props.logged_in_user) return true;
 
+    const person = this.props.logged_in_user.person;
+    if (person.name && person.last_name) {
+      return true;
+    }
+    return false;
+  }
 
+  private onTryLeave(): boolean {
+    this.onTryLeaveNotify();
+    return false;
+  }
+
+  private onTryLeaveNotify() {
+    const msg = 'لطفا پروفایل کاربری خود را تکمیل نمایید.';
+    this.toastNotify(msg, {
+      autoClose: Setup.notify.timeout.warning, toastId: 'onTryLeaveNotify'
+    }, 'warn');
+  }
 
   private async fetchPerson() {
     let current_person = this.props.logged_in_user!.person;
@@ -326,10 +330,10 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
   //#endregion
 
   profileHeader_render() {
-    const avatarUrl = this.state.person.image.value[0] || CmpUtility.defaultAvatarImagePath;
+    // const avatarUrl = this.state.person.image.value[0] || CmpUtility.defaultAvatarImagePath;
     const fullname = CmpUtility.getPersonFullName(this.props.logged_in_user!.person);
     // fullname = fullname || username;
-    const username = this.props.logged_in_user!.username;
+    // const username = this.props.logged_in_user!.username;
     const cell = this.props.logged_in_user!.person.cell_no;
 
     return (
@@ -402,8 +406,9 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
 
         </div>
         <div className="col-lg-10 col-md-8 col-sm-12 profile-info">
-          <div className="header-fullname">{fullname}</div>
-          <div className="btn btn-link ml-4" onClick={() => this.openModal_changePassword()}>
+          <div className={"header-fullname " + (fullname ? 'mr-4' : '')}>{fullname}</div>
+          <div className="btn btn-link-- ml-4-- btn-lg text-primary p-0"
+            onClick={() => this.openModal_changePassword()}>
             <i className="fa fa-key mr-2"></i>
             {Localization.change_password}
           </div>
@@ -476,7 +481,7 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
                   textarea_rows={2}
                 />
               </div>
-              
+
             </div>
             {
               this.state.saveBtnVisibility ?
@@ -529,6 +534,12 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
           show={this.state.modal_change_password_show}
           onHide={() => this.closeModal_changePassword()}
         />
+
+        <Prompt
+          when={!this.canLeave()}
+          message={() => this.onTryLeave()}
+        />
+
       </>
     );
   }

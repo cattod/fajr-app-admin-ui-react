@@ -53,6 +53,14 @@ class LayoutValidUserComponent extends React.Component<IProps> {
         if (!this.props.logged_in_user) {
             this.props.history.push("/login");
         } else {
+            this.checkToGotoProfile();
+        }
+    }
+
+    private checkToGotoProfile() {
+        const person = this.props.logged_in_user!.person;
+        if (!person.name || !person.last_name) {
+            this.props.history.push("/profile");
         }
     }
 
