@@ -41,6 +41,10 @@ interface IState {
         value: string | undefined;
         isValid: boolean;
     };
+    last_name: {
+        value: string | undefined;
+        isValid: boolean;
+    };
     username: {
         value: string | undefined;
         isValid: boolean;
@@ -58,7 +62,7 @@ interface IState {
     sendAgain_counter: number;
     btnSendAgain_loader: boolean;
 }
-type TInputType = 'username' | 'password' | 'name' | 'code' | 'mobile' | 'confirmPassword';
+type TInputType = 'username' | 'password' | 'name' | 'last_name' | 'code' | 'mobile' | 'confirmPassword';
 interface IProps {
     history: History;
     internationalization: TInternationalization;
@@ -69,7 +73,7 @@ interface IProps {
 
 class RegisterComponent extends BaseComponent<IProps, IState> {
     state: IState = {
-        registerStep: REGISTER_STEP.submit_mobile, // register
+        registerStep: REGISTER_STEP.submit_mobile, // register, submit_mobile
         mobile: {
             value: undefined,
             isValid: false,
@@ -80,7 +84,11 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
         },
         name: {
             value: undefined,
-            isValid: true, // false,
+            isValid: false,
+        },
+        last_name: {
+            value: undefined,
+            isValid: false,
         },
         username: {
             value: undefined,
@@ -133,7 +141,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
             }
             return currentInput_isValid;
         } else if (this.state.registerStep === REGISTER_STEP.register) {
-            const registerStep_inputList: TInputType[] = ['confirmPassword', 'name', 'password', 'username'];
+            const registerStep_inputList: TInputType[] = ['confirmPassword', 'name', 'last_name', 'password', 'username'];
             const registerStep_inputList_exceptThisInput = registerStep_inputList.filter(inp => inp !== inputType);
 
             let regFormValidate = currentInput_isValid;
@@ -363,7 +371,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
             return (
                 <>
                     <div className="registerbox-caption">{Localization.create_an_account}</div>
-                    <div className="registerbox-textbox d-none">
+                    <div className="registerbox-textbox">
                         <Input
                             defaultValue={this.state.name.value}
                             onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'name') }}
@@ -373,7 +381,17 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
                             className="mb-0"
                         />
                     </div>
-                    <hr className="wide d-none"></hr>
+                    <div className="registerbox-textbox">
+                        <Input
+                            defaultValue={this.state.last_name.value}
+                            onChange={(val, isValid) => { this.handleInputChange(val, isValid, 'last_name') }}
+                            placeholder={Localization.lastname}
+                            required
+                            onKeyUp={(e) => this.handle_keyUp_onRegister(e)}
+                            className="mb-0"
+                        />
+                    </div>
+                    <hr className="wide"></hr>
                     <div className="registerbox-textbox d-none">
                         <FixNumber
                             defaultValue={this.state.username.value}
@@ -434,6 +452,7 @@ class RegisterComponent extends BaseComponent<IProps, IState> {
             "password": this.state.password.value!,
             "username": this.state.username.value!,
             "name": this.state.name.value!,
+            "last_name": this.state.last_name.value!,
             "cell_no": this.state.mobile.value!,
             "signup_token": this.signup_token,
         }).catch((error: any) => {

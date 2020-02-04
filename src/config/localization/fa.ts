@@ -111,6 +111,10 @@ export const fa = {
     tags: 'برچسب ها',
     back_to_login: 'بازگشت به ورود',
     account_logobox_header_text: 'سامانه ارزیابی فیلم های جشنواره فجر 38',
+    change_photo: 'تغییر تصویر',
+
+
+    
 
 
 

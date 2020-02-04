@@ -33,7 +33,7 @@ export const en = {
         rated_by_user_: 'rated',
         not_rated_by_user_: 'not rated',
         order_filed: 'order',
-        images:'movie poster',
+        images: 'movie poster',
         crud: {
             create: 'create movie',
             update: 'update movie',
@@ -111,11 +111,15 @@ export const en = {
     tags: 'tags',
     back_to_login: 'back to login',
     account_logobox_header_text: 'fajr 38 movies rating app',
+    change_photo: 'change photo',
 
 
 
 
 
+
+
+    
 
 
 
