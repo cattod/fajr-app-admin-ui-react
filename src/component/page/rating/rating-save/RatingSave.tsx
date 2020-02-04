@@ -475,19 +475,19 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.director}: </span>
-                                    <span className="h6">{movie.director}</span>
+                                    <span className="h6 font-weight-normal">{movie.director}</span>
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.producer}: </span>
-                                    <span className="h6">{movie.producer}</span>
+                                    <span className="h6 font-weight-normal">{movie.producer}</span>
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.writer}: </span>
-                                    <span className="h6">{movie.writer}</span>
+                                    <span className="h6 font-weight-normal">{movie.writer}</span>
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.genre}: </span>
-                                    <span className="h6">{
+                                    <span className="h6 font-weight-normal">{
                                         (movie.genre && movie.genre.length) ?
                                             movie.genre.map((g, index) => (
                                                 <div key={g} className="mr-2 d-inline-block">
@@ -500,13 +500,13 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
                                 </div>
                                 <div className="col mb-2">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.pub_year}: </span>
-                                    <span className="h6">{movie.pub_year}</span>
+                                    <span className="h6 font-weight-normal">{movie.pub_year}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12">
                                     <span className="text-muted-- font-weight-bold h6">{Localization.movie_obj.description}: </span>
-                                    <span className="h6 overflow-wrap-break-word">{movie.description}</span>
+                                    <span className="h6 overflow-wrap-break-word font-weight-normal">{movie.description}</span>
                                 </div>
                             </div>
                         </div>
