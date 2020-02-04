@@ -84,7 +84,10 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
         const username = logged_in_user ? logged_in_user.username : '';
         let fullname = logged_in_user ? CmpUtility.getPersonFullName(logged_in_user.person) : '';
         fullname = fullname || username;
-        const email = logged_in_user ? logged_in_user.person.email : '';
+        let email = logged_in_user ? logged_in_user.person.email : '';
+        const cell = logged_in_user ? logged_in_user.person.cell_no : '';
+        email = email || cell;
+        const avatarUrl = CmpUtility.getPerson_avatar(this.props.logged_in_user!.person);
 
         return (
             <>
@@ -138,7 +141,13 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                 className="login-area"
                                             >
                                                 <div className="avatar" title="View your public profile">
-                                                    <img src="/static/media/img/icon/avatar.png" alt="" />
+                                                    {/* <img src="/static/media/img/icon/avatar.png" alt="" /> */}
+                                                    <img
+                                                        src={avatarUrl}
+                                                        alt="avatar"
+                                                        onError={e => CmpUtility.personImageOnError(e)}
+                                                        loading="lazy"
+                                                    />
                                                 </div>
                                                 <section>
                                                     <h2><span className="profile"><span>{fullname}</span></span></h2>
@@ -149,23 +158,30 @@ class LayoutMainHeaderComponent extends BaseComponent<IProps, IState> {
                                                 className="pull-right dropdown-arrow dropdown-login-area"
                                             >
                                                 <li className="username d-block--"><a className="d-block">{username}</a></li>
-                                                <li className="email d-none"><a>{email}</a></li>
+                                                <li className="email d-none--"><a>{email}</a></li>
 
-                                                <li className="d-none">
+                                                <li className="d-none--">
                                                     <div className="avatar-area">
-                                                        <img src="/static/media/img/icon/avatar.png" className="avatar" alt="" />
-                                                        {/* <span className="caption">Change Photo</span> */}
+                                                        {/* <img src="/static/media/img/icon/avatar.png" className="avatar" alt="" /> */}
+                                                        <img
+                                                            className="avatar"
+                                                            src={avatarUrl}
+                                                            alt="avatar"
+                                                            onError={e => CmpUtility.personImageOnError(e)}
+                                                            loading="lazy"
+                                                        />
+                                                        {/* <span className="caption text-capitalize">{Localization.change_photo}</span> */}
                                                     </div>
                                                 </li>
 
-                                                <li className="edit d-none">
+                                                <li className="edit d-none--">
                                                     {/* <a href="/profile.html" className="pull-left">Profile</a> */}
                                                     {/* <a href="#" className="pull-right">Setting</a> */}
 
-                                                    {/* <NavLink to="/profile" className="pull-left text-capitalize" activeClassName="active">
+                                                    <NavLink to="/profile" className="pull-left text-capitalize" activeClassName="active">
                                                         {Localization.profile}
-                                                    </NavLink> */}
-                                                    <a className="pull-left text-capitalize">{Localization.profile}</a>
+                                                    </NavLink>
+                                                    {/* <a className="pull-left text-capitalize">{Localization.profile}</a> */}
                                                 </li>
 
                                                 <li className="theme-area d-none">
