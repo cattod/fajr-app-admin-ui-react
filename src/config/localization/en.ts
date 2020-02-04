@@ -112,6 +112,13 @@ export const en = {
     back_to_login: 'back to login',
     account_logobox_header_text: 'fajr 38 movies rating app',
     change_photo: 'change photo',
+    profile_obj: {
+        personal_information: 'personal information',
+        contact_information: 'contact information',
+        crud: {
+            save: 'save profile',
+        },
+    },
 
 
 
@@ -119,7 +126,6 @@ export const en = {
 
 
 
-    
 
 
 

@@ -125,6 +125,15 @@
   top: 50%;
 }
 
+.align-1rem {
+  body:not(.rtl) & {
+    left: 1rem;
+  }
+  body.rtl & {
+    right: 1rem;
+  }
+}
+
 .mt-32px {
   margin-top: 32px;
 }

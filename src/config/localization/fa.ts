@@ -112,9 +112,16 @@ export const fa = {
     back_to_login: 'بازگشت به ورود',
     account_logobox_header_text: 'سامانه ارزیابی فیلم های جشنواره فجر 38',
     change_photo: 'تغییر تصویر',
+    profile_obj: {
+        personal_information: 'اطلاعات شخصی',
+        contact_information: 'نشانی',
+        crud: {
+            save: 'ذخیره پروفایل',
+        },
+    },
 
 
-    
+
 
 
 

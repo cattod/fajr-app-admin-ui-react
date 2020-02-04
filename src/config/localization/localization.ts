@@ -130,7 +130,15 @@ interface ILocalization extends LocalizedStringsMethods {
     back_to_login: string;
     account_logobox_header_text: string;
     change_photo: string;
+    profile_obj: {
+        personal_information: string;
+        contact_information: string;
+        crud: {
+            save: string;
+        };
+    };
 
+    
 
 
 
