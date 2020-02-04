@@ -57,11 +57,11 @@
 //}
 
 @each $color, $color-varient in $app-colors {
-    .modal-#{$color} {
-      .modal-header{
-        border-bottom: 3px solid app-color($color);
-      }
+  .modal-#{$color} {
+    .modal-header {
+      border-bottom: 3px solid app-color($color);
     }
+  }
 }
 
 .modal-content {
@@ -90,7 +90,13 @@
 }
 
 .modal-header {
-  padding: 10px 15px 10px 20px;
+  // padding: 10px 15px 10px 20px;
+  body:not(.rtl) & {
+    padding: 10px 15px 10px 20px;
+  }
+  body.rtl & {
+    padding: 10px 20px 10px 15px;
+  }
   background-color: #f5f5f5;
   .close {
     font-size: 26px;
@@ -112,7 +118,10 @@
   .modal-dialog {
     width: 300px;
   }
-  .modal-body, .modal-footer, .modal-header, .modal-title {
+  .modal-body,
+  .modal-footer,
+  .modal-header,
+  .modal-title {
     background: 0 0;
     border: none;
     margin: 0;
@@ -123,7 +132,10 @@
     color: #ffffff;
     margin-bottom: 10px;
     padding: 15px 0 8px;
-    .fa, .glyphicon, .typcn, .wi {
+    .fa,
+    .glyphicon,
+    .typcn,
+    .wi {
       font-size: 30px;
     }
   }
