@@ -53,22 +53,10 @@
       }
     }
 
-    .progress-complete {
-      // position: absolute;
-      // top: 29%;
-      // width: 100%;
-      // left: -10px;
-      // transform-origin: left;
-      // transform: rotate(-45deg);
-
-      // @include transform-origin(left);
-      // @include transform(-45deg);
-
+    .app-card-ribbon {
       position: absolute;
       top: 8%;
       width: 200%;
-      // left: 30%;
-      // transform: translate(-50%, 50%) rotate(-45deg);
       body:not(.rtl) & {
         right: 30%;
         transform: translate(50%, 50%) rotate(45deg);
@@ -78,13 +66,79 @@
         transform: translate(-50%, 50%) rotate(-45deg);
       }
 
-      .progress-complete-label {
-        // background: rgba(49, 224, 79, 0.6);
+      .app-card-ribbon-label {
         background: rgba(app-color(danger), 0.8);
         color: #fff;
-        // font-size: 0.7rem;
         text-transform: uppercase;
         text-align: center;
+      }
+    }
+
+    .overallRate {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      // background-color: #fff;
+      color: $white;
+      font-size: 2rem;
+      border-radius: 2rem;
+      width: 3rem;
+      height: 3rem;
+      text-align: center;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      &.rate-0,
+      &.rate-1,
+      &.rate-2 {
+        // background-color: rgba(map-get($rating-save-btn-el-bgColor, 1), 0.8);
+        background-image: radial-gradient(
+          rgba(map-get($rating-save-btn-el-bgColor, 1), 1),
+          rgba(map-get($rating-save-btn-el-bgColor, 1), 0.8),
+          rgba(map-get($rating-save-btn-el-bgColor, 1), 0.3),
+          rgba(map-get($rating-save-btn-el-bgColor, 1), 0)
+        );
+      }
+      &.rate-3,
+      &.rate-4 {
+        // background-color: rgba(map-get($rating-save-btn-el-bgColor, 2), 0.8);
+        background-image: radial-gradient(
+          rgba(map-get($rating-save-btn-el-bgColor, 2), 1),
+          rgba(map-get($rating-save-btn-el-bgColor, 2), 0.8),
+          rgba(map-get($rating-save-btn-el-bgColor, 2), 0.3),
+          rgba(map-get($rating-save-btn-el-bgColor, 2), 0)
+        );
+      }
+      &.rate-5,
+      &.rate-6 {
+        // background-color: rgba(map-get($rating-save-btn-el-bgColor, 3), 0.8);
+        background-image: radial-gradient(
+          rgba(map-get($rating-save-btn-el-bgColor, 3), 1),
+          rgba(map-get($rating-save-btn-el-bgColor, 3), 0.8),
+          rgba(map-get($rating-save-btn-el-bgColor, 3), 0.3),
+          rgba(map-get($rating-save-btn-el-bgColor, 3), 0)
+        );
+      }
+      &.rate-7,
+      &.rate-8 {
+        // background-color: rgba(map-get($rating-save-btn-el-bgColor, 4), 0.8);
+        background-image: radial-gradient(
+          rgba(map-get($rating-save-btn-el-bgColor, 4), 1),
+          rgba(map-get($rating-save-btn-el-bgColor, 4), 0.8),
+          rgba(map-get($rating-save-btn-el-bgColor, 4), 0.3),
+          rgba(map-get($rating-save-btn-el-bgColor, 4), 0)
+        );
+      }
+      &.rate-9,
+      &.rate-10 {
+        // background-color: rgba(map-get($rating-save-btn-el-bgColor, 5), 0.8);
+        background-image: radial-gradient(
+          rgba(map-get($rating-save-btn-el-bgColor, 5), 1),
+          rgba(map-get($rating-save-btn-el-bgColor, 5), 0.8),
+          rgba(map-get($rating-save-btn-el-bgColor, 5), 0.3),
+          rgba(map-get($rating-save-btn-el-bgColor, 5), 0)
+        );
       }
     }
   }

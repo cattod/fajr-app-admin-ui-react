@@ -1,3 +1,11 @@
+$rating-save-btn-el-bgColor: (
+  5: #8ea604,
+  4: #f5bb00,
+  3: #ec9f05,
+  2: #d76a03,
+  1: #bf3100
+);
+
 @import "dashboard";
 @import "movie-manage";
 @import "rating-save";

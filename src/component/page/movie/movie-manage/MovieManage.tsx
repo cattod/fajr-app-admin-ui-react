@@ -21,6 +21,7 @@ import { ConfirmNotify } from '../../../form/confirm-notify/ConfirmNotify';
 import { RatingService } from '../../../../service/service.rating';
 import { AccessService } from '../../../../service/service.access';
 import { PERMISSIONS } from '../../../../enum/Permission';
+import { Utility } from '../../../../asset/script/utility';
 
 interface IState {
     // gridData: IMovie[];
@@ -196,6 +197,8 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
                         const ac_movieUpdate = AccessService.checkAccess(PERMISSIONS.EDIT_MOVIE_PREMIUM);
                         const ac_movieRemove = AccessService.checkAccess(PERMISSIONS.DELETE_MOVIE_PREMIUM);
 
+                        const overallRate = item.overall_rate;
+
                         return (
                             <div className={"col mb-3 px-2 movie-item " + (visible ? '' : 'd-none')} key={item.id}>
                                 {
@@ -233,9 +236,15 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
 
                                     {
                                         item.rated_by_user ?
-                                            <div className="progress-complete">
-                                                <div className="progress-complete-label">{Localization.movie_obj.rated_by_user_}</div>
-                                            </div> : ''
+                                            (<>
+                                                <div className="app-card-ribbon">
+                                                    <div className="app-card-ribbon-label">{Localization.movie_obj.rated_by_user_}</div>
+                                                </div>
+                                                <div className={`overallRate rate-${overallRate}`}>
+                                                    {this.card_overallRate_render(overallRate)}
+                                                </div>
+                                            </>)
+                                            : ''
                                     }
                                 </div>
                             </div>
@@ -247,6 +256,13 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
 
             <ContentLoader gutterClassName="gutter-0" show={this.state.gridLoader}></ContentLoader>
         </>)
+    }
+
+    card_overallRate_render(overallRate?: number): string {
+        const rtl = this.props.internationalization.rtl;
+        if (!overallRate && overallRate !== 0) return '';
+        const overallRate_str = rtl ? Utility.englishtoPersianNumber(overallRate) : `${overallRate}`
+        return overallRate_str;
     }
 
     fab_render() {

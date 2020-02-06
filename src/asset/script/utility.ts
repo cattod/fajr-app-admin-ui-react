@@ -103,6 +103,10 @@ export abstract class Utility {
         return str;
     }
 
+    static englishtoPersianNumber(number: number): string {
+        return Intl.NumberFormat('fa').format(number);
+    }
+
     /**
      * conver second duration to timer.
      * @param second: duration in second, for example 1 hour = 3600 s.
