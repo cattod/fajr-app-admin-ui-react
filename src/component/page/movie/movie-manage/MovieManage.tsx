@@ -392,7 +392,7 @@ class MovieManageComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="movie-manage-wrapper position-relative--">
+                <div className="movie-manage-wrapper position-relative-- animated fadeInDown">
                     <div className="row px-1">
                         <div className="col-12 px-2 widget-search-wrapper">
                             {this.widget_search_render()}

@@ -667,7 +667,7 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="movie-save-wrapper">
+                <div className="movie-save-wrapper animated fadeInDown">
                     <div className="row">
                         <div className="col-12">
                             {this.widget_form_render()}

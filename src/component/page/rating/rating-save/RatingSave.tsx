@@ -866,7 +866,7 @@ class RatingSaveComponent extends BaseComponent<IProps, IState> {
     render() {
         return (
             <>
-                <div className="rating-save-wrapper">
+                <div className="rating-save-wrapper animated fadeInDown">
                     <div className="row">
                         <div className="col-12">
                             {this.widget_info_render()}

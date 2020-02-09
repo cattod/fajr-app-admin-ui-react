@@ -521,7 +521,7 @@ class ProfileComponent extends BaseComponent<IProps, IState> {
       <>
         <div className="row">
           <div className="col-12">
-            <div className="profile-container">
+            <div className="profile-container animated fadeInDown">
               {this.profileHeader_render()}
               {this.profileBody_render()}
             </div>
