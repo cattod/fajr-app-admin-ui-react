@@ -17,12 +17,13 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import { NETWORK_STATUS } from '../enum/NetworkStatus';
 import { ITheme_schema } from './action/theme/themeAction';
 import { IMovie_schema } from './action/movie/movieAction';
+import { TAuthentication_schema } from './action/authentication/authenticationAction';
 
 const reducers: ReducersMapObject<redux_state, AnyAction> = {
   logged_in_user: UserReducer as Reducer<IUser | null, AnyAction>,
   internationalization: InternationalizationReducer as Reducer<TInternationalization, AnyAction>,
-  token: TokenReducer as Reducer<IToken, AnyAction>,
-  authentication: AuthenticationReducer as Reducer<string, AnyAction>,
+  token: TokenReducer as Reducer<IToken | null, AnyAction>,
+  authentication: AuthenticationReducer as Reducer<TAuthentication_schema, AnyAction>,
   network_status: NetworkStatusReducer as Reducer<NETWORK_STATUS, AnyAction>,
   theme: ThemeReducer as Reducer<ITheme_schema, AnyAction>,
   movie: MovieReducer as Reducer<IMovie_schema, AnyAction>,
