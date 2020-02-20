@@ -87,14 +87,24 @@ class MovieSaveComponent extends BaseComponent<IProps, IState> {
         if (data && data.genre) {
             genreVal = data.genre.map(t => { return { label: t, value: t } });
         }
+
+        const titleValue = data ? data.title : undefined;
+        const titleIsValid = titleValue ? true : false;
+
+        const directorValue = data ? data.director : undefined;
+        const directorIsValid = directorValue ? true : false;
+
+        const imagesValue = data ? data.images || [] : [];
+        const imagesIsValid = imagesValue.length ? true : false;
+
         const obj: any = {
             description: { value: data ? data.description : undefined, isValid: true },
-            director: { value: data ? data.director : undefined, isValid: true },
+            director: { value: directorValue, isValid: directorIsValid },
             genre: { value: genreVal, isValid: true },
-            images: { value: data ? data.images || [] : [], isValid: true },
+            images: { value: imagesValue, isValid: imagesIsValid },
             producer: { value: data ? data.producer : undefined, isValid: true },
             pub_year: { value: data ? data.pub_year : undefined, isValid: true },
-            title: { value: data ? data.title : undefined, isValid: true },
+            title: { value: titleValue, isValid: titleIsValid },
             writer: { value: data ? data.writer : undefined, isValid: true },
             order_filed: { value: data ? data.order_filed : undefined, isValid: true },
         };
