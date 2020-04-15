@@ -1,6 +1,6 @@
 {
-  "name": "catod-admin",
-  "version": "0.2.13",
+  "name": "catod-fajr",
+  "version": "0.2.14",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
